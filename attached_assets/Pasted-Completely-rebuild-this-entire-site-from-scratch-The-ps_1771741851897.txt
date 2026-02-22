@@ -1,0 +1,464 @@
+Completely rebuild this entire site from scratch. The psychologist is Adishri Dubey. Light cream background throughout. Read every single instruction before writing any code. Do not skip anything.
+
+TECH STACK
+React + Vite + TypeScript. GSAP + ScrollTrigger + Observer. Google Fonts: Cormorant Garamond + DM Sans. No UI libraries. Run: npm install gsap
+
+COLORS — EXACT, NO SUBSTITUTIONS
+#F5F0E8  cream, left panel + page background
+#FAFAF7  near white, right panel
+#0D0D0D  all primary text
+#D5BF86  gold, accents, borders, labels
+#A71D31  red, buttons, active states, highlights
+#3F0D12  dark wine, footer and testimonials ONLY
+rgba(13,13,13,0.08)  card borders
+
+LOADING SCREEN — clone the feel of 72mg.studio
+Full screen #F5F0E8. No spinner. No logo. No progress bar. Only the name and a single line. Pure typographic confidence.
+GSAP timeline on mount:
+1. A single 1px horizontal line draws from left to right across the exact vertical center of screen.
+   scaleX: 0 to 1, transformOrigin: left center, duration 0.9s, ease power3.inOut
+
+2. Simultaneously:
+   Above the line — "ADISHRI" reveals upward from behind the line using a clipPath wrapper.
+   The wrapper has overflow:hidden. Inner text animates: y: 60 to 0, duration 0.8s, ease power4.out.
+   Below the line — "DUBEY" reveals downward the same way: y: -60 to 0.
+   Font: Cormorant Garamond, 11vw, #0D0D0D, letter-spacing -0.02em, font-weight 300.
+
+3. Line fades out: opacity 1 to 0, duration 0.5s.
+
+4. Top right corner: a counter counts 00 to 100 in DM Sans 12px #A71D31.
+   Mechanical, fast feel. Total duration 1.8s. Format: "00" with leading zero.
+
+5. Name scales subtly: scale 1 to 1.04, duration 2.2s, ease power1.inOut.
+
+6. When counter hits 100:
+   Loader exits: clipPath inset(0 0 0 0) to inset(0 0 100% 0), duration 0.7s, ease power4.in.
+   Site underneath was visibility:hidden, now becomes visible.
+   Nav and first section animate in after loader exits.
+
+PERSISTENT SPLIT LAYOUT
+This layout is used for every section except the footer.
+css.left-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 45vw;
+  height: 100vh;
+  background: #F5F0E8;
+  overflow: hidden;
+  z-index: 10;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.right-panel {
+  margin-left: 45vw;
+  width: 55vw;
+  background: #FAFAF7;
+  min-height: 100vh;
+}
+
+.split-divider {
+  position: fixed;
+  left: 45vw;
+  top: 0;
+  width: 1px;
+  height: 100vh;
+  background: #D5BF86;
+  opacity: 0.35;
+  z-index: 20;
+  pointer-events: none;
+}
+Left panel never scrolls. Right panel scrolls normally. Left panel text changes based on which right panel section is in view. Use IntersectionObserver with threshold 0.4 watching each right panel section. When a new section enters, run this swap:
+javascriptconst swapLeftPanel = (newState) => {
+  gsap.to(leftTextRef.current, {
+    y: -44, opacity: 0, duration: 0.4, ease: "power2.in",
+    onComplete: () => {
+      setLeftState(newState)
+      gsap.from(leftTextRef.current, {
+        y: 44, opacity: 0, duration: 0.55, ease: "power3.out"
+      })
+    }
+  })
+}
+```
+
+---
+
+**LEFT PANEL — 6 STATES**
+
+Each state has: a small label top, giant stacked text middle, optional italic line bottom.
+
+State 1 HERO:
+```
+Label: "Sports Psychologist" — DM Sans 11px uppercase tracking-widest #A71D31
+Text:  THE        (Cormorant Garamond weight 300)
+       MIND       (weight 700)
+       BEHIND     (weight 300 italic)
+       THE        (weight 300)
+       ATHLETE.   (weight 700)
+Font size: clamp(44px, 6vw, 82px), #0D0D0D, line-height 0.95
+Bottom: "ADISHRI DUBEY" DM Sans 11px uppercase + bouncing ↓ arrow in #A71D31
+```
+
+State 2 SERVICES:
+```
+Label: "What we work on"
+Text:  BUILDING / MENTAL / ARMOUR.
+Italic: "From the training ground to the podium."
+```
+
+State 3 BLOG:
+```
+Label: "From the field"
+Text:  MIND / MEETS / SPORT.
+Italic: "Research, stories, and tools for athletes."
+```
+
+State 4 INNER WORLD:
+```
+Label: "The athlete's inner world"
+Text:  WHAT / LIVES / INSIDE.
+Italic: "Every champion has fought these battles."
+```
+
+State 5 PRICING:
+```
+Label: "Invest in your mind"
+Text:  YOUR / NEXT / LEVEL.
+```
+
+State 6 CONTACT:
+```
+Label: "Let's begin"
+Text:  READY / TO / PERFORM?
+
+HAMBURGER MENU — bottom right of left panel
+A 52px circle, background #0D0D0D, three 18px white horizontal lines. Fixed inside the left panel bottom-right corner.
+On click: fullscreen overlay slides in from the left. x: -100% to 0, duration 0.6s, ease power4.out. Background #3F0D12. Covers everything including the split layout.
+Inside the overlay — EXACT clone of the Ukraine site menu style:
+Left side of overlay: navigation links stacked vertically. Cormorant Garamond 72px #F1F0CC. Line height 1.1.
+Links: Hero · Services · Writing · The Inner World · Pricing · Book a Call
+Each link hover:
+
+Text color transitions to #D5BF86
+A two-digit number (01, 02 etc) fades in to the left of the link
+A thin horizontal line draws under the link: scaleX 0 to 1 from left
+
+Right side of overlay: a large vertical text or decorative element — the word "ADISHRI" rotated 90 degrees, Cormorant Garamond, #F1F0CC at 8% opacity, very large.
+Bottom of overlay: hello@adishridubey.com and @adishridubey in DM Sans 13px #F1F0CC 60% opacity.
+Close button: top right, X, DM Sans, white. On click: overlay slides back left, x: 0 to -100%.
+
+RIGHT PANEL — SECTION 1: HERO
+Exact structural clone of the Ukraine site hero right panel.
+Top: a horizontal tab row. Five tabs. DM Sans 11px uppercase. Separated by thin 1px vertical dividers rgba(13,13,13,0.15). Active tab has a thin #A71D31 underline that slides between tabs using a GSAP x-translation on a position:absolute underline element.
+Tabs: Mind Play · Focus · Recovery · Pressure · Flow
+Below tabs: one large square card, ~380x380px, centered horizontally in the panel, margin-top 40px.
+Card style:
+cssborder: 2px solid #0D0D0D;
+position: relative;
+overflow: hidden;
+transition: background 0.5s ease;
+Behind the card content: a large SVG circle/ring, position absolute, centered, slowly rotating:
+cssanimation: slowspin 24s linear infinite;
+opacity: 0.06;
+```
+
+Card content:
+- Centered: concept title in Cormorant Garamond 52px italic #0D0D0D
+- Below title: short quote in DM Sans 13px, opacity 0.6, max-width 260px, text-align center
+- Bottom-left corner: service keyword label, DM Sans 10px uppercase tracking-widest, like the Ukraine city label. Use #A71D31.
+
+When tab changes: old card exits clipPath inset(0 0 100% 0), new card enters clipPath inset(100% 0 0 0) to inset(0 0 0 0). Duration 0.6s ease power3.out.
+
+Five cards:
+```
+Tab 1 Mind Play    bg:#F5F0E8   title:"Mind Play"      quote:"The game begins before the whistle."         label:"COGNITION"
+Tab 2 Focus        bg:#FAFAF7   title:"Focus"          quote:"Distraction is the enemy of greatness."      label:"ATTENTION"
+Tab 3 Recovery     bg:#F5F0E8   title:"Recovery"       quote:"Rest is not weakness. It is strategy."       label:"RESILIENCE"
+Tab 4 Pressure     bg:#0D0D0D   title:"Pressure"       quote:"Pressure is a privilege. Learn to use it."   label:"COMPOSURE"  [text white on dark card]
+Tab 5 Flow         bg:#F5F0E8   title:"Flow"           quote:"When mind and body speak the same language."  label:"PERFORMANCE"
+Below the card: two columns.
+Left: label "Athletes Supported" in DM Sans 11px #D5BF86. Below it: "500+" in Cormorant Garamond 80px #0D0D0D.
+Right: label "Years Experience" in DM Sans 11px #D5BF86. Below it: "12+" in Cormorant Garamond 80px #0D0D0D.
+These numbers count up with GSAP when they scroll into view.
+
+RIGHT PANEL — SECTION 2: SERVICES
+At the top of this section: a thin full-width label row — "Services" DM Sans 11px uppercase #D5BF86, border-bottom 1px rgba(13,13,13,0.1), padding-bottom 12px.
+A vertical list of 6 service rows. Each row:
+csspadding: 28px 0;
+border-bottom: 1px solid rgba(13,13,13,0.1);
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+position: relative;
+overflow: hidden;
+```
+
+Left: number "01" DM Sans 12px #A71D31
+Center: service name Cormorant Garamond 36px #0D0D0D
+Right: arrow → DM Sans 16px #D5BF86
+
+On hover:
+- Row background: rgba(167,29,49,0.04) slides in from left using a pseudo-element scaleX 0 to 1
+- Service name shifts to #A71D31
+- Arrow animates right: x 0 to 8px
+- A thin #A71D31 line draws across the bottom border: scaleX 0 to 1
+
+To the right of this list (position absolute or a side column): one large circle 260px diameter that updates as user scrolls through rows. Circle shows:
+- Current service number large, Cormorant Garamond, centered
+- Slow spinning CSS ring border
+- Background alternates: odd rows #A71D31 with #F1F0CC text, even rows transparent with #D5BF86 2px border
+
+GSAP ScrollTrigger watches each row. When a row enters view, the circle updates and the row animates in: y 40 to 0, opacity 0 to 1.
+
+Services:
+```
+01  Performance Coaching
+02  Pre-Match Mental Prep
+03  Burnout Recovery
+04  1-on-1 Therapy
+05  Team Sessions
+06  Visualization & Flow
+
+RIGHT PANEL — SECTION 3: BLOG
+Label row: "Writing" DM Sans 11px uppercase #D5BF86, same style as services label.
+2-column grid of 6 blog cards. Each card:
+cssbackground: #FFFFFF;
+border: 1px solid rgba(13,13,13,0.08);
+padding: 32px;
+cursor: pointer;
+position: relative;
+overflow: hidden;
+transition: none; /* GSAP handles this */
+On hover — GSAP microinteraction:
+javascriptcard.addEventListener('mouseenter', () => {
+  gsap.to(card, { backgroundColor: '#3F0D12', duration: 0.4, ease: "power2.out" })
+  gsap.to(cardTexts, { color: '#F1F0CC', duration: 0.3 })
+  gsap.to(categoryTag, { color: '#D5BF86', duration: 0.3 })
+  gsap.to(topLine, { scaleX: 1, duration: 0.4, ease: "power3.out", transformOrigin: "left" })
+  gsap.to(arrow, { x: 8, duration: 0.3 })
+})
+card.addEventListener('mouseleave', () => {
+  gsap.to(card, { backgroundColor: '#FFFFFF', duration: 0.4 })
+  gsap.to(cardTexts, { color: '#0D0D0D', duration: 0.3 })
+  gsap.to(categoryTag, { color: '#A71D31', duration: 0.3 })
+  gsap.to(topLine, { scaleX: 0, duration: 0.3, transformOrigin: "left" })
+  gsap.to(arrow, { x: 0, duration: 0.3 })
+})
+```
+
+Each card: top-line element position:absolute top 0 left 0, height 2px, background #D5BF86, scaleX starts 0.
+Category tag: DM Sans 10px uppercase #A71D31.
+Title: Cormorant Garamond 24px #0D0D0D.
+Excerpt: DM Sans 13px, 2 lines, opacity 0.65.
+Bottom: date left, "Read →" right.
+
+Cards animate in on scroll: clipPath inset(100% 0 0 0) to inset(0 0 0 0), stagger 0.1s.
+
+Articles:
+```
+1. Performance  "Why Elite Athletes Choke — And How to Stop It"        Anxiety is information, not weakness.              Jan 2025
+2. Ritual       "The Pre-Game Ritual That Actually Works"               Science-backed mental warm-ups.                    Feb 2025
+3. Wellbeing    "Burnout Is Not a Badge of Honor"                       Recognize the signs before it's too late.          Feb 2025
+4. Flow State   "Flow State: How to Get There On Demand"                The psychology behind peak performance.            Mar 2025
+5. Mindset      "What Your Inner Critic Is Really Saying"               Turning self-doubt into self-awareness.            Mar 2025
+6. Teams        "Team Chemistry Isn't Magic — It's Mindset"             Building trust through psychological safety.       Apr 2025
+```
+
+---
+
+**RIGHT PANEL — SECTION 4: THE INNER WORLD — clone of Ukraine food/menu section**
+
+This section is inspired directly by the food/menu section of the Ukraine site. Study how it works: as you scroll, the left side shows a category label and a large word, while the right side shows items appearing in a list that builds up.
+
+For this site: as user scrolls through this pinned section, psychological words and concepts "fall" into a visual bowl shape — words drop from the top and settle into an arc/curve at the bottom. Simultaneously a horizontal track moves.
+
+Here is exactly how to build it:
+
+The section is pinned with GSAP ScrollTrigger pin:true, scrub:1, duration equivalent to scrolling 400vh.
+
+The section is divided into two parts:
+
+LEFT HALF of right panel (so within the 55vw right panel, the left 48% of it):
+- A category label that changes as user scrolls: DM Sans 11px uppercase #D5BF86
+- A large word below it in Cormorant Garamond 72px #0D0D0D
+- This is the exact Ukraine food section structure on the left
+
+Categories and words sequence (scroll through these as user scrolls):
+```
+Category: "The Battles"      Word: ANXIETY
+Category: "The Battles"      Word: FEAR  
+Category: "The Fuel"         Word: DRIVE
+Category: "The Fuel"         Word: HUNGER
+Category: "The Edge"         Word: PRESSURE
+Category: "The Edge"         Word: RESILIENCE
+Category: "The Cost"         Word: BURNOUT
+Category: "The Cost"         Word: SACRIFICE
+Category: "The Gift"         Word: FLOW
+Category: "The Gift"         Word: FOCUS
+```
+
+RIGHT HALF of right panel (52%):
+- A "bowl" visual — an arc/semicircle drawn with SVG, like a vessel at the bottom
+- As user scrolls, words fall from the top of this half and settle into the bowl in an arc
+- Each word: Cormorant Garamond italic, different sizes (24px to 42px), different opacities
+- Words already settled sit in a curved arrangement inside the bowl
+- New word drops in: y from -80 to its settled position, with a slight bounce ease: "elastic.out(1, 0.5)"
+- The bowl SVG: a simple arc/half-circle path, stroke #D5BF86, strokeWidth 1.5, no fill
+- Words in the bowl: arranged along the arc mathematically
+
+Words that fall into the bowl:
+```
+Anxiety · Fear · Drive · Hunger · Pressure · Resilience · Burnout · Sacrifice · Flow · Focus
+Use GSAP ScrollTrigger with scrub to control which word is the "current" one on the left, and a separate ScrollTrigger with onEnter callbacks to trigger each word drop into the bowl.
+
+RIGHT PANEL — SECTION 5: PRICING
+Label row same style. Title: "Investment" Cormorant Garamond 48px #0D0D0D below it.
+Three cards stacked vertically, full width of right panel, padding 40px each. Not side by side — editorial vertical stack.
+Each card:
+cssborder: 1px solid rgba(13,13,13,0.08);
+background: #FFFFFF;
+padding: 40px 48px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: relative;
+overflow: hidden;
+```
+
+Left side of card: plan name Cormorant Garamond 36px + price DM Sans 20px bold #0D0D0D.
+Right side: feature list DM Sans 13px + button.
+
+Middle card (recommended): left border 3px solid #A71D31, background rgba(167,29,49,0.025). A "Recommended" tag top right, DM Sans 10px uppercase #A71D31.
+
+Hover on each card: a thin #D5BF86 line animates across the very top of the card, scaleX 0 to 1.
+
+Button: background #A71D31, color #F1F0CC, DM Sans 13px, padding 12px 28px. Hover: background slides to #3F0D12 using pseudo-element.
+```
+Card 1 Starter       £120/session   Single session · Intake assessment · Follow-up notes           "Book a Session →"
+Card 2 The Programme £480/month     4 sessions/month · Mental training plan · WhatsApp support     "Start the Programme →"
+Card 3 Elite         £1200/month    Unlimited sessions · Daily check-ins · Match-day support        "Go Elite →"
+```
+
+Cards animate in: y 50 to 0, opacity 0 to 1, stagger 0.15s on scroll.
+
+---
+
+**RIGHT PANEL — SECTION 6: TESTIMONIALS**
+
+Full width block inside right panel. Background #3F0D12. Padding 80px 48px.
+
+Three rotating quotes. Auto-rotate every 4.5s. Transition: current quote opacity 1 to 0 (duration 0.4s) then next quote opacity 0 to 1 (duration 0.6s).
+
+Each quote:
+- Large Cormorant Garamond italic 32px #F1F0CC, line-height 1.4, max-width 520px
+- Below: name + sport in DM Sans 12px #D5BF86
+- Left: large decorative quotation mark, Cormorant Garamond 120px #A71D31 opacity 0.3
+
+First quote also animates word by word on scroll entry: wrap each word in a span, gsap.from each span: y 20, opacity 0, stagger 0.04s.
+```
+"Dr. Adishri helped me go from panicking before finals to performing my best when it mattered most."
+— Zara H., Professional Sprinter
+
+"I didn't know how much my mindset was costing me. Now I do. And I'm winning."
+— Marcus T., Premier League Footballer
+
+"The burnout was real. She gave me tools, not just talk. I came back stronger."
+— Leila V., Olympic Swimmer
+
+RIGHT PANEL — SECTION 7: BOOKING
+Label row same style. Title: "Book a Free Discovery Call" Cormorant Garamond 48px.
+Subline: "15 minutes. No pressure. Just a conversation." DM Sans 14px opacity 0.6.
+Contact row: hello@adishridubey.com · @adishridubey — each with an underline that draws on hover scaleX 0 to 1 from left.
+Form below — float label pattern:
+
+Name
+Your Sport or Discipline
+What are you working on? (dropdown: Performance Anxiety / Burnout / Focus / Team Dynamics / General Wellbeing)
+Preferred contact (Email / WhatsApp)
+
+Field style:
+cssbackground: transparent;
+border: none;
+border-bottom: 1px solid rgba(13,13,13,0.25);
+padding: 14px 0;
+font-family: DM Sans;
+color: #0D0D0D;
+width: 100%;
+Label floats up on focus: position absolute, transition y 0 to -20px, font-size 14 to 11px, color shifts to #A71D31.
+On focus: border-bottom color transitions to #A71D31.
+Submit button: full width, background #A71D31, color #F1F0CC, Cormorant Garamond 20px, padding 18px. Text: "Send Message →". Hover: a #3F0D12 fill slides in from left using pseudo-element transform scaleX.
+Form fields animate in from right on scroll: x 40 to 0, opacity 0 to 1, stagger 0.1s.
+
+FOOTER — BREAKS THE SPLIT LAYOUT
+Full width, spans both columns. Background #3F0D12.
+Giant background word "ADISHRI" position absolute, Cormorant Garamond, font-size 22vw, #D5BF86 opacity 0.05, bottom 0, left 50%, transform translateX(-50%). Non-interactive.
+Top row: three columns.
+
+Left: "Adishri Dubey" Cormorant Garamond 20px #F1F0CC + "Sports Psychologist" DM Sans 11px #D5BF86 below it
+Center: nav links DM Sans 12px #F1F0CC, each with a dot that slides under on hover using #D5BF86
+Right: Instagram + Email icons/links
+
+Bottom row: border-top 1px rgba(241,240,204,0.1), padding-top 24px.
+
+Left: © 2025 Adishri Dubey
+Right: "Made for athletes." Cormorant Garamond italic #D5BF86
+
+Footer animates in: y 30 to 0, opacity 0 to 1 when it enters viewport.
+
+GRAIN TEXTURE — add to global CSS
+cssbody::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+GLOBAL GSAP SETUP — put this in main.tsx before anything renders
+javascriptimport { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Observer } from 'gsap/Observer'
+gsap.registerPlugin(ScrollTrigger, Observer)
+```
+
+Add `will-change: transform` to all animated elements. Add `overflow-x: hidden` to html and body. Add `scroll-behavior: auto` — do not use CSS smooth scroll, let GSAP handle everything.
+
+---
+
+**RESPONSIVE — below 768px**
+
+Left panel becomes a fixed top bar, height 64px, width 100%, shows only "Adishri Dubey" centered. Right panel becomes full width, margin-left 0. Hamburger menu moves to top right. All font sizes reduce. Horizontal sections stack vertically.
+
+---
+
+**FILE STRUCTURE**
+```
+src/
+  components/
+    Loader.tsx
+    LeftPanel.tsx
+    MenuOverlay.tsx
+    Hero.tsx
+    Services.tsx
+    Blog.tsx
+    InnerWorld.tsx
+    Pricing.tsx
+    Testimonials.tsx
+    Booking.tsx
+    Footer.tsx
+  hooks/
+    useLeftPanelState.ts
+    useSectionObserver.ts
+  App.tsx
+  main.tsx
+  index.css
+Every component handles its own GSAP animations using useEffect and useRef. Clean up all ScrollTrigger instances on component unmount using ScrollTrigger.kill(). No memory leaks.

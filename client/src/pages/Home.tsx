@@ -5,11 +5,11 @@ import LoadingScreen from "@/components/LoadingScreen";
 import LeftPanel from "@/components/LeftPanel";
 import MenuOverlay from "@/components/MenuOverlay";
 import HeroSection from "@/components/sections/HeroSection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import BlogSection from "@/components/sections/BlogSection";
 import InnerWorldSection from "@/components/sections/InnerWorldSection";
 import PricingSection from "@/components/sections/PricingSection";
 import ContactSection from "@/components/sections/ContactSection";
+import BlogSection from "@/components/sections/BlogSection";
+import FooterSection from "@/components/sections/FooterSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,14 +17,43 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState(1);
   const [menuOpen, setMenuOpen] = useState(false);
-  const rightPanelRef = useRef<HTMLDivElement>(null);
+  const [hidePanel, setHidePanel] = useState(false);
+  const innerWorldRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (loading) return;
 
-    // Wait a tick for DOM to update
     const timeout = setTimeout(() => {
       ScrollTrigger.refresh();
+
+      // Hide panel for InnerWorld
+      const el = innerWorldRef.current;
+      if (el) {
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 80%",
+          end: "bottom 20%",
+          onEnter: () => setHidePanel(true),
+          onLeave: () => setHidePanel(false),
+          onEnterBack: () => setHidePanel(true),
+          onLeaveBack: () => setHidePanel(false),
+        });
+      }
+
+      // Hide panel for Footer
+      const ft = footerRef.current;
+      if (ft) {
+        ScrollTrigger.create({
+          trigger: ft,
+          start: "top 80%",
+          end: "bottom 0%",
+          onEnter: () => setHidePanel(true),
+          onLeave: () => setHidePanel(false),
+          onEnterBack: () => setHidePanel(true),
+          onLeaveBack: () => setHidePanel(false),
+        });
+      }
 
       const sections = gsap.utils.toArray(".section-panel") as HTMLElement[];
       sections.forEach((section, index) => {
@@ -45,22 +74,55 @@ export default function Home() {
   }, [loading]);
 
   return (
-    <div className="w-full relative bg-background overflow-x-hidden">
+    <div className="w-full relative bg-background">
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
-      
+
       {!loading && (
         <>
-          <div className="split-divider"></div>
-          
-          <LeftPanel activeSection={activeSection} onMenuClick={() => setMenuOpen(true)} />
-          
-          <div className="right-panel" ref={rightPanelRef}>
-            <div className="section-panel" id="section-1"><HeroSection /></div>
-            <div className="section-panel" id="section-2"><ServicesSection /></div>
-            <div className="section-panel" id="section-3"><BlogSection /></div>
-            <div className="section-panel" id="section-4"><InnerWorldSection /></div>
-            <div className="section-panel" id="section-5"><PricingSection /></div>
-            <div className="section-panel" id="section-6"><ContactSection /></div>
+          <div
+            className="split-divider"
+            style={{
+              opacity: hidePanel ? 0 : 1,
+              transition: "opacity 0.5s ease",
+            }}
+          />
+
+          <div style={{
+            opacity: hidePanel ? 0 : 1,
+            transition: "opacity 0.5s ease",
+            pointerEvents: hidePanel ? "none" : "auto",
+          }}>
+            <LeftPanel activeSection={activeSection} onMenuClick={() => setMenuOpen(true)} />
+          </div>
+
+          {/* Hero — right panel */}
+          <div style={{ marginLeft: "45vw", width: "55vw" }}>
+            <div id="section-1">
+              <HeroSection />
+            </div>
+          </div>
+
+          {/* InnerWorld — full screen */}
+          <div ref={innerWorldRef} style={{ width: "100vw", marginLeft: 0 }}>
+            <InnerWorldSection />
+          </div>
+
+          {/* Pricing + Contact + Blog — right panel */}
+          <div style={{ marginLeft: "45vw", width: "55vw" }}>
+            <div className="section-panel" id="section-3">
+              <PricingSection />
+            </div>
+            <div className="section-panel" id="section-4">
+              <ContactSection />
+            </div>
+            <div className="section-panel" id="section-5">
+              <BlogSection />
+            </div>
+          </div>
+
+          {/* Footer — full screen */}
+          <div ref={footerRef} style={{ width: "100vw", marginLeft: 0 }}>
+            <FooterSection />
           </div>
 
           <MenuOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />

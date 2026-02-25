@@ -1,121 +1,467 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 
-const TABS = [
-  { id: "mind", title: "Mind Play", bg: "#F5F0E8", quote: "The game begins before the whistle.", label: "COGNITION", darkText: false },
-  { id: "focus", title: "Focus", bg: "#FAFAF7", quote: "Distraction is the enemy of greatness.", label: "ATTENTION", darkText: false },
-  { id: "recovery", title: "Recovery", bg: "#F5F0E8", quote: "Rest is not weakness. It is strategy.", label: "RESILIENCE", darkText: false },
-  { id: "pressure", title: "Pressure", bg: "#0D0D0D", quote: "Pressure is a privilege. Learn to use it.", label: "COMPOSURE", darkText: true },
-  { id: "flow", title: "Flow", bg: "#F5F0E8", quote: "When mind and body speak the same language.", label: "PERFORMANCE", darkText: false },
+// ─── DATA ───────────────────────────────────────────────────────
+const CARDS = [
+  { id: "mind",     title: "Mind Play", quote: "The game begins before the whistle.",        label: "COGNITION",   dark: false },
+  { id: "focus",    title: "Focus",     quote: "Distraction is the enemy of greatness.",     label: "ATTENTION",   dark: false },
+  { id: "recovery", title: "Recovery",  quote: "Rest is not weakness. It is strategy.",      label: "RESILIENCE",  dark: false },
+  { id: "pressure", title: "Pressure",  quote: "Pressure is a privilege. Learn to use it.", label: "COMPOSURE",   dark: true  },
+  { id: "flow",     title: "Flow",      quote: "When mind and body speak the same language.",label: "PERFORMANCE", dark: false },
 ];
 
+const SERVICES = [
+  { id: "s1", name: "Performance Psychology",  sub: "Elite mental conditioning" },
+  { id: "s2", name: "Pre-Competition Prep",     sub: "Rituals that activate focus" },
+  { id: "s3", name: "Recovery & Resilience",    sub: "Bounce back stronger" },
+  { id: "s4", name: "Team Dynamics",            sub: "Collective flow states" },
+  { id: "s5", name: "1:1 Coaching",             sub: "Deep individual work" },
+  { id: "s6", name: "Workshops",                sub: "For clubs & academies" },
+];
+
+// Stack offsets — cards behind are offset and rotated
+const STACK_OFFSETS = [
+  { x: 0,   y: 0,   rotate: 0  },
+  { x: 10,  y: -12, rotate: 4  },
+  { x: -11, y: -22, rotate: -4 },
+  { x: 12,  y: -32, rotate: 6  },
+  { x: -7,  y: -42, rotate: -2 },
+];
+
+// ─── SVGs ────────────────────────────────────────────────────────
+const MindSVG = () => (
+  <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
+    <path d="M60 30 C40 30 25 45 25 60 C25 70 30 78 38 83 C38 90 43 95 50 95 C53 95 56 94 58 92 L60 95 L62 92 C64 94 67 95 70 95 C77 95 82 90 82 83 C90 78 95 70 95 60 C95 45 80 30 60 30Z" stroke="#3F0D12" strokeWidth="1.2"/>
+    <path d="M45 55 Q50 45 60 50 Q70 45 75 55" stroke="#3F0D12" strokeWidth="1" strokeLinecap="round"/>
+    <circle cx="60" cy="62" r="3" stroke="#A71D31" strokeWidth="1" fill="none"/>
+    <path d="M60 65 L60 75" stroke="#A71D31" strokeWidth="1" strokeLinecap="round"/>
+  </svg>
+);
+const FocusSVG = () => (
+  <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
+    <circle cx="60" cy="60" r="40" stroke="#3F0D12" strokeWidth="1.2"/>
+    <circle cx="60" cy="60" r="28" stroke="#3F0D12" strokeWidth="1"/>
+    <circle cx="60" cy="60" r="16" stroke="#3F0D12" strokeWidth="1"/>
+    <circle cx="60" cy="60" r="5" stroke="#A71D31" strokeWidth="1.5" fill="none"/>
+    <line x1="60" y1="15" x2="60" y2="38" stroke="#3F0D12" strokeWidth="0.8" strokeDasharray="3 3"/>
+    <line x1="60" y1="82" x2="60" y2="105" stroke="#3F0D12" strokeWidth="0.8" strokeDasharray="3 3"/>
+    <line x1="15" y1="60" x2="38" y2="60" stroke="#3F0D12" strokeWidth="0.8" strokeDasharray="3 3"/>
+    <line x1="82" y1="60" x2="105" y2="60" stroke="#3F0D12" strokeWidth="0.8" strokeDasharray="3 3"/>
+  </svg>
+);
+const RecoverySVG = () => (
+  <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
+    <path d="M60 95 L60 45" stroke="#3F0D12" strokeWidth="1.2" strokeLinecap="round"/>
+    <path d="M60 65 C60 65 40 60 35 40 C35 40 55 35 60 55" stroke="#3F0D12" strokeWidth="1.2"/>
+    <path d="M60 75 C60 75 80 70 85 50 C85 50 65 45 60 65" stroke="#3F0D12" strokeWidth="1.2"/>
+    <circle cx="60" cy="42" r="3" stroke="#A71D31" strokeWidth="1" fill="none"/>
+  </svg>
+);
+const PressureSVG = () => (
+  <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
+    <path d="M60 20 L90 50 L60 100 L30 50 Z" stroke="#F1F0CC" strokeWidth="1.2"/>
+    <path d="M30 50 L90 50" stroke="#F1F0CC" strokeWidth="1"/>
+    <path d="M60 50 L60 100" stroke="#D5BF86" strokeWidth="0.8" strokeDasharray="3 3"/>
+  </svg>
+);
+const FlowSVG = () => (
+  <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
+    <path d="M20 40 C35 30 45 50 60 40 C75 30 85 50 100 40" stroke="#3F0D12" strokeWidth="1.2" strokeLinecap="round"/>
+    <path d="M20 55 C35 45 45 65 60 55 C75 45 85 65 100 55" stroke="#3F0D12" strokeWidth="1.2" strokeLinecap="round"/>
+    <path d="M20 70 C35 60 45 80 60 70 C75 60 85 80 100 70" stroke="#3F0D12" strokeWidth="1.2" strokeLinecap="round"/>
+    <circle cx="60" cy="55" r="4" stroke="#A71D31" strokeWidth="1" fill="none"/>
+  </svg>
+);
+const SVGS = [MindSVG, FocusSVG, RecoverySVG, PressureSVG, FlowSVG];
+
+// ─── COMPONENT ───────────────────────────────────────────────────
 export default function HeroSection() {
-  const [activeTab, setActiveTab] = useState(0);
-  const cardContainerRef = useRef<HTMLDivElement>(null);
-  const underlineRef = useRef<HTMLDivElement>(null);
-  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const [visibleCards, setVisibleCards] = useState(1);
+  const [serviceProgress, setServiceProgress] = useState(0);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const phase1Ref = useRef<HTMLDivElement>(null);
+  const phase2Ref = useRef<HTMLDivElement>(null);
+  const prevVisible = useRef(1);
 
+  // Animate a card flying up
+  const flyCardIn = (index: number) => {
+    const el = cardRefs.current[index];
+    if (!el) return;
+    gsap.fromTo(el,
+      { y: 200, opacity: 0, scale: 0.85 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.65, ease: "power3.out" }
+    );
+  };
+
+  // Single scroll listener driving both phases
   useEffect(() => {
-    // Underline animation
-    const activeBtn = tabsRef.current[activeTab];
-    if (activeBtn && underlineRef.current) {
-      gsap.to(underlineRef.current, {
-        x: activeBtn.offsetLeft,
-        width: activeBtn.offsetWidth,
-        duration: 0.4,
-        ease: "power3.out"
-      });
-    }
-
-    // Card transition
-    const cards = gsap.utils.toArray(".concept-card") as HTMLElement[];
-    cards.forEach((card, i) => {
-      if (i === activeTab) {
-        gsap.fromTo(card, 
-          { clipPath: "inset(100% 0 0 0)", zIndex: 2 },
-          { clipPath: "inset(0 0 0 0)", duration: 0.6, ease: "power3.out" }
+    const handleScroll = () => {
+      // ── Phase 1: card stacking ──
+      const p1 = phase1Ref.current;
+      if (p1) {
+        const rect = p1.getBoundingClientRect();
+        const scrolled = -rect.top;
+        const total = rect.height - window.innerHeight;
+        const progress = Math.max(0, Math.min(scrolled / total, 1));
+        const count = Math.min(
+          Math.floor(progress * CARDS.length) + 1,
+          CARDS.length
         );
-      } else if (card.style.zIndex === "2") {
-        gsap.to(card, {
-          clipPath: "inset(0 0 100% 0)",
-          duration: 0.6,
-          ease: "power3.out",
-          zIndex: 1
-        });
-      } else {
-        gsap.set(card, { zIndex: 0 });
+        if (count !== prevVisible.current) {
+          prevVisible.current = count;
+          setVisibleCards(count);
+          setTimeout(() => flyCardIn(count - 1), 10);
+        }
       }
-    });
-  }, [activeTab]);
+
+      // ── Phase 2: horizontal services ──
+      const p2 = phase2Ref.current;
+      if (p2) {
+        const rect = p2.getBoundingClientRect();
+        const scrolled = -rect.top;
+        const total = rect.height - window.innerHeight;
+        const progress = Math.max(0, Math.min(scrolled / total, 1));
+        setServiceProgress(progress);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // How far the service strip shifts horizontally
+  const CIRCLE_SIZE = 340;
+  const CIRCLE_GAP = 48;
+  const totalServicesWidth = SERVICES.length * (CIRCLE_SIZE + CIRCLE_GAP);
+  const maxShift = totalServicesWidth - window.innerWidth;
+  const serviceShift = serviceProgress * maxShift;
 
   return (
-    <div className="w-full min-h-screen pt-12 pb-24 px-12 flex flex-col items-center">
-      {/* Tabs */}
-      <div className="relative flex border-b border-[#0d0d0d1a] pb-4 gap-6">
-        {TABS.map((tab, i) => (
-          <button
-            key={tab.id}
-            ref={el => { tabsRef.current[i] = el; }}
-            onClick={() => setActiveTab(i)}
-            className="font-sans text-[11px] uppercase tracking-widest text-foreground px-2 pb-1 relative z-10 cursor-pointer"
-          >
-            {tab.title}
-          </button>
-        ))}
-        {/* Moving Underline */}
-        <div 
-          ref={underlineRef}
-          className="absolute bottom-0 h-[1px] bg-accent-red"
-        />
-      </div>
-
-      {/* Card Container */}
-      <div 
-        ref={cardContainerRef}
-        className="relative w-[380px] h-[380px] mt-10 border-2 border-foreground overflow-hidden"
+    <>
+      {/* ══════════════════════════════════════════
+          PHASE 1 — CARD STACKING
+      ══════════════════════════════════════════ */}
+      <div
+        ref={phase1Ref}
+        style={{
+          height: `${CARDS.length * 100}vh`,
+          background: "#F1F0CC",
+          position: "relative",
+        }}
       >
-        {TABS.map((tab, i) => (
-          <div
-            key={tab.id}
-            className="concept-card absolute inset-0 flex flex-col items-center justify-center p-8"
-            style={{ 
-              backgroundColor: tab.bg,
-              color: tab.darkText ? '#FFFFFF' : '#0D0D0D',
-              clipPath: i === 0 ? "inset(0 0 0 0)" : "inset(100% 0 0 0)",
-              zIndex: i === 0 ? 2 : 0
-            }}
-          >
-            {/* Spinning Ring */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.06]">
-              <svg className="w-[120%] h-[120%] animate-slowspin" viewBox="0 0 100 100" style={{ stroke: tab.darkText ? '#FFF' : '#000' }}>
-                <circle cx="50" cy="50" r="48" fill="none" strokeWidth="0.5" strokeDasharray="4 4" />
-                <circle cx="50" cy="50" r="38" fill="none" strokeWidth="0.2" />
-              </svg>
+        <div style={{
+          position: "sticky",
+          top: 0,
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          background: "#F1F0CC",
+        }}>
+
+          {/* Intro label */}
+          <div style={{
+            borderBottom: "1px solid rgba(63,13,18,0.15)",
+            padding: "14px 40px",
+            fontFamily: "DM Sans, sans-serif",
+            fontSize: "11px",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(63,13,18,0.55)",
+            flexShrink: 0,
+          }}>
+            Intro:
+          </div>
+
+          {/* Tab labels — light up as cards stack */}
+          <div style={{
+            display: "flex",
+            borderBottom: "1px solid rgba(63,13,18,0.12)",
+            padding: "0 40px",
+            flexShrink: 0,
+            position: "relative",
+          }}>
+            {CARDS.map((c, i) => (
+              <div key={c.id} style={{
+                fontFamily: "DM Sans, sans-serif",
+                fontSize: "11px",
+                textTransform: "uppercase",
+                letterSpacing: "0.14em",
+                padding: "16px 20px",
+                color: i < visibleCards ? "#A71D31" : "#3F0D12",
+                opacity: i < visibleCards ? 1 : 0.3,
+                transition: "color 0.4s, opacity 0.4s",
+              }}>
+                {c.title}
+              </div>
+            ))}
+            {/* Sliding underline under active label */}
+            <div style={{
+              position: "absolute",
+              bottom: "-1px",
+              left: `calc(40px + ${(visibleCards - 1) * 20}px + ${
+                CARDS.slice(0, visibleCards - 1).reduce((acc, c) => acc + (c.title.length * 7.5 + 40), 0)
+              }px)`,
+              height: "2px",
+              width: `${CARDS[visibleCards - 1].title.length * 7.5 + 40}px`,
+              background: "#A71D31",
+              transition: "left 0.45s cubic-bezier(0.4,0,0.2,1), width 0.45s cubic-bezier(0.4,0,0.2,1)",
+            }}/>
+          </div>
+
+          {/* Card area */}
+          <div style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            overflow: "hidden",
+          }}>
+
+            {/* Topo SVG */}
+            <svg style={{
+              position: "absolute", inset: 0,
+              width: "100%", height: "100%",
+              opacity: 0.06, pointerEvents: "none",
+            }} viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+              <path d="M400,300 C450,220 560,210 575,300 C590,390 510,440 400,425 C290,410 205,360 220,300 C235,240 350,230 400,300Z" fill="none" stroke="#3F0D12" strokeWidth="1"/>
+              <path d="M400,300 C470,190 600,175 620,300 C640,425 545,485 400,465 C255,445 130,375 150,300 C170,225 330,185 400,300Z" fill="none" stroke="#3F0D12" strokeWidth="0.9"/>
+              <path d="M400,300 C490,160 640,140 665,300 C690,460 580,530 400,505 C220,480 55,390 80,300 C105,210 310,140 400,300Z" fill="none" stroke="#3F0D12" strokeWidth="0.8"/>
+              <path d="M400,300 C510,130 680,105 710,300 C740,495 615,575 400,545 C185,515 -20,405 10,300 C40,195 290,95 400,300Z" fill="none" stroke="#3F0D12" strokeWidth="0.7"/>
+            </svg>
+
+            {/* The stack */}
+            <div style={{ position: "relative", width: "300px", height: "380px" }}>
+              {Array.from({ length: visibleCards }).map((_, stackPos) => {
+                const cardIndex = visibleCards - 1 - stackPos;
+                const card = CARDS[cardIndex];
+                const Svg = SVGS[cardIndex];
+                const offset = STACK_OFFSETS[stackPos];
+                const isTop = stackPos === 0;
+
+                return (
+                  <div
+                    key={card.id}
+                    ref={(el) => { cardRefs.current[cardIndex] = el; }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: card.dark ? "#3F0D12" : "#F1F0CC",
+                      border: `1.5px solid ${card.dark ? "#D5BF86" : "rgba(63,13,18,0.18)"}`,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "36px 32px",
+                      transform: `translate(${offset.x}px, ${offset.y}px) rotate(${offset.rotate}deg)`,
+                      zIndex: CARDS.length - stackPos,
+                      boxShadow: isTop
+                        ? "0 16px 48px rgba(63,13,18,0.13)"
+                        : "0 4px 16px rgba(63,13,18,0.06)",
+                    }}
+                  >
+                    {/* Corner bracket */}
+                    <div style={{
+                      position: "absolute", top: 14, right: 14,
+                      width: 16, height: 16,
+                      borderTop: `1px solid ${card.dark ? "#D5BF86" : "rgba(63,13,18,0.18)"}`,
+                      borderRight: `1px solid ${card.dark ? "#D5BF86" : "rgba(63,13,18,0.18)"}`,
+                    }}/>
+
+                    {isTop && (
+                      <>
+                        <div style={{ width: "72px", height: "72px", marginBottom: "18px" }}>
+                          <Svg />
+                        </div>
+                        <h3 style={{
+                          fontFamily: "Cormorant Garamond, serif",
+                          fontSize: "clamp(30px, 3.5vw, 44px)",
+                          fontStyle: "italic",
+                          fontWeight: 300,
+                          lineHeight: 1,
+                          marginBottom: "12px",
+                          color: card.dark ? "#F1F0CC" : "#3F0D12",
+                          textAlign: "center",
+                        }}>
+                          {card.title}
+                        </h3>
+                        <p style={{
+                          fontFamily: "DM Sans, sans-serif",
+                          fontSize: "12px",
+                          opacity: 0.6,
+                          maxWidth: "195px",
+                          lineHeight: 1.8,
+                          textAlign: "center",
+                          color: card.dark ? "#F1F0CC" : "#3F0D12",
+                        }}>
+                          {card.quote}
+                        </p>
+                        <div style={{
+                          position: "absolute",
+                          bottom: "14px", left: "16px",
+                          fontFamily: "DM Sans, sans-serif",
+                          fontSize: "9px",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.22em",
+                          color: "#D5BF86",
+                        }}>
+                          {card.label}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
-            <div className="relative z-10 flex flex-col items-center text-center w-full h-full justify-center">
-              <h3 className="font-serif text-[52px] italic mb-4 leading-none">{tab.title}</h3>
-              <p className="font-sans text-[13px] opacity-60 max-w-[260px]">{tab.quote}</p>
-            </div>
-            
-            <div className="absolute bottom-6 left-6 font-sans text-[10px] uppercase tracking-widest text-accent-red z-10">
-              {tab.label}
+            {/* Counter */}
+            <div style={{
+              position: "absolute",
+              bottom: "36px", right: "36px",
+              fontFamily: "Cormorant Garamond, serif",
+              fontSize: "13px",
+              color: "rgba(63,13,18,0.35)",
+              letterSpacing: "0.1em",
+            }}>
+              {String(visibleCards).padStart(2, "0")} / {String(CARDS.length).padStart(2, "0")}
             </div>
           </div>
-        ))}
+        </div>
       </div>
 
-      {/* Bottom Numbers */}
-      <div className="w-[380px] mt-16 flex justify-between">
-        <div>
-          <div className="font-sans text-[11px] text-accent-gold uppercase tracking-widest">Athletes Supported</div>
-          <div className="font-serif text-[80px] text-foreground leading-none mt-2">500+</div>
-        </div>
-        <div className="text-right">
-          <div className="font-sans text-[11px] text-accent-gold uppercase tracking-widest">Years Experience</div>
-          <div className="font-serif text-[80px] text-foreground leading-none mt-2">12+</div>
+      {/* ══════════════════════════════════════════
+          PHASE 2 — SERVICES HORIZONTAL SCROLL
+      ══════════════════════════════════════════ */}
+      <div
+        ref={phase2Ref}
+        style={{
+          height: `${SERVICES.length * 100}vh`,
+          background: "#F1F0CC",
+          position: "relative",
+        }}
+      >
+        <div style={{
+          position: "sticky",
+          top: 0,
+          height: "100vh",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          background: "#F1F0CC",
+        }}>
+
+          {/* Section label */}
+          <div style={{
+            borderBottom: "1px solid rgba(63,13,18,0.15)",
+            padding: "14px 40px",
+            fontFamily: "DM Sans, sans-serif",
+            fontSize: "11px",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(63,13,18,0.55)",
+            flexShrink: 0,
+          }}>
+            Services:
+          </div>
+
+          {/* Horizontal strip */}
+          <div style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            overflow: "hidden",
+            position: "relative",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: `${CIRCLE_GAP}px`,
+              paddingLeft: "80px",
+              transform: `translateX(-${serviceShift}px)`,
+              transition: "transform 0.05s linear",
+              willChange: "transform",
+              flexShrink: 0,
+            }}>
+              {SERVICES.map((s) => (
+                <div
+                  key={s.id}
+                  style={{
+                    width: `${CIRCLE_SIZE}px`,
+                    height: `${CIRCLE_SIZE}px`,
+                    borderRadius: "50%",
+                    border: "1.5px solid rgba(63,13,18,0.25)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    cursor: "pointer",
+                    transition: "border-color 0.3s, background 0.3s",
+                    position: "relative",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.borderColor = "#A71D31";
+                    (e.currentTarget as HTMLDivElement).style.background = "rgba(167,29,49,0.04)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(63,13,18,0.25)";
+                    (e.currentTarget as HTMLDivElement).style.background = "transparent";
+                  }}
+                >
+                  <div style={{
+                    fontFamily: "DM Sans, sans-serif",
+                    fontSize: "11px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.16em",
+                    color: "#3F0D12",
+                    textAlign: "center",
+                    maxWidth: "180px",
+                    lineHeight: 1.5,
+                    marginBottom: "8px",
+                  }}>
+                    {s.name}
+                  </div>
+                  <div style={{
+                    fontFamily: "Cormorant Garamond, serif",
+                    fontSize: "14px",
+                    fontStyle: "italic",
+                    color: "rgba(63,13,18,0.5)",
+                    textAlign: "center",
+                    maxWidth: "160px",
+                  }}>
+                    {s.sub}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Scroll hint */}
+          <div style={{
+            position: "absolute",
+            bottom: "36px",
+            left: "40px",
+            fontFamily: "DM Sans, sans-serif",
+            fontSize: "10px",
+            textTransform: "uppercase",
+            letterSpacing: "0.18em",
+            color: "rgba(63,13,18,0.35)",
+          }}>
+            Scroll to explore →
+          </div>
+
+          {/* Progress bar */}
+          <div style={{
+            position: "absolute",
+            bottom: 0, left: 0,
+            width: `${serviceProgress * 100}%`,
+            height: "2px",
+            background: "#A71D31",
+            transition: "width 0.05s linear",
+          }}/>
         </div>
       </div>
-    </div>
+    </>
   );
 }

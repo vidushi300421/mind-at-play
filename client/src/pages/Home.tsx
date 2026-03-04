@@ -36,7 +36,7 @@ export default function Home() {
           start: "top 80%",
           end: "bottom 20%",
           onEnter: () => setHidePanel(true),
-          onLeave: () => setHidePanel(false),
+          onLeave: () => setHidePanel(true),   // keep hidden — Pricing/Contact/Blog are full-width
           onEnterBack: () => setHidePanel(true),
           onLeaveBack: () => setHidePanel(false),
         });
@@ -159,8 +159,8 @@ export default function Home() {
             <InnerWorldSection />
           </div>
 
-          {/* Pricing + Contact + Blog — right panel */}
-          <div style={{ marginLeft: "45vw", width: "55vw" }}>
+          {/* Pricing + Contact + Blog — full width, no left panel */}
+          <div style={{ width: "100vw" }}>
             <div id="section-3">
               <PricingSection />
             </div>

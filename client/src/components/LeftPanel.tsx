@@ -100,15 +100,6 @@ export default function LeftPanel({ activeSection, onMenuClick }: LeftPanelProps
         </div>
       </div>
 
-      {/* Hamburger */}
-      <button 
-        onClick={onMenuClick}
-        className="absolute bottom-12 right-12 w-[52px] h-[52px] rounded-full bg-foreground flex flex-col items-center justify-center gap-[4px] cursor-pointer hover:scale-105 transition-transform z-50 border-0"
-      >
-        <span className="w-[18px] h-[1.5px] bg-white rounded-full"></span>
-        <span className="w-[18px] h-[1.5px] bg-white rounded-full"></span>
-        <span className="w-[18px] h-[1.5px] bg-white rounded-full"></span>
-      </button>
     </div>
   );
 }

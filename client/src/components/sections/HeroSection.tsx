@@ -58,9 +58,9 @@ const RecoverySVG = () => (
 );
 const PressureSVG = () => (
   <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
-    <path d="M60 20 L90 50 L60 100 L30 50 Z" stroke="#F0EBE1" strokeWidth="1.2"/>
-    <path d="M30 50 L90 50" stroke="#F0EBE1" strokeWidth="1"/>
-    <path d="M60 50 L60 100" stroke="#D5BF86" strokeWidth="0.8" strokeDasharray="3 3"/>
+    <path d="M60 20 L90 50 L60 100 L30 50 Z" stroke="#2E3426" strokeWidth="1.2"/>
+    <path d="M30 50 L90 50" stroke="#2E3426" strokeWidth="1"/>
+    <path d="M60 50 L60 100" stroke="#F34103" strokeWidth="0.8" strokeDasharray="3 3"/>
   </svg>
 );
 const FlowSVG = () => (
@@ -228,8 +228,8 @@ export default function HeroSection() {
                     style={{
                       position: "absolute",
                       inset: 0,
-                      background: card.dark ? "#1A0508" : "#F0EBE1",
-                      border: `1.5px solid ${card.dark ? "#D5BF86" : "rgba(240,235,225,0.35)"}`,
+                      background: "#FFFFFF",
+                      border: "1.5px solid rgba(240,235,225,0.5)",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
@@ -245,8 +245,8 @@ export default function HeroSection() {
                     <div style={{
                       position: "absolute", top: 14, right: 14,
                       width: 16, height: 16,
-                      borderTop: `1px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.2)"}`,
-                      borderRight: `1px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.2)"}`,
+                      borderTop: "1px solid rgba(46,52,38,0.15)",
+                      borderRight: "1px solid rgba(46,52,38,0.15)",
                     }}/>
 
                     {isTop && (
@@ -261,7 +261,7 @@ export default function HeroSection() {
                           fontWeight: 300,
                           lineHeight: 1,
                           marginBottom: "12px",
-                          color: card.dark ? "#F0EBE1" : "#2E3426",
+                          color: "#2E3426",
                           textAlign: "center",
                         }}>
                           {card.title}
@@ -273,7 +273,7 @@ export default function HeroSection() {
                           maxWidth: "195px",
                           lineHeight: 1.8,
                           textAlign: "center",
-                          color: card.dark ? "#F0EBE1" : "#2E3426",
+                          color: "#2E3426",
                         }}>
                           {card.quote}
                         </p>

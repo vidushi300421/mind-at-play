@@ -89,16 +89,22 @@ export default function NavBar() {
             fontSize: "10px",
             textTransform: "uppercase",
             letterSpacing: "0.14em",
-            color: "#F0EBE1",
-            background: "#F34103",
+            color: "#2E3426",
+            background: "#D5BF86",
             border: "none",
             padding: "9px 20px",
             cursor: "pointer",
-            transition: "background 0.25s",
+            transition: "background 0.25s, color 0.25s",
             marginLeft: "4px",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "#350D12")}
-          onMouseLeave={e => (e.currentTarget.style.background = "#F34103")}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = "#C4A96E";
+            e.currentTarget.style.color = "#1A1A1A";
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = "#D5BF86";
+            e.currentTarget.style.color = "#2E3426";
+          }}
         >
           Book a Session →
         </button>

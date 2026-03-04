@@ -4,10 +4,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BG = "#2E3426";
-const TEXT = "#F0EBE1";
-const ACCENT = "#F34103";
-const BORDER = "rgba(240,235,225,0.1)";
+const SECTION_BG = "#0A1A2F";   // deep navy
+const TEXT      = "#F0EBE1";
+const BORDER    = "rgba(255,255,255,0.07)";
+
+// Per-card accent colors — vibrant blues, teal, indigo; all calming
+const CARD_ACCENTS = [
+  { bg: "#133A5E", accent: "#5AB4D6" },  // steel blue
+  { bg: "#0D3B3B", accent: "#4EC9B0" },  // deep teal
+  { bg: "#1A2B6E", accent: "#8A9FE8" },  // indigo
+  { bg: "#1A4A72", accent: "#61B8DE" },  // ocean blue
+];
 
 const BLOGS = [
   { id: 1, category: "Mental Conditioning", date: "Jan 2025", title: "Why the Best Athletes Lose on Purpose" },
@@ -16,17 +23,23 @@ const BLOGS = [
   { id: 4, category: "Flow States",          date: "Oct 2024", title: "Getting Out of Your Own Way" },
 ];
 
-function BlogCard({ blog }: { blog: typeof BLOGS[0] }) {
+function BlogCard({ blog, cardIndex }: { blog: typeof BLOGS[0]; cardIndex: number }) {
+  const { bg, accent } = CARD_ACCENTS[cardIndex];
   return (
     <div style={{
+      background: bg,
       padding: "40px",
       minHeight: "260px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
       cursor: "pointer",
-    }}>
-      {/* Top: meta + orange arrow */}
+      transition: "filter 0.3s",
+    }}
+    onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.filter = "brightness(1.12)"}
+    onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.filter = "brightness(1)"}
+    >
+      {/* Top: meta + circle arrow */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
         <div>
           <div style={{
@@ -34,7 +47,8 @@ function BlogCard({ blog }: { blog: typeof BLOGS[0] }) {
             fontSize: "9px",
             textTransform: "uppercase" as const,
             letterSpacing: "0.2em",
-            color: "rgba(240,235,225,0.4)",
+            color: accent,
+            opacity: 0.85,
             marginBottom: "5px",
           }}>
             {blog.category}
@@ -43,30 +57,34 @@ function BlogCard({ blog }: { blog: typeof BLOGS[0] }) {
             fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "9px",
             letterSpacing: "0.1em",
-            color: "rgba(240,235,225,0.25)",
+            color: "rgba(240,235,225,0.3)",
           }}>
             {blog.date}
           </div>
         </div>
 
-        {/* Orange circle arrow */}
+        {/* Circle arrow in card accent color */}
         <div
           style={{
-            width: "44px", height: "44px",
+            width: "40px", height: "40px",
             borderRadius: "50%",
-            background: ACCENT,
+            border: `1.5px solid ${accent}`,
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: "16px",
-            color: TEXT,
+            fontSize: "14px",
+            color: accent,
             flexShrink: 0,
             cursor: "pointer",
-            transition: "transform 0.3s",
+            transition: "background 0.3s, transform 0.3s",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLDivElement).style.transform = "scale(1.1) rotate(15deg)";
+            (e.currentTarget as HTMLDivElement).style.background = accent;
+            (e.currentTarget as HTMLDivElement).style.color = bg;
+            (e.currentTarget as HTMLDivElement).style.transform = "rotate(15deg)";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLDivElement).style.transform = "scale(1) rotate(0deg)";
+            (e.currentTarget as HTMLDivElement).style.background = "transparent";
+            (e.currentTarget as HTMLDivElement).style.color = accent;
+            (e.currentTarget as HTMLDivElement).style.transform = "rotate(0deg)";
           }}
         >
           ↗
@@ -76,7 +94,7 @@ function BlogCard({ blog }: { blog: typeof BLOGS[0] }) {
       {/* Bottom: title */}
       <h3 style={{
         fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-        fontSize: "clamp(20px, 2.2vw, 28px)",
+        fontSize: "clamp(18px, 1.6vw, 26px)",
         fontWeight: 300,
         fontStyle: "italic",
         lineHeight: 1.2,
@@ -89,7 +107,6 @@ function BlogCard({ blog }: { blog: typeof BLOGS[0] }) {
 }
 
 export default function BlogSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
   const rightColRef = useRef<HTMLDivElement>(null);
@@ -119,11 +136,11 @@ export default function BlogSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} style={{ background: BG, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div style={{ background: SECTION_BG, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
 
       {/* Top label */}
       <div style={{
-        padding: "14px 40px",
+        padding: "14px 6vw",
         borderBottom: `1px solid ${BORDER}`,
         fontFamily: "Visuelt, 'DM Sans', sans-serif",
         fontSize: "11px",
@@ -136,7 +153,7 @@ export default function BlogSection() {
 
       {/* Heading row */}
       <div ref={headingRef} style={{
-        padding: "48px 40px 40px",
+        padding: "48px 6vw 40px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "flex-end",
@@ -147,7 +164,7 @@ export default function BlogSection() {
         <div>
           <div style={{
             fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-            fontSize: "clamp(40px, 6vw, 80px)",
+            fontSize: "clamp(40px, 5vw, 76px)",
             fontWeight: 700,
             lineHeight: 0.9,
             color: TEXT,
@@ -158,7 +175,7 @@ export default function BlogSection() {
           </div>
           <div style={{
             fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-            fontSize: "clamp(40px, 6vw, 80px)",
+            fontSize: "clamp(40px, 5vw, 76px)",
             fontWeight: 300,
             fontStyle: "italic",
             lineHeight: 0.9,
@@ -169,7 +186,7 @@ export default function BlogSection() {
           </div>
         </div>
 
-        {/* Read more button */}
+        {/* CTA — gold */}
         <div
           style={{
             display: "inline-flex",
@@ -179,8 +196,8 @@ export default function BlogSection() {
             fontSize: "11px",
             textTransform: "uppercase" as const,
             letterSpacing: "0.16em",
-            color: ACCENT,
-            border: `1px solid ${ACCENT}`,
+            color: "#D5BF86",
+            border: "1px solid #D5BF86",
             padding: "14px 24px",
             cursor: "pointer",
             transition: "gap 0.3s, background 0.3s, color 0.3s",
@@ -188,14 +205,14 @@ export default function BlogSection() {
           }}
           onMouseEnter={(e) => {
             const el = e.currentTarget as HTMLDivElement;
-            el.style.background = ACCENT;
-            el.style.color = TEXT;
+            el.style.background = "#D5BF86";
+            el.style.color = "#0A1A2F";
             el.style.gap = "20px";
           }}
           onMouseLeave={(e) => {
             const el = e.currentTarget as HTMLDivElement;
             el.style.background = "transparent";
-            el.style.color = ACCENT;
+            el.style.color = "#D5BF86";
             el.style.gap = "14px";
           }}
         >
@@ -204,33 +221,21 @@ export default function BlogSection() {
       </div>
 
       {/* Staggered 2-column card grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", flex: 1, position: "relative" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", flex: 1 }}>
 
-        {/* Left column — cards 1 & 3 at normal position */}
+        {/* Left column */}
         <div ref={leftColRef} style={{ borderRight: `1px solid ${BORDER}` }}>
-          <BlogCard blog={BLOGS[0]} />
-          {/* Inter-card divider with + marks */}
-          <div style={{ height: "1px", background: BORDER, position: "relative" }}>
-            <span style={{ position: "absolute", right: "-5px", top: "-7px", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1 }}>+</span>
-            <span style={{ position: "absolute", left: "0px", top: "-7px", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1 }}>+</span>
-          </div>
-          <BlogCard blog={BLOGS[2]} />
+          <BlogCard blog={BLOGS[0]} cardIndex={0} />
+          <div style={{ height: "1px", background: BORDER }} />
+          <BlogCard blog={BLOGS[2]} cardIndex={2} />
         </div>
 
-        {/* Right column — cards 2 & 4, staggered down 130px */}
-        <div ref={rightColRef} style={{ paddingTop: "130px" }}>
-          <BlogCard blog={BLOGS[1]} />
-          <div style={{ height: "1px", background: BORDER, position: "relative" }}>
-            <span style={{ position: "absolute", right: "0px", top: "-7px", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1 }}>+</span>
-            <span style={{ position: "absolute", left: "-5px", top: "-7px", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1 }}>+</span>
-          </div>
-          <BlogCard blog={BLOGS[3]} />
+        {/* Right column — staggered down */}
+        <div ref={rightColRef} style={{ paddingTop: "120px" }}>
+          <BlogCard blog={BLOGS[1]} cardIndex={1} />
+          <div style={{ height: "1px", background: BORDER }} />
+          <BlogCard blog={BLOGS[3]} cardIndex={3} />
         </div>
-
-        {/* + mark at top of column divider */}
-        <div style={{ position: "absolute", left: "50%", top: "0", transform: "translateX(-50%)", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1, pointerEvents: "none" }}>+</div>
-        {/* + mark at bottom of column divider */}
-        <div style={{ position: "absolute", left: "50%", bottom: "0", transform: "translateX(-50%)", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1, pointerEvents: "none" }}>+</div>
       </div>
     </div>
   );

@@ -97,21 +97,21 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         
         {/* First Name - Reveal from bottom of its container (above the line) */}
         <div className="absolute bottom-[50%] left-0 w-full flex justify-center overflow-hidden pb-1">
-          <div 
+          <div
             ref={firstNameRef}
             className="font-serif text-[11vw] text-foreground tracking-[-0.02em] font-light leading-none translate-y-[60px]"
           >
-            ADISHRI
+            MIND
           </div>
         </div>
 
         {/* Last Name - Reveal from top of its container (below the line) */}
         <div className="absolute top-[50%] left-0 w-full flex justify-center overflow-hidden pt-1">
-          <div 
+          <div
             ref={lastNameRef}
             className="font-serif text-[11vw] text-foreground tracking-[-0.02em] font-light leading-none -translate-y-[60px]"
           >
-            DUBEY
+            AT PLAY
           </div>
         </div>
       </div>

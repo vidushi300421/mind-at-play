@@ -3,7 +3,6 @@ import { gsap } from "gsap";
 
 interface LeftPanelProps {
   activeSection: number;
-  onMenuClick: () => void;
 }
 
 const STATES = [
@@ -48,7 +47,7 @@ const STATES = [
   }
 ];
 
-export default function LeftPanel({ activeSection, onMenuClick }: LeftPanelProps) {
+export default function LeftPanel({ activeSection }: LeftPanelProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const [currentStateIndex, setCurrentStateIndex] = useState(0);
 

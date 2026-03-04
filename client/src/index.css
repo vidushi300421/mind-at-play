@@ -147,9 +147,9 @@
   top: 0;
   width: 45vw;
   height: 100vh;
-  background: #F0EBE1;
+  background: #FFFFFF;
   z-index: 10;
-  padding: 72px 48px 40px 48px;
+  padding: 48px 48px 40px 48px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

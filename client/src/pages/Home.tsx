@@ -28,50 +28,15 @@ export default function Home() {
     const timeout = setTimeout(() => {
       ScrollTrigger.refresh();
 
-      // ── Hide panel for InnerWorld (full-width) ──
-      const el = innerWorldRef.current;
-      if (el) {
-        ScrollTrigger.create({
-          trigger: el,
-          start: "top 80%",
-          end: "bottom 20%",
-          onEnter: () => setHidePanel(true),
-          onLeave: () => setHidePanel(true),   // keep hidden — Pricing/Contact/Blog are full-width
-          onEnterBack: () => setHidePanel(true),
-          onLeaveBack: () => setHidePanel(false),
-        });
-      }
-
-      // ── Hide panel for Footer ──
-      const ft = footerRef.current;
-      if (ft) {
-        ScrollTrigger.create({
-          trigger: ft,
-          start: "top 80%",
-          end: "bottom 0%",
-          onEnter: () => setHidePanel(true),
-          onLeave: () => setHidePanel(false),
-          onEnterBack: () => setHidePanel(true),
-          onLeaveBack: () => setHidePanel(false),
-        });
-      }
-
-      // ── Left panel text state per section ──
-      // State indices in LeftPanel:
-      // 0 → "THE MIND BEHIND THE ATHLETE"  (Hero intro)
-      // 1 → "BUILDING / MENTAL / ARMOUR"   (Services)
-      // 2 → "MIND / MEETS / SPORT"          (Blog)
-      // 3 → "WHAT / LIVES / INSIDE"         (unused / Inner world)
-      // 4 → "YOUR / NEXT / LEVEL"           (Pricing)
-      // 5 → "READY / TO / PERFORM?"         (Contact)
-
+      // Panel visibility: ONLY show in hero-intro and hero-services.
+      // Everything from InnerWorld downward keeps it hidden.
       const heroIntro = document.getElementById("hero-intro");
       if (heroIntro) {
         ScrollTrigger.create({
           trigger: heroIntro,
-          start: "top 60%",
-          onEnter: () => setActiveSection(1),
-          onEnterBack: () => setActiveSection(1),
+          start: "top 80%",
+          onEnter:     () => { setHidePanel(false); setActiveSection(1); },
+          onEnterBack: () => { setHidePanel(false); setActiveSection(1); },
         });
       }
 
@@ -80,40 +45,34 @@ export default function Home() {
         ScrollTrigger.create({
           trigger: heroServices,
           start: "top 60%",
-          end: "bottom 40%",
-          onEnter: () => setActiveSection(2),
-          onEnterBack: () => setActiveSection(2),
-          onLeaveBack: () => setActiveSection(1),
+          onEnter:     () => { setHidePanel(false); setActiveSection(2); },
+          onEnterBack: () => { setHidePanel(false); setActiveSection(2); },
+          onLeave:     () =>   setHidePanel(true),   // entering InnerWorld
+          onLeaveBack: () => { setHidePanel(false); setActiveSection(1); },
         });
       }
 
-      const pricing = document.getElementById("section-3");
-      if (pricing) {
+      // InnerWorld — hide panel, keep it hidden going down
+      const iw = innerWorldRef.current;
+      if (iw) {
         ScrollTrigger.create({
-          trigger: pricing,
-          start: "top 40%",
-          onEnter: () => setActiveSection(5),
-          onEnterBack: () => setActiveSection(5),
+          trigger: iw,
+          start: "top 60%",
+          onEnter:     () => setHidePanel(true),
+          onLeave:     () => setHidePanel(true),
+          onEnterBack: () => setHidePanel(true),
+          // no onLeaveBack here — hero-services handles showing panel on scroll-up
         });
       }
 
-      const contact = document.getElementById("section-4");
-      if (contact) {
+      // Footer
+      const ft = footerRef.current;
+      if (ft) {
         ScrollTrigger.create({
-          trigger: contact,
-          start: "top 40%",
-          onEnter: () => setActiveSection(6),
-          onEnterBack: () => setActiveSection(6),
-        });
-      }
-
-      const blog = document.getElementById("section-5");
-      if (blog) {
-        ScrollTrigger.create({
-          trigger: blog,
-          start: "top 40%",
-          onEnter: () => setActiveSection(3),
-          onEnterBack: () => setActiveSection(3),
+          trigger: ft,
+          start: "top 80%",
+          onEnter:     () => setHidePanel(true),
+          onEnterBack: () => setHidePanel(true),
         });
       }
     }, 100);
@@ -126,8 +85,8 @@ export default function Home() {
 
   return (
     <div className="w-full relative bg-background">
-      {/* NavBar — always on top */}
-      <NavBar />
+      {/* Floating menu button — always on top */}
+      <NavBar onMenuClick={() => setMenuOpen(true)} />
 
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
@@ -137,16 +96,16 @@ export default function Home() {
             className="split-divider"
             style={{
               opacity: hidePanel ? 0 : 1,
-              transition: "opacity 0.5s ease",
+              transition: "opacity 0.4s ease",
             }}
           />
 
           <div style={{
             opacity: hidePanel ? 0 : 1,
-            transition: "opacity 0.5s ease",
+            transition: "opacity 0.4s ease",
             pointerEvents: hidePanel ? "none" : "auto",
           }}>
-            <LeftPanel activeSection={activeSection} onMenuClick={() => setMenuOpen(true)} />
+            <LeftPanel activeSection={activeSection} />
           </div>
 
           {/* Hero — right panel */}
@@ -161,15 +120,9 @@ export default function Home() {
 
           {/* Pricing + Contact + Blog — full width, no left panel */}
           <div style={{ width: "100vw" }}>
-            <div id="section-3">
-              <PricingSection />
-            </div>
-            <div id="section-4">
-              <ContactSection />
-            </div>
-            <div id="section-5">
-              <BlogSection />
-            </div>
+            <div id="section-3"><PricingSection /></div>
+            <div id="section-4"><ContactSection /></div>
+            <div id="section-5"><BlogSection /></div>
           </div>
 
           {/* Footer — full screen */}

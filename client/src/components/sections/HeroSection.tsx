@@ -182,9 +182,9 @@ export default function HeroSection() {
                 textTransform: "uppercase",
                 letterSpacing: "0.14em",
                 padding: "16px 20px",
-                color: i < visibleCards ? "#F34103" : "#F0EBE1",
-                opacity: i < visibleCards ? 1 : 0.3,
-                transition: "color 0.4s, opacity 0.4s",
+                color: "#F0EBE1",
+                opacity: i < visibleCards ? 1 : 0.25,
+                transition: "opacity 0.4s",
               }}>
                 {c.title}
               </div>
@@ -213,7 +213,7 @@ export default function HeroSection() {
             overflow: "hidden",
           }}>
             {/* The stack */}
-            <div style={{ position: "relative", width: "300px", height: "380px" }}>
+            <div style={{ position: "relative", width: "340px", height: "430px" }}>
               {Array.from({ length: visibleCards }).map((_, stackPos) => {
                 const cardIndex = visibleCards - 1 - stackPos;
                 const card = CARDS[cardIndex];
@@ -256,21 +256,22 @@ export default function HeroSection() {
                         </div>
                         <h3 style={{
                           fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-                          fontSize: "clamp(30px, 3.5vw, 44px)",
-                          fontStyle: "italic",
+                          fontSize: "clamp(34px, 4vw, 52px)",
+                          fontStyle: "normal",
                           fontWeight: 300,
                           lineHeight: 1,
-                          marginBottom: "12px",
+                          marginBottom: "14px",
                           color: "#2E3426",
                           textAlign: "center",
+                          letterSpacing: "-0.02em",
                         }}>
                           {card.title}
                         </h3>
                         <p style={{
                           fontFamily: "Visuelt, 'DM Sans', sans-serif",
                           fontSize: "12px",
-                          opacity: 0.65,
-                          maxWidth: "195px",
+                          opacity: 0.6,
+                          maxWidth: "220px",
                           lineHeight: 1.8,
                           textAlign: "center",
                           color: "#2E3426",

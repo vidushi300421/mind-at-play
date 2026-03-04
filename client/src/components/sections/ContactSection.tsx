@@ -72,11 +72,11 @@ export default function ContactSection() {
     width: "100%",
     background: "transparent",
     border: "none",
-    borderBottom: `1px solid ${focused === field ? "#A71D31" : "rgba(63,13,18,0.2)"}`,
+    borderBottom: `1px solid ${focused === field ? "#F34103" : "rgba(46,52,38,0.2)"}`,
     padding: "12px 0",
-    fontFamily: "DM Sans, sans-serif",
+    fontFamily: "Visuelt, 'DM Sans', sans-serif",
     fontSize: "14px",
-    color: "#3F0D12",
+    color: "#2E3426",
     outline: "none",
     transition: "border-color 0.3s",
   });
@@ -85,7 +85,7 @@ export default function ContactSection() {
     <div
       ref={sectionRef}
       style={{
-        background: "#F1F0CC",
+        background: "#F0EBE1",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -93,13 +93,13 @@ export default function ContactSection() {
     >
       {/* Label */}
       <div style={{
-        borderBottom: "1px solid rgba(63,13,18,0.15)",
+        borderBottom: "1px solid rgba(46,52,38,0.15)",
         padding: "14px 40px",
-        fontFamily: "DM Sans, sans-serif",
+        fontFamily: "Visuelt, 'DM Sans', sans-serif",
         fontSize: "11px",
         letterSpacing: "0.18em",
         textTransform: "uppercase" as const,
-        color: "rgba(63,13,18,0.55)",
+        color: "rgba(46,52,38,0.55)",
       }}>
         Contact:
       </div>
@@ -107,34 +107,34 @@ export default function ContactSection() {
       {/* Heading */}
       <div ref={headingRef} style={{ padding: "48px 40px 0" }}>
         <div style={{
-          fontFamily: "DM Sans, sans-serif",
+          fontFamily: "Visuelt, 'DM Sans', sans-serif",
           fontSize: "11px",
           textTransform: "uppercase" as const,
           letterSpacing: "0.18em",
-          color: "#A71D31",
+          color: "#F34103",
           marginBottom: "20px",
           opacity: 0.85,
         }}>
           Let's talk
         </div>
         <h2 style={{
-          fontFamily: "Cormorant Garamond, serif",
+          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
           fontSize: "clamp(40px, 6vw, 72px)",
           fontWeight: 300,
           lineHeight: 0.92,
-          color: "#3F0D12",
+          color: "#2E3426",
           letterSpacing: "-0.02em",
           marginBottom: "8px",
         }}>
           Ready to train
         </h2>
         <h2 style={{
-          fontFamily: "Cormorant Garamond, serif",
+          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
           fontSize: "clamp(40px, 6vw, 72px)",
           fontWeight: 300,
           fontStyle: "italic",
           lineHeight: 0.92,
-          color: "#3F0D12",
+          color: "#2E3426",
           letterSpacing: "-0.02em",
           marginBottom: "32px",
         }}>
@@ -165,19 +165,19 @@ export default function ContactSection() {
             gap: "16px",
           }}>
             <div style={{
-              fontFamily: "Cormorant Garamond, serif",
+              fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
               fontSize: "clamp(28px, 4vw, 48px)",
               fontWeight: 300,
               fontStyle: "italic",
-              color: "#3F0D12",
+              color: "#2E3426",
               lineHeight: 1.1,
             }}>
               Thank you,<br />{values.name.split(" ")[0]}.
             </div>
             <div style={{
-              fontFamily: "DM Sans, sans-serif",
+              fontFamily: "Visuelt, 'DM Sans', sans-serif",
               fontSize: "13px",
-              color: "rgba(63,13,18,0.55)",
+              color: "rgba(46,52,38,0.55)",
               lineHeight: 1.8,
               maxWidth: "280px",
             }}>
@@ -197,11 +197,11 @@ export default function ContactSection() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
               <div className="contact-field">
                 <div style={{
-                  fontFamily: "DM Sans, sans-serif",
+                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
                   fontSize: "9px",
                   textTransform: "uppercase" as const,
                   letterSpacing: "0.2em",
-                  color: focused === "name" ? "#A71D31" : "rgba(63,13,18,0.4)",
+                  color: focused === "name" ? "#F34103" : "rgba(46,52,38,0.4)",
                   marginBottom: "8px",
                   transition: "color 0.3s",
                 }}>
@@ -220,11 +220,11 @@ export default function ContactSection() {
 
               <div className="contact-field">
                 <div style={{
-                  fontFamily: "DM Sans, sans-serif",
+                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
                   fontSize: "9px",
                   textTransform: "uppercase" as const,
                   letterSpacing: "0.2em",
-                  color: focused === "email" ? "#A71D31" : "rgba(63,13,18,0.4)",
+                  color: focused === "email" ? "#F34103" : "rgba(46,52,38,0.4)",
                   marginBottom: "8px",
                   transition: "color 0.3s",
                 }}>
@@ -245,11 +245,11 @@ export default function ContactSection() {
             {/* Sport */}
             <div className="contact-field">
               <div style={{
-                fontFamily: "DM Sans, sans-serif",
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
                 fontSize: "9px",
                 textTransform: "uppercase" as const,
                 letterSpacing: "0.2em",
-                color: focused === "sport" ? "#A71D31" : "rgba(63,13,18,0.4)",
+                color: focused === "sport" ? "#F34103" : "rgba(46,52,38,0.4)",
                 marginBottom: "8px",
                 transition: "color 0.3s",
               }}>
@@ -269,11 +269,11 @@ export default function ContactSection() {
             {/* Message */}
             <div className="contact-field">
               <div style={{
-                fontFamily: "DM Sans, sans-serif",
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
                 fontSize: "9px",
                 textTransform: "uppercase" as const,
                 letterSpacing: "0.2em",
-                color: focused === "message" ? "#A71D31" : "rgba(63,13,18,0.4)",
+                color: focused === "message" ? "#F34103" : "rgba(46,52,38,0.4)",
                 marginBottom: "8px",
                 transition: "color 0.3s",
               }}>
@@ -302,9 +302,9 @@ export default function ContactSection() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "12px",
-                  background: "#A71D31",
-                  color: "#F1F0CC",
-                  fontFamily: "DM Sans, sans-serif",
+                  background: "#F34103",
+                  color: "#F0EBE1",
+                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
                   fontSize: "11px",
                   textTransform: "uppercase" as const,
                   letterSpacing: "0.16em",
@@ -315,11 +315,11 @@ export default function ContactSection() {
                   overflow: "hidden",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background = "#3F0D12";
+                  (e.currentTarget as HTMLDivElement).style.background = "#2E3426";
                   (e.currentTarget as HTMLDivElement).style.gap = "20px";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background = "#A71D31";
+                  (e.currentTarget as HTMLDivElement).style.background = "#F34103";
                   (e.currentTarget as HTMLDivElement).style.gap = "12px";
                 }}
               >
@@ -327,9 +327,9 @@ export default function ContactSection() {
               </div>
 
               <div style={{
-                fontFamily: "DM Sans, sans-serif",
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
                 fontSize: "11px",
-                color: "rgba(63,13,18,0.35)",
+                color: "rgba(46,52,38,0.35)",
                 fontStyle: "italic",
               }}>
                 I respond within 48 hours

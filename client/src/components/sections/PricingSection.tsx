@@ -75,7 +75,7 @@ export default function PricingSection() {
 
   return (
     <div style={{
-      background: "#F1F0CC",
+      background: "#F0EBE1",
       minHeight: "100vh",
       display: "flex",
       flexDirection: "column",
@@ -83,35 +83,35 @@ export default function PricingSection() {
 
       {/* Label */}
       <div style={{
-        borderBottom: "1px solid rgba(63,13,18,0.15)",
+        borderBottom: "1px solid rgba(46,52,38,0.15)",
         padding: "14px 40px",
-        fontFamily: "DM Sans, sans-serif",
+        fontFamily: "Visuelt, 'DM Sans', sans-serif",
         fontSize: "11px",
         letterSpacing: "0.18em",
         textTransform: "uppercase" as const,
-        color: "rgba(63,13,18,0.55)",
+        color: "rgba(46,52,38,0.55)",
       }}>
         Investment:
       </div>
 
       {/* Heading */}
-      <div ref={headingRef} style={{ padding: "48px 40px 32px", borderBottom: "1px solid rgba(63,13,18,0.08)" }}>
+      <div ref={headingRef} style={{ padding: "48px 40px 32px", borderBottom: "1px solid rgba(46,52,38,0.08)" }}>
         <h2 style={{
-          fontFamily: "Cormorant Garamond, serif",
+          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
           fontSize: "clamp(36px, 5vw, 64px)",
           fontWeight: 300,
           fontStyle: "italic",
           lineHeight: 0.95,
-          color: "#3F0D12",
+          color: "#2E3426",
           letterSpacing: "-0.02em",
           marginBottom: "16px",
         }}>
           Choose your<br />path forward.
         </h2>
         <p style={{
-          fontFamily: "DM Sans, sans-serif",
+          fontFamily: "Visuelt, 'DM Sans', sans-serif",
           fontSize: "13px",
-          color: "rgba(63,13,18,0.55)",
+          color: "rgba(46,52,38,0.55)",
           lineHeight: 1.8,
           maxWidth: "340px",
         }}>
@@ -126,8 +126,8 @@ export default function PricingSection() {
             key={plan.name}
             ref={(el) => { rowRefs.current[i] = el; }}
             style={{
-              background: plan.dark ? "#3F0D12" : "#F1F0CC",
-              borderBottom: `1px solid ${plan.dark ? "rgba(241,240,204,0.08)" : "rgba(63,13,18,0.08)"}`,
+              background: plan.dark ? "#350D12" : "#F0EBE1",
+              borderBottom: `1px solid ${plan.dark ? "rgba(240,235,225,0.08)" : "rgba(46,52,38,0.08)"}`,
               padding: "40px",
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -147,12 +147,12 @@ export default function PricingSection() {
               <div style={{
                 position: "absolute",
                 top: "16px", right: "40px",
-                fontFamily: "DM Sans, sans-serif",
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
                 fontSize: "9px",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase" as const,
-                color: "#F1F0CC",
-                background: "#A71D31",
+                color: "#F0EBE1",
+                background: "#F34103",
                 padding: "4px 12px",
               }}>
                 {plan.tag}
@@ -163,7 +163,7 @@ export default function PricingSection() {
             <div>
               {!plan.featured && (
                 <div style={{
-                  fontFamily: "DM Sans, sans-serif",
+                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
                   fontSize: "9px",
                   letterSpacing: "0.22em",
                   textTransform: "uppercase" as const,
@@ -174,12 +174,12 @@ export default function PricingSection() {
                 </div>
               )}
               <h3 style={{
-                fontFamily: "Cormorant Garamond, serif",
+                fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
                 fontSize: "clamp(24px, 3vw, 36px)",
                 fontWeight: 300,
                 fontStyle: "italic",
                 lineHeight: 1,
-                color: plan.dark ? "#F1F0CC" : "#3F0D12",
+                color: plan.dark ? "#F0EBE1" : "#2E3426",
                 marginBottom: "20px",
                 marginTop: plan.featured ? "24px" : "0",
               }}>
@@ -188,30 +188,30 @@ export default function PricingSection() {
 
               <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "20px" }}>
                 <span style={{
-                  fontFamily: "Cormorant Garamond, serif",
+                  fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
                   fontSize: "clamp(36px, 5vw, 56px)",
                   fontWeight: 300,
-                  color: plan.dark ? "#F1F0CC" : "#3F0D12",
+                  color: plan.dark ? "#F0EBE1" : "#2E3426",
                   lineHeight: 1,
                 }}>
                   {plan.price}
                 </span>
                 <span style={{
-                  fontFamily: "DM Sans, sans-serif",
+                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
                   fontSize: "11px",
                   textTransform: "uppercase" as const,
                   letterSpacing: "0.12em",
-                  color: plan.dark ? "rgba(241,240,204,0.4)" : "rgba(63,13,18,0.4)",
+                  color: plan.dark ? "rgba(240,235,225,0.4)" : "rgba(46,52,38,0.4)",
                 }}>
                   / {plan.per}
                 </span>
               </div>
 
               <p style={{
-                fontFamily: "DM Sans, sans-serif",
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
                 fontSize: "12px",
                 lineHeight: 1.8,
-                color: plan.dark ? "rgba(241,240,204,0.6)" : "rgba(63,13,18,0.6)",
+                color: plan.dark ? "rgba(240,235,225,0.6)" : "rgba(46,52,38,0.6)",
                 maxWidth: "280px",
               }}>
                 {plan.description}
@@ -222,11 +222,11 @@ export default function PricingSection() {
             <div style={{ display: "flex", flexDirection: "column" as const, justifyContent: "space-between", gap: "24px" }}>
               <div>
                 <div style={{
-                  fontFamily: "DM Sans, sans-serif",
+                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
                   fontSize: "9px",
                   textTransform: "uppercase" as const,
                   letterSpacing: "0.2em",
-                  color: plan.dark ? "rgba(241,240,204,0.3)" : "rgba(63,13,18,0.3)",
+                  color: plan.dark ? "rgba(240,235,225,0.3)" : "rgba(46,52,38,0.3)",
                   marginBottom: "14px",
                 }}>
                   What's included
@@ -238,10 +238,10 @@ export default function PricingSection() {
                       background: "#D5BF86", marginTop: "6px", flexShrink: 0,
                     }} />
                     <span style={{
-                      fontFamily: "DM Sans, sans-serif",
+                      fontFamily: "Visuelt, 'DM Sans', sans-serif",
                       fontSize: "12px",
                       lineHeight: 1.6,
-                      color: plan.dark ? "rgba(241,240,204,0.7)" : "rgba(63,13,18,0.7)",
+                      color: plan.dark ? "rgba(240,235,225,0.7)" : "rgba(46,52,38,0.7)",
                     }}>
                       {item}
                     </span>
@@ -254,12 +254,12 @@ export default function PricingSection() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "10px",
-                  fontFamily: "DM Sans, sans-serif",
+                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
                   fontSize: "11px",
                   textTransform: "uppercase" as const,
                   letterSpacing: "0.14em",
-                  color: plan.dark ? "#F1F0CC" : "#3F0D12",
-                  borderBottom: `1px solid ${plan.dark ? "rgba(241,240,204,0.3)" : "rgba(63,13,18,0.3)"}`,
+                  color: plan.dark ? "#F0EBE1" : "#2E3426",
+                  borderBottom: `1px solid ${plan.dark ? "rgba(240,235,225,0.3)" : "rgba(46,52,38,0.3)"}`,
                   paddingBottom: "4px",
                   cursor: "pointer",
                   width: "fit-content",
@@ -268,14 +268,14 @@ export default function PricingSection() {
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
                   el.style.gap = "18px";
-                  el.style.color = "#A71D31";
-                  el.style.borderBottomColor = "#A71D31";
+                  el.style.color = "#F34103";
+                  el.style.borderBottomColor = "#F34103";
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
                   el.style.gap = "10px";
-                  el.style.color = plan.dark ? "#F1F0CC" : "#3F0D12";
-                  el.style.borderBottomColor = plan.dark ? "rgba(241,240,204,0.3)" : "rgba(63,13,18,0.3)";
+                  el.style.color = plan.dark ? "#F0EBE1" : "#2E3426";
+                  el.style.borderBottomColor = plan.dark ? "rgba(240,235,225,0.3)" : "rgba(46,52,38,0.3)";
                 }}
               >
                 Get started →
@@ -287,10 +287,10 @@ export default function PricingSection() {
 
       <div style={{
         padding: "24px 40px",
-        borderTop: "1px solid rgba(63,13,18,0.08)",
-        fontFamily: "DM Sans, sans-serif",
+        borderTop: "1px solid rgba(46,52,38,0.08)",
+        fontFamily: "Visuelt, 'DM Sans', sans-serif",
         fontSize: "11px",
-        color: "rgba(63,13,18,0.4)",
+        color: "rgba(46,52,38,0.4)",
         fontStyle: "italic",
       }}>
         All sessions conducted online via Zoom. Custom team packages available on request.

@@ -31,45 +31,45 @@ const STACK_OFFSETS = [
 // ─── SVGs ────────────────────────────────────────────────────────
 const MindSVG = () => (
   <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
-    <path d="M60 30 C40 30 25 45 25 60 C25 70 30 78 38 83 C38 90 43 95 50 95 C53 95 56 94 58 92 L60 95 L62 92 C64 94 67 95 70 95 C77 95 82 90 82 83 C90 78 95 70 95 60 C95 45 80 30 60 30Z" stroke="#3F0D12" strokeWidth="1.2"/>
-    <path d="M45 55 Q50 45 60 50 Q70 45 75 55" stroke="#3F0D12" strokeWidth="1" strokeLinecap="round"/>
-    <circle cx="60" cy="62" r="3" stroke="#A71D31" strokeWidth="1" fill="none"/>
-    <path d="M60 65 L60 75" stroke="#A71D31" strokeWidth="1" strokeLinecap="round"/>
+    <path d="M60 30 C40 30 25 45 25 60 C25 70 30 78 38 83 C38 90 43 95 50 95 C53 95 56 94 58 92 L60 95 L62 92 C64 94 67 95 70 95 C77 95 82 90 82 83 C90 78 95 70 95 60 C95 45 80 30 60 30Z" stroke="#2E3426" strokeWidth="1.2"/>
+    <path d="M45 55 Q50 45 60 50 Q70 45 75 55" stroke="#2E3426" strokeWidth="1" strokeLinecap="round"/>
+    <circle cx="60" cy="62" r="3" stroke="#F34103" strokeWidth="1" fill="none"/>
+    <path d="M60 65 L60 75" stroke="#F34103" strokeWidth="1" strokeLinecap="round"/>
   </svg>
 );
 const FocusSVG = () => (
   <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
-    <circle cx="60" cy="60" r="40" stroke="#3F0D12" strokeWidth="1.2"/>
-    <circle cx="60" cy="60" r="28" stroke="#3F0D12" strokeWidth="1"/>
-    <circle cx="60" cy="60" r="16" stroke="#3F0D12" strokeWidth="1"/>
-    <circle cx="60" cy="60" r="5" stroke="#A71D31" strokeWidth="1.5" fill="none"/>
-    <line x1="60" y1="15" x2="60" y2="38" stroke="#3F0D12" strokeWidth="0.8" strokeDasharray="3 3"/>
-    <line x1="60" y1="82" x2="60" y2="105" stroke="#3F0D12" strokeWidth="0.8" strokeDasharray="3 3"/>
-    <line x1="15" y1="60" x2="38" y2="60" stroke="#3F0D12" strokeWidth="0.8" strokeDasharray="3 3"/>
-    <line x1="82" y1="60" x2="105" y2="60" stroke="#3F0D12" strokeWidth="0.8" strokeDasharray="3 3"/>
+    <circle cx="60" cy="60" r="40" stroke="#2E3426" strokeWidth="1.2"/>
+    <circle cx="60" cy="60" r="28" stroke="#2E3426" strokeWidth="1"/>
+    <circle cx="60" cy="60" r="16" stroke="#2E3426" strokeWidth="1"/>
+    <circle cx="60" cy="60" r="5" stroke="#F34103" strokeWidth="1.5" fill="none"/>
+    <line x1="60" y1="15" x2="60" y2="38" stroke="#2E3426" strokeWidth="0.8" strokeDasharray="3 3"/>
+    <line x1="60" y1="82" x2="60" y2="105" stroke="#2E3426" strokeWidth="0.8" strokeDasharray="3 3"/>
+    <line x1="15" y1="60" x2="38" y2="60" stroke="#2E3426" strokeWidth="0.8" strokeDasharray="3 3"/>
+    <line x1="82" y1="60" x2="105" y2="60" stroke="#2E3426" strokeWidth="0.8" strokeDasharray="3 3"/>
   </svg>
 );
 const RecoverySVG = () => (
   <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
-    <path d="M60 95 L60 45" stroke="#3F0D12" strokeWidth="1.2" strokeLinecap="round"/>
-    <path d="M60 65 C60 65 40 60 35 40 C35 40 55 35 60 55" stroke="#3F0D12" strokeWidth="1.2"/>
-    <path d="M60 75 C60 75 80 70 85 50 C85 50 65 45 60 65" stroke="#3F0D12" strokeWidth="1.2"/>
-    <circle cx="60" cy="42" r="3" stroke="#A71D31" strokeWidth="1" fill="none"/>
+    <path d="M60 95 L60 45" stroke="#2E3426" strokeWidth="1.2" strokeLinecap="round"/>
+    <path d="M60 65 C60 65 40 60 35 40 C35 40 55 35 60 55" stroke="#2E3426" strokeWidth="1.2"/>
+    <path d="M60 75 C60 75 80 70 85 50 C85 50 65 45 60 65" stroke="#2E3426" strokeWidth="1.2"/>
+    <circle cx="60" cy="42" r="3" stroke="#F34103" strokeWidth="1" fill="none"/>
   </svg>
 );
 const PressureSVG = () => (
   <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
-    <path d="M60 20 L90 50 L60 100 L30 50 Z" stroke="#F1F0CC" strokeWidth="1.2"/>
-    <path d="M30 50 L90 50" stroke="#F1F0CC" strokeWidth="1"/>
+    <path d="M60 20 L90 50 L60 100 L30 50 Z" stroke="#F0EBE1" strokeWidth="1.2"/>
+    <path d="M30 50 L90 50" stroke="#F0EBE1" strokeWidth="1"/>
     <path d="M60 50 L60 100" stroke="#D5BF86" strokeWidth="0.8" strokeDasharray="3 3"/>
   </svg>
 );
 const FlowSVG = () => (
   <svg viewBox="0 0 120 120" fill="none" style={{width:"100%",height:"100%"}}>
-    <path d="M20 40 C35 30 45 50 60 40 C75 30 85 50 100 40" stroke="#3F0D12" strokeWidth="1.2" strokeLinecap="round"/>
-    <path d="M20 55 C35 45 45 65 60 55 C75 45 85 65 100 55" stroke="#3F0D12" strokeWidth="1.2" strokeLinecap="round"/>
-    <path d="M20 70 C35 60 45 80 60 70 C75 60 85 80 100 70" stroke="#3F0D12" strokeWidth="1.2" strokeLinecap="round"/>
-    <circle cx="60" cy="55" r="4" stroke="#A71D31" strokeWidth="1" fill="none"/>
+    <path d="M20 40 C35 30 45 50 60 40 C75 30 85 50 100 40" stroke="#2E3426" strokeWidth="1.2" strokeLinecap="round"/>
+    <path d="M20 55 C35 45 45 65 60 55 C75 45 85 65 100 55" stroke="#2E3426" strokeWidth="1.2" strokeLinecap="round"/>
+    <path d="M20 70 C35 60 45 80 60 70 C75 60 85 80 100 70" stroke="#2E3426" strokeWidth="1.2" strokeLinecap="round"/>
+    <circle cx="60" cy="55" r="4" stroke="#F34103" strokeWidth="1" fill="none"/>
   </svg>
 );
 const SVGS = [MindSVG, FocusSVG, RecoverySVG, PressureSVG, FlowSVG];
@@ -145,7 +145,7 @@ export default function HeroSection() {
         ref={phase1Ref}
         style={{
           height: `${CARDS.length * 100}vh`,
-          background: "#F1F0CC",
+          background: "#F0EBE1",
           position: "relative",
         }}
       >
@@ -156,18 +156,18 @@ export default function HeroSection() {
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          background: "#F1F0CC",
+          background: "#F0EBE1",
         }}>
 
           {/* Intro label */}
           <div style={{
-            borderBottom: "1px solid rgba(63,13,18,0.15)",
+            borderBottom: "1px solid rgba(46,52,38,0.15)",
             padding: "14px 40px",
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "11px",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "rgba(63,13,18,0.55)",
+            color: "rgba(46,52,38,0.55)",
             flexShrink: 0,
           }}>
             Intro:
@@ -176,19 +176,19 @@ export default function HeroSection() {
           {/* Tab labels — light up as cards stack */}
           <div style={{
             display: "flex",
-            borderBottom: "1px solid rgba(63,13,18,0.12)",
+            borderBottom: "1px solid rgba(46,52,38,0.12)",
             padding: "0 40px",
             flexShrink: 0,
             position: "relative",
           }}>
             {CARDS.map((c, i) => (
               <div key={c.id} style={{
-                fontFamily: "DM Sans, sans-serif",
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
                 fontSize: "11px",
                 textTransform: "uppercase",
                 letterSpacing: "0.14em",
                 padding: "16px 20px",
-                color: i < visibleCards ? "#A71D31" : "#3F0D12",
+                color: i < visibleCards ? "#F34103" : "#2E3426",
                 opacity: i < visibleCards ? 1 : 0.3,
                 transition: "color 0.4s, opacity 0.4s",
               }}>
@@ -204,7 +204,7 @@ export default function HeroSection() {
               }px)`,
               height: "2px",
               width: `${CARDS[visibleCards - 1].title.length * 7.5 + 40}px`,
-              background: "#A71D31",
+              background: "#F34103",
               transition: "left 0.45s cubic-bezier(0.4,0,0.2,1), width 0.45s cubic-bezier(0.4,0,0.2,1)",
             }}/>
           </div>
@@ -225,10 +225,10 @@ export default function HeroSection() {
               width: "100%", height: "100%",
               opacity: 0.06, pointerEvents: "none",
             }} viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-              <path d="M400,300 C450,220 560,210 575,300 C590,390 510,440 400,425 C290,410 205,360 220,300 C235,240 350,230 400,300Z" fill="none" stroke="#3F0D12" strokeWidth="1"/>
-              <path d="M400,300 C470,190 600,175 620,300 C640,425 545,485 400,465 C255,445 130,375 150,300 C170,225 330,185 400,300Z" fill="none" stroke="#3F0D12" strokeWidth="0.9"/>
-              <path d="M400,300 C490,160 640,140 665,300 C690,460 580,530 400,505 C220,480 55,390 80,300 C105,210 310,140 400,300Z" fill="none" stroke="#3F0D12" strokeWidth="0.8"/>
-              <path d="M400,300 C510,130 680,105 710,300 C740,495 615,575 400,545 C185,515 -20,405 10,300 C40,195 290,95 400,300Z" fill="none" stroke="#3F0D12" strokeWidth="0.7"/>
+              <path d="M400,300 C450,220 560,210 575,300 C590,390 510,440 400,425 C290,410 205,360 220,300 C235,240 350,230 400,300Z" fill="none" stroke="#2E3426" strokeWidth="1"/>
+              <path d="M400,300 C470,190 600,175 620,300 C640,425 545,485 400,465 C255,445 130,375 150,300 C170,225 330,185 400,300Z" fill="none" stroke="#2E3426" strokeWidth="0.9"/>
+              <path d="M400,300 C490,160 640,140 665,300 C690,460 580,530 400,505 C220,480 55,390 80,300 C105,210 310,140 400,300Z" fill="none" stroke="#2E3426" strokeWidth="0.8"/>
+              <path d="M400,300 C510,130 680,105 710,300 C740,495 615,575 400,545 C185,515 -20,405 10,300 C40,195 290,95 400,300Z" fill="none" stroke="#2E3426" strokeWidth="0.7"/>
             </svg>
 
             {/* The stack */}
@@ -247,8 +247,8 @@ export default function HeroSection() {
                     style={{
                       position: "absolute",
                       inset: 0,
-                      background: card.dark ? "#3F0D12" : "#F1F0CC",
-                      border: `1.5px solid ${card.dark ? "#D5BF86" : "rgba(63,13,18,0.18)"}`,
+                      background: card.dark ? "#350D12" : "#F0EBE1",
+                      border: `1.5px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.18)"}`,
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
@@ -257,16 +257,16 @@ export default function HeroSection() {
                       transform: `translate(${offset.x}px, ${offset.y}px) rotate(${offset.rotate}deg)`,
                       zIndex: CARDS.length - stackPos,
                       boxShadow: isTop
-                        ? "0 16px 48px rgba(63,13,18,0.13)"
-                        : "0 4px 16px rgba(63,13,18,0.06)",
+                        ? "0 16px 48px rgba(46,52,38,0.13)"
+                        : "0 4px 16px rgba(46,52,38,0.06)",
                     }}
                   >
                     {/* Corner bracket */}
                     <div style={{
                       position: "absolute", top: 14, right: 14,
                       width: 16, height: 16,
-                      borderTop: `1px solid ${card.dark ? "#D5BF86" : "rgba(63,13,18,0.18)"}`,
-                      borderRight: `1px solid ${card.dark ? "#D5BF86" : "rgba(63,13,18,0.18)"}`,
+                      borderTop: `1px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.18)"}`,
+                      borderRight: `1px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.18)"}`,
                     }}/>
 
                     {isTop && (
@@ -275,32 +275,32 @@ export default function HeroSection() {
                           <Svg />
                         </div>
                         <h3 style={{
-                          fontFamily: "Cormorant Garamond, serif",
+                          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
                           fontSize: "clamp(30px, 3.5vw, 44px)",
                           fontStyle: "italic",
                           fontWeight: 300,
                           lineHeight: 1,
                           marginBottom: "12px",
-                          color: card.dark ? "#F1F0CC" : "#3F0D12",
+                          color: card.dark ? "#F0EBE1" : "#2E3426",
                           textAlign: "center",
                         }}>
                           {card.title}
                         </h3>
                         <p style={{
-                          fontFamily: "DM Sans, sans-serif",
+                          fontFamily: "Visuelt, 'DM Sans', sans-serif",
                           fontSize: "12px",
                           opacity: 0.6,
                           maxWidth: "195px",
                           lineHeight: 1.8,
                           textAlign: "center",
-                          color: card.dark ? "#F1F0CC" : "#3F0D12",
+                          color: card.dark ? "#F0EBE1" : "#2E3426",
                         }}>
                           {card.quote}
                         </p>
                         <div style={{
                           position: "absolute",
                           bottom: "14px", left: "16px",
-                          fontFamily: "DM Sans, sans-serif",
+                          fontFamily: "Visuelt, 'DM Sans', sans-serif",
                           fontSize: "9px",
                           textTransform: "uppercase",
                           letterSpacing: "0.22em",
@@ -319,9 +319,9 @@ export default function HeroSection() {
             <div style={{
               position: "absolute",
               bottom: "36px", right: "36px",
-              fontFamily: "Cormorant Garamond, serif",
+              fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
               fontSize: "13px",
-              color: "rgba(63,13,18,0.35)",
+              color: "rgba(46,52,38,0.35)",
               letterSpacing: "0.1em",
             }}>
               {String(visibleCards).padStart(2, "0")} / {String(CARDS.length).padStart(2, "0")}
@@ -337,7 +337,7 @@ export default function HeroSection() {
         ref={phase2Ref}
         style={{
           height: `${SERVICES.length * 100}vh`,
-          background: "#F1F0CC",
+          background: "#F0EBE1",
           position: "relative",
         }}
       >
@@ -348,18 +348,18 @@ export default function HeroSection() {
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
-          background: "#F1F0CC",
+          background: "#F0EBE1",
         }}>
 
           {/* Section label */}
           <div style={{
-            borderBottom: "1px solid rgba(63,13,18,0.15)",
+            borderBottom: "1px solid rgba(46,52,38,0.15)",
             padding: "14px 40px",
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "11px",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "rgba(63,13,18,0.55)",
+            color: "rgba(46,52,38,0.55)",
             flexShrink: 0,
           }}>
             Services:
@@ -390,7 +390,7 @@ export default function HeroSection() {
                     width: `${CIRCLE_SIZE}px`,
                     height: `${CIRCLE_SIZE}px`,
                     borderRadius: "50%",
-                    border: "1.5px solid rgba(63,13,18,0.25)",
+                    border: "1.5px solid rgba(46,52,38,0.25)",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -401,20 +401,20 @@ export default function HeroSection() {
                     position: "relative",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.borderColor = "#A71D31";
-                    (e.currentTarget as HTMLDivElement).style.background = "rgba(167,29,49,0.04)";
+                    (e.currentTarget as HTMLDivElement).style.borderColor = "#F34103";
+                    (e.currentTarget as HTMLDivElement).style.background = "rgba(243,65,3,0.04)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(63,13,18,0.25)";
+                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(46,52,38,0.25)";
                     (e.currentTarget as HTMLDivElement).style.background = "transparent";
                   }}
                 >
                   <div style={{
-                    fontFamily: "DM Sans, sans-serif",
+                    fontFamily: "Visuelt, 'DM Sans', sans-serif",
                     fontSize: "11px",
                     textTransform: "uppercase",
                     letterSpacing: "0.16em",
-                    color: "#3F0D12",
+                    color: "#2E3426",
                     textAlign: "center",
                     maxWidth: "180px",
                     lineHeight: 1.5,
@@ -423,10 +423,10 @@ export default function HeroSection() {
                     {s.name}
                   </div>
                   <div style={{
-                    fontFamily: "Cormorant Garamond, serif",
+                    fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
                     fontSize: "14px",
                     fontStyle: "italic",
-                    color: "rgba(63,13,18,0.5)",
+                    color: "rgba(46,52,38,0.5)",
                     textAlign: "center",
                     maxWidth: "160px",
                   }}>
@@ -442,11 +442,11 @@ export default function HeroSection() {
             position: "absolute",
             bottom: "36px",
             left: "40px",
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "10px",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
-            color: "rgba(63,13,18,0.35)",
+            color: "rgba(46,52,38,0.35)",
           }}>
             Scroll to explore →
           </div>
@@ -457,7 +457,7 @@ export default function HeroSection() {
             bottom: 0, left: 0,
             width: `${serviceProgress * 100}%`,
             height: "2px",
-            background: "#A71D31",
+            background: "#F34103",
             transition: "width 0.05s linear",
           }}/>
         </div>

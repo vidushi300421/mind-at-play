@@ -4,90 +4,132 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const BG = "#2E3426";
+const TEXT = "#F0EBE1";
+const ACCENT = "#F34103";
+const BORDER = "rgba(240,235,225,0.1)";
+
 const BLOGS = [
-  {
-    id: 1,
-    category: "Mental Conditioning",
-    date: "Jan 2025",
-    title: "Why the Best Athletes Lose on Purpose",
-    excerpt: "The counterintuitive training method elite performers use to build unshakeable composure under pressure.",
-    dark: true,
-  },
-  {
-    id: 2,
-    category: "Pre-Competition",
-    date: "Dec 2024",
-    title: "The 20-Minute Ritual That Changes Everything",
-    excerpt: "How a structured pre-match mental routine can be the difference between your best and worst performance.",
-    dark: false,
-  },
-  {
-    id: 3,
-    category: "Recovery",
-    date: "Nov 2024",
-    title: "Burnout Isn't Tiredness. Here's the Difference.",
-    excerpt: "Understanding the psychological signs of burnout before they derail your season — and what to do instead.",
-    dark: false,
-  },
-  {
-    id: 4,
-    category: "Flow States",
-    date: "Oct 2024",
-    title: "Getting Out of Your Own Way",
-    excerpt: "The science of flow and why thinking too hard is the enemy of peak athletic performance.",
-    dark: true,
-  },
+  { id: 1, category: "Mental Conditioning", date: "Jan 2025", title: "Why the Best Athletes Lose on Purpose" },
+  { id: 2, category: "Pre-Competition",      date: "Dec 2024", title: "The 20-Minute Ritual That Changes Everything" },
+  { id: 3, category: "Recovery",             date: "Nov 2024", title: "Burnout Isn't Tiredness. Here's the Difference." },
+  { id: 4, category: "Flow States",          date: "Oct 2024", title: "Getting Out of Your Own Way" },
 ];
+
+function BlogCard({ blog }: { blog: typeof BLOGS[0] }) {
+  return (
+    <div style={{
+      padding: "40px",
+      minHeight: "260px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      cursor: "pointer",
+    }}>
+      {/* Top: meta + orange arrow */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div>
+          <div style={{
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
+            fontSize: "9px",
+            textTransform: "uppercase" as const,
+            letterSpacing: "0.2em",
+            color: "rgba(240,235,225,0.4)",
+            marginBottom: "5px",
+          }}>
+            {blog.category}
+          </div>
+          <div style={{
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
+            fontSize: "9px",
+            letterSpacing: "0.1em",
+            color: "rgba(240,235,225,0.25)",
+          }}>
+            {blog.date}
+          </div>
+        </div>
+
+        {/* Orange circle arrow */}
+        <div
+          style={{
+            width: "44px", height: "44px",
+            borderRadius: "50%",
+            background: ACCENT,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: "16px",
+            color: TEXT,
+            flexShrink: 0,
+            cursor: "pointer",
+            transition: "transform 0.3s",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLDivElement).style.transform = "scale(1.1) rotate(15deg)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLDivElement).style.transform = "scale(1) rotate(0deg)";
+          }}
+        >
+          ↗
+        </div>
+      </div>
+
+      {/* Bottom: title */}
+      <h3 style={{
+        fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
+        fontSize: "clamp(20px, 2.2vw, 28px)",
+        fontWeight: 300,
+        fontStyle: "italic",
+        lineHeight: 1.2,
+        color: TEXT,
+      }}>
+        {blog.title}
+      </h3>
+    </div>
+  );
+}
 
 export default function BlogSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (headingRef.current) {
       gsap.fromTo(headingRef.current,
         { opacity: 0, y: 40 },
-        {
-          opacity: 1, y: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: headingRef.current, start: "top 80%" }
-        }
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out",
+          scrollTrigger: { trigger: headingRef.current, start: "top 80%" } }
       );
     }
-
-    cardRefs.current.forEach((card, i) => {
-      if (!card) return;
-      const isRight = i % 2 !== 0;
-      gsap.fromTo(card,
-        { opacity: 0, y: 60, rotate: isRight ? 1.5 : -1.5 },
-        {
-          opacity: 1, y: 0, rotate: 0,
-          duration: 0.8,
-          delay: i * 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: card, start: "top 88%" }
-        }
+    if (leftColRef.current) {
+      gsap.fromTo(leftColRef.current,
+        { opacity: 0, y: 60 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 0.1,
+          scrollTrigger: { trigger: leftColRef.current, start: "top 85%" } }
       );
-    });
+    }
+    if (rightColRef.current) {
+      gsap.fromTo(rightColRef.current,
+        { opacity: 0, y: 80 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 0.25,
+          scrollTrigger: { trigger: rightColRef.current, start: "top 85%" } }
+      );
+    }
   }, []);
 
   return (
-    <div ref={sectionRef} style={{
-      background: "#F1F0CC",
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-    }}>
+    <div ref={sectionRef} style={{ background: BG, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
 
-      {/* Label */}
+      {/* Top label */}
       <div style={{
-        borderBottom: "1px solid rgba(63,13,18,0.15)",
         padding: "14px 40px",
-        fontFamily: "DM Sans, sans-serif",
+        borderBottom: `1px solid ${BORDER}`,
+        fontFamily: "Visuelt, 'DM Sans', sans-serif",
         fontSize: "11px",
         letterSpacing: "0.18em",
         textTransform: "uppercase" as const,
-        color: "rgba(63,13,18,0.55)",
+        color: "rgba(240,235,225,0.3)",
       }}>
         Field Notes:
       </div>
@@ -98,201 +140,97 @@ export default function BlogSection() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "flex-end",
-        borderBottom: "1px solid rgba(63,13,18,0.08)",
+        borderBottom: `1px solid ${BORDER}`,
         gap: "24px",
         flexWrap: "wrap" as const,
       }}>
         <div>
-          <h2 style={{
-            fontFamily: "Cormorant Garamond, serif",
-            fontSize: "clamp(48px, 7vw, 88px)",
+          <div style={{
+            fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
+            fontSize: "clamp(40px, 6vw, 80px)",
             fontWeight: 700,
             lineHeight: 0.9,
-            color: "#3F0D12",
-            letterSpacing: "-0.03em",
+            color: TEXT,
+            letterSpacing: "-0.025em",
             textTransform: "uppercase" as const,
           }}>
             Stories
-          </h2>
-          <h2 style={{
-            fontFamily: "Cormorant Garamond, serif",
-            fontSize: "clamp(48px, 7vw, 88px)",
+          </div>
+          <div style={{
+            fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
+            fontSize: "clamp(40px, 6vw, 80px)",
             fontWeight: 300,
             fontStyle: "italic",
             lineHeight: 0.9,
-            color: "#3F0D12",
-            letterSpacing: "-0.03em",
+            color: TEXT,
+            letterSpacing: "-0.025em",
           }}>
             behind the work
-          </h2>
+          </div>
         </div>
 
+        {/* Read more button */}
         <div
           style={{
             display: "inline-flex",
             alignItems: "center",
             gap: "14px",
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "11px",
             textTransform: "uppercase" as const,
             letterSpacing: "0.16em",
-            color: "#3F0D12",
-            border: "1px solid rgba(63,13,18,0.25)",
+            color: ACCENT,
+            border: `1px solid ${ACCENT}`,
             padding: "14px 24px",
             cursor: "pointer",
             transition: "gap 0.3s, background 0.3s, color 0.3s",
+            flexShrink: 0,
           }}
           onMouseEnter={(e) => {
             const el = e.currentTarget as HTMLDivElement;
-            el.style.background = "#3F0D12";
-            el.style.color = "#F1F0CC";
+            el.style.background = ACCENT;
+            el.style.color = TEXT;
             el.style.gap = "20px";
           }}
           onMouseLeave={(e) => {
             const el = e.currentTarget as HTMLDivElement;
             el.style.background = "transparent";
-            el.style.color = "#3F0D12";
+            el.style.color = ACCENT;
             el.style.gap = "14px";
           }}
         >
-          Read all →
+          Read more blogs →
         </div>
       </div>
 
-      {/* 2x2 Grid */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        flex: 1,
-      }}>
-        {BLOGS.map((blog, i) => (
-          <div
-            key={blog.id}
-            ref={(el) => { cardRefs.current[i] = el; }}
-            style={{
-              background: blog.dark ? "#3F0D12" : "#F1F0CC",
-              borderRight: i % 2 === 0 ? "1px solid rgba(63,13,18,0.1)" : "none",
-              borderBottom: i < 2 ? "1px solid rgba(63,13,18,0.1)" : "none",
-              padding: "32px",
-              display: "flex",
-              flexDirection: "column" as const,
-              justifyContent: "space-between",
-              minHeight: "280px",
-              position: "relative" as const,
-              cursor: "pointer",
-              transition: "padding 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLDivElement).style.paddingBottom = "40px";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLDivElement).style.paddingBottom = "32px";
-            }}
-          >
-            {/* Corner plus marks — like reference */}
-            {[
-              { top: -1, left: -1 },
-              { top: -1, right: -1 },
-              { bottom: -1, left: -1 },
-              { bottom: -1, right: -1 },
-            ].map((pos, j) => (
-              <div key={j} style={{
-                position: "absolute" as const,
-                ...pos,
-                width: "10px",
-                height: "10px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "DM Sans, sans-serif",
-                fontSize: "12px",
-                color: blog.dark ? "rgba(241,240,204,0.2)" : "rgba(63,13,18,0.2)",
-                zIndex: 2,
-              }}>
-                +
-              </div>
-            ))}
+      {/* Staggered 2-column card grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", flex: 1, position: "relative" }}>
 
-            {/* Top meta */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-              <div>
-                <div style={{
-                  fontFamily: "DM Sans, sans-serif",
-                  fontSize: "9px",
-                  textTransform: "uppercase" as const,
-                  letterSpacing: "0.2em",
-                  color: blog.dark ? "rgba(241,240,204,0.45)" : "rgba(63,13,18,0.45)",
-                  marginBottom: "6px",
-                }}>
-                  {blog.category}
-                </div>
-                <div style={{
-                  fontFamily: "DM Sans, sans-serif",
-                  fontSize: "9px",
-                  letterSpacing: "0.1em",
-                  color: blog.dark ? "rgba(241,240,204,0.3)" : "rgba(63,13,18,0.3)",
-                }}>
-                  {blog.date}
-                </div>
-              </div>
-
-              {/* Arrow button */}
-              <div style={{
-                width: "36px",
-                height: "36px",
-                borderRadius: "50%",
-                border: `1px solid ${blog.dark ? "rgba(241,240,204,0.2)" : "rgba(63,13,18,0.2)"}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "DM Sans, sans-serif",
-                fontSize: "14px",
-                color: blog.dark ? "rgba(241,240,204,0.6)" : "rgba(63,13,18,0.6)",
-                transition: "background 0.3s, color 0.3s",
-                cursor: "pointer",
-              }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLDivElement;
-                  el.style.background = "#A71D31";
-                  el.style.color = "#F1F0CC";
-                  el.style.borderColor = "#A71D31";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLDivElement;
-                  el.style.background = "transparent";
-                  el.style.color = blog.dark ? "rgba(241,240,204,0.6)" : "rgba(63,13,18,0.6)";
-                  el.style.borderColor = blog.dark ? "rgba(241,240,204,0.2)" : "rgba(63,13,18,0.2)";
-                }}
-              >
-                ↗
-              </div>
-            </div>
-
-            {/* Bottom content */}
-            <div>
-              <h3 style={{
-                fontFamily: "Cormorant Garamond, serif",
-                fontSize: "clamp(18px, 2.5vw, 26px)",
-                fontWeight: 400,
-                fontStyle: "italic",
-                lineHeight: 1.2,
-                color: blog.dark ? "#F1F0CC" : "#3F0D12",
-                marginBottom: "10px",
-              }}>
-                {blog.title}
-              </h3>
-              <p style={{
-                fontFamily: "DM Sans, sans-serif",
-                fontSize: "11px",
-                lineHeight: 1.7,
-                color: blog.dark ? "rgba(241,240,204,0.5)" : "rgba(63,13,18,0.5)",
-                maxWidth: "240px",
-              }}>
-                {blog.excerpt}
-              </p>
-            </div>
+        {/* Left column — cards 1 & 3 at normal position */}
+        <div ref={leftColRef} style={{ borderRight: `1px solid ${BORDER}` }}>
+          <BlogCard blog={BLOGS[0]} />
+          {/* Inter-card divider with + marks */}
+          <div style={{ height: "1px", background: BORDER, position: "relative" }}>
+            <span style={{ position: "absolute", right: "-5px", top: "-7px", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1 }}>+</span>
+            <span style={{ position: "absolute", left: "0px", top: "-7px", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1 }}>+</span>
           </div>
-        ))}
+          <BlogCard blog={BLOGS[2]} />
+        </div>
+
+        {/* Right column — cards 2 & 4, staggered down 130px */}
+        <div ref={rightColRef} style={{ paddingTop: "130px" }}>
+          <BlogCard blog={BLOGS[1]} />
+          <div style={{ height: "1px", background: BORDER, position: "relative" }}>
+            <span style={{ position: "absolute", right: "0px", top: "-7px", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1 }}>+</span>
+            <span style={{ position: "absolute", left: "-5px", top: "-7px", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1 }}>+</span>
+          </div>
+          <BlogCard blog={BLOGS[3]} />
+        </div>
+
+        {/* + mark at top of column divider */}
+        <div style={{ position: "absolute", left: "50%", top: "0", transform: "translateX(-50%)", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1, pointerEvents: "none" }}>+</div>
+        {/* + mark at bottom of column divider */}
+        <div style={{ position: "absolute", left: "50%", bottom: "0", transform: "translateX(-50%)", color: "rgba(240,235,225,0.3)", fontSize: "11px", lineHeight: 1, pointerEvents: "none" }}>+</div>
       </div>
     </div>
   );

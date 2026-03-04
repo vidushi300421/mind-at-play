@@ -1,18 +1,62 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* ─── CUSTOM FONTS ─── */
+@font-face {
+  font-family: "SangBleuKing";
+  src: url("/fonts/SangBleuKing-Regular.woff2") format("woff2"),
+       url("/fonts/SangBleuKing-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SangBleuKing";
+  src: url("/fonts/SangBleuKing-Light.woff2") format("woff2"),
+       url("/fonts/SangBleuKing-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SangBleuKing";
+  src: url("/fonts/SangBleuKing-Italic.woff2") format("woff2"),
+       url("/fonts/SangBleuKing-Italic.woff") format("woff");
+  font-weight: 300 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SangBleuKing";
+  src: url("/fonts/SangBleuKing-Bold.woff2") format("woff2"),
+       url("/fonts/SangBleuKing-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Visuelt";
+  src: url("/fonts/Visuelt-Light-Web.woff2") format("woff2"),
+       url("/fonts/Visuelt-Light-Web.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback fonts for when custom files aren't yet loaded */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 @theme inline {
-  --color-background: #F1F0CC;
-  --color-foreground: #3F0D12;
-  --color-panel-left: #F1F0CC;
-  --color-panel-right: #F1F0CC;
+  --color-background: #F0EBE1;
+  --color-foreground: #2E3426;
+  --color-panel-left: #F0EBE1;
+  --color-panel-right: #F0EBE1;
   --color-accent-gold: #D5BF86;
-  --color-accent-red: #A71D31;
-  --color-accent-wine: #3F0D12;
-  --color-border: rgba(63, 13, 18, 0.1);
+  --color-accent-red: #F34103;
+  --color-accent-wine: #350D12;
+  --color-border: rgba(46, 52, 38, 0.1);
 
-  --font-serif: "Cormorant Garamond", "Playfair Display", serif;
-  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "SangBleuKing", "Cormorant Garamond", serif;
+  --font-sans: "Visuelt", "DM Sans", sans-serif;
 
   --text-xs:   11px;
   --text-sm:   13px;
@@ -40,9 +84,9 @@
   }
 
   body {
-    background: #F1F0CC;
-    color: #3F0D12;
-    font-family: "DM Sans", sans-serif;
+    background: #F0EBE1;
+    color: #2E3426;
+    font-family: "Visuelt", "DM Sans", sans-serif;
     font-size: 15px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -50,37 +94,37 @@
   }
 
   h1 {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "SangBleuKing", "Cormorant Garamond", serif;
     font-size: clamp(64px, 9vw, 120px);
     font-weight: 300;
     line-height: 0.92;
     letter-spacing: -0.02em;
   }
   h2 {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "SangBleuKing", "Cormorant Garamond", serif;
     font-size: clamp(44px, 6vw, 80px);
     font-weight: 300;
     line-height: 0.95;
     letter-spacing: -0.015em;
   }
   h3 {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "SangBleuKing", "Cormorant Garamond", serif;
     font-size: clamp(32px, 4vw, 52px);
     font-weight: 400;
     line-height: 1.05;
     letter-spacing: -0.01em;
   }
   h4 {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "SangBleuKing", "Cormorant Garamond", serif;
     font-size: clamp(22px, 2.5vw, 34px);
     font-weight: 400;
     line-height: 1.2;
   }
   p {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Visuelt", "DM Sans", sans-serif;
     font-size: 14px;
     line-height: 1.75;
-    color: rgba(63, 13, 18, 0.75);
+    color: rgba(46, 52, 38, 0.75);
   }
 
   a {
@@ -89,7 +133,7 @@
   }
 
   button {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Visuelt", "DM Sans", sans-serif;
     cursor: pointer;
     border: none;
     background: none;
@@ -103,7 +147,7 @@
   top: 0;
   width: 45vw;
   height: 100vh;
-  background: #F1F0CC;
+  background: #F0EBE1;
   z-index: 10;
   padding: 40px 48px;
   display: flex;
@@ -132,16 +176,16 @@
 
 /* ─── TYPOGRAPHY UTILITIES ─── */
 .label {
-  font-family: "DM Sans", sans-serif;
+  font-family: "Visuelt", "DM Sans", sans-serif;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #A71D31;
+  color: #F34103;
   opacity: 0.85;
 }
 
 .serif-display {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "SangBleuKing", "Cormorant Garamond", serif;
   font-weight: 300;
   font-style: italic;
   line-height: 0.95;
@@ -149,7 +193,7 @@
 }
 
 .serif-bold {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "SangBleuKing", "Cormorant Garamond", serif;
   font-weight: 700;
   line-height: 0.92;
   letter-spacing: -0.025em;
@@ -212,7 +256,7 @@ body::after {
 .left-panel { -ms-overflow-style: none; scrollbar-width: none; }
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #F1F0CC; }
+::-webkit-scrollbar-track { background: #F0EBE1; }
 ::-webkit-scrollbar-thumb { background: #D5BF86; border-radius: 2px; }
 
 /* ─── BUTTONS ─── */
@@ -220,9 +264,9 @@ body::after {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #A71D31;
-  color: #F1F0CC;
-  font-family: "DM Sans", sans-serif;
+  background: #F34103;
+  color: #F0EBE1;
+  font-family: "Visuelt", "DM Sans", sans-serif;
   font-size: 13px;
   letter-spacing: 0.06em;
   padding: 14px 32px;
@@ -237,7 +281,7 @@ body::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: #3F0D12;
+  background: #350D12;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -257,25 +301,25 @@ body::after {
   align-items: center;
   gap: 8px;
   background: transparent;
-  color: #3F0D12;
-  font-family: "DM Sans", sans-serif;
+  color: #2E3426;
+  font-family: "Visuelt", "DM Sans", sans-serif;
   font-size: 13px;
   letter-spacing: 0.06em;
   padding: 13px 31px;
-  border: 1px solid rgba(63, 13, 18, 0.3);
+  border: 1px solid rgba(46, 52, 38, 0.3);
   cursor: pointer;
   transition: border-color 0.3s, color 0.3s;
 }
 
 .btn-outline:hover {
-  border-color: #A71D31;
-  color: #A71D31;
+  border-color: #F34103;
+  color: #F34103;
 }
 
 /* ─── CARDS ─── */
 .card {
-  background: #F1F0CC;
-  border: 1px solid rgba(63, 13, 18, 0.1);
+  background: #F0EBE1;
+  border: 1px solid rgba(46, 52, 38, 0.1);
   padding: 32px;
   position: relative;
   overflow: hidden;
@@ -283,8 +327,8 @@ body::after {
 }
 
 .card-dark {
-  background: #3F0D12;
-  color: #F1F0CC;
+  background: #350D12;
+  color: #F0EBE1;
   border: 1px solid rgba(213, 191, 134, 0.2);
 }
 
@@ -305,13 +349,13 @@ body::after {
 
 /* ─── SECTION LABELS ─── */
 .section-label {
-  font-family: "DM Sans", sans-serif;
+  font-family: "Visuelt", "DM Sans", sans-serif;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #3F0D12;
+  color: #2E3426;
   opacity: 0.55;
-  border-bottom: 1px solid rgba(63, 13, 18, 0.15);
+  border-bottom: 1px solid rgba(46, 52, 38, 0.15);
   padding: 14px 40px;
 }
 
@@ -319,7 +363,7 @@ body::after {
 .divider {
   width: 100%;
   height: 1px;
-  background: rgba(63, 13, 18, 0.12);
+  background: rgba(46, 52, 38, 0.12);
 }
 
 .divider-gold {
@@ -340,9 +384,9 @@ body::after {
   position: absolute;
   top: 20px;
   left: 0;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Visuelt", "DM Sans", sans-serif;
   font-size: 14px;
-  color: rgba(63, 13, 18, 0.45);
+  color: rgba(46, 52, 38, 0.45);
   transition: top 0.25s ease, font-size 0.25s ease, color 0.25s ease;
   pointer-events: none;
 }
@@ -351,24 +395,24 @@ body::after {
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(63, 13, 18, 0.25);
+  border-bottom: 1px solid rgba(46, 52, 38, 0.25);
   padding: 10px 0;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Visuelt", "DM Sans", sans-serif;
   font-size: 15px;
-  color: #3F0D12;
+  color: #2E3426;
   outline: none;
   transition: border-color 0.3s ease;
 }
 
 .field-input:focus {
-  border-bottom-color: #A71D31;
+  border-bottom-color: #F34103;
 }
 
 .field-input:focus + .field-label,
 .field-input:not(:placeholder-shown) + .field-label {
   top: 0;
   font-size: 11px;
-  color: #A71D31;
+  color: #F34103;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -382,7 +426,7 @@ body::after {
     flex-direction: row;
     align-items: center;
     padding: 0 24px;
-    border-bottom: 1px solid rgba(63, 13, 18, 0.15);
+    border-bottom: 1px solid rgba(46, 52, 38, 0.15);
     z-index: 50;
   }
 

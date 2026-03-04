@@ -84,7 +84,7 @@ export default function InnerWorldSection() {
       ref={outerRef}
       style={{
         height: `${PILLS.length * 100 + 100}vh`,
-        background: "#3F0D12",
+        background: "#2E3426",
         position: "relative",
       }}
     >
@@ -101,12 +101,12 @@ export default function InnerWorldSection() {
         {/* Top label */}
         <div style={{
           padding: "20px 48px",
-          borderBottom: "1px solid rgba(241,240,204,0.1)",
-          fontFamily: "DM Sans, sans-serif",
+          borderBottom: "1px solid rgba(240,235,225,0.1)",
+          fontFamily: "Visuelt, 'DM Sans', sans-serif",
           fontSize: "11px",
           letterSpacing: "0.18em",
           textTransform: "uppercase",
-          color: "rgba(241,240,204,0.4)",
+          color: "rgba(240,235,225,0.4)",
           flexShrink: 0,
         }}>
           Inner World:
@@ -117,7 +117,7 @@ export default function InnerWorldSection() {
           flexShrink: 0,
           overflow: "hidden",
           padding: "32px 0 24px",
-          borderBottom: "1px solid rgba(241,240,204,0.08)",
+          borderBottom: "1px solid rgba(240,235,225,0.08)",
         }}>
           <div style={{
             display: "flex",
@@ -131,11 +131,11 @@ export default function InnerWorldSection() {
             {/* Repeat words twice for seamless feel */}
             {[...BIG_WORDS, ...BIG_WORDS].map((word, i) => (
               <span key={i} style={{
-                fontFamily: "Cormorant Garamond, serif",
+                fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
                 fontSize: "clamp(56px, 8vw, 110px)",
                 fontWeight: 300,
                 fontStyle: i % 2 === 0 ? "normal" : "italic",
-                color: i % 3 === 0 ? "#F1F0CC" : i % 3 === 1 ? "#D5BF86" : "rgba(241,240,204,0.25)",
+                color: i % 3 === 0 ? "#F0EBE1" : i % 3 === 1 ? "#D5BF86" : "rgba(240,235,225,0.25)",
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
                 userSelect: "none",
@@ -183,11 +183,11 @@ export default function InnerWorldSection() {
             right: "48px",
             display: "flex",
             justifyContent: "space-between",
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "10px",
             textTransform: "uppercase",
             letterSpacing: "0.15em",
-            color: "rgba(241,240,204,0.3)",
+            color: "rgba(240,235,225,0.3)",
           }}>
             <span>Low Arousal</span>
             <span>← Performance →</span>
@@ -200,11 +200,11 @@ export default function InnerWorldSection() {
             left: "16px",
             top: "50%",
             transform: "translateY(-50%) rotate(-90deg)",
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "10px",
             textTransform: "uppercase",
             letterSpacing: "0.15em",
-            color: "rgba(241,240,204,0.3)",
+            color: "rgba(240,235,225,0.3)",
             whiteSpace: "nowrap",
           }}>
             Performance
@@ -225,12 +225,12 @@ export default function InnerWorldSection() {
               }}
             >
               <div style={{
-                fontFamily: "DM Sans, sans-serif",
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
                 fontSize: "11px",
                 textTransform: "uppercase",
                 letterSpacing: "0.14em",
-                color: "#3F0D12",
-                background: i === 4 ? "#D5BF86" : "#F1F0CC", // peak is gold
+                color: "#2E3426",
+                background: i === 4 ? "#D5BF86" : "#F0EBE1", // peak is gold
                 padding: "8px 16px",
                 borderRadius: "100px",
                 whiteSpace: "nowrap",
@@ -240,11 +240,11 @@ export default function InnerWorldSection() {
               </div>
               {/* Category label below pill */}
               <div style={{
-                fontFamily: "DM Sans, sans-serif",
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
                 fontSize: "9px",
                 textTransform: "uppercase",
                 letterSpacing: "0.12em",
-                color: "rgba(241,240,204,0.35)",
+                color: "rgba(240,235,225,0.35)",
                 textAlign: "center",
                 marginTop: "6px",
               }}>

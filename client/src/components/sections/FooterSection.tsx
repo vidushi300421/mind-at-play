@@ -93,7 +93,7 @@ export default function FooterSection() {
       ref={outerRef}
       style={{
         position: "relative",
-        background: "#3F0D12",
+        background: "#1C1A17",
         overflow: "hidden",
         minHeight: "100vh",
         display: "flex",
@@ -114,11 +114,11 @@ export default function FooterSection() {
         }}
       >
         <div style={{
-          fontFamily: "Cormorant Garamond, serif",
+          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
           fontSize: "clamp(100px, 18vw, 240px)",
           fontWeight: 700,
           lineHeight: 0.85,
-          color: "rgba(241,240,204,0.03)",
+          color: "rgba(240,235,225,0.03)",
           letterSpacing: "-0.04em",
           textTransform: "uppercase" as const,
           userSelect: "none",
@@ -153,26 +153,26 @@ export default function FooterSection() {
           position: "relative",
           zIndex: 1,
           padding: "80px 48px 0",
-          borderBottom: "1px solid rgba(241,240,204,0.08)",
+          borderBottom: "1px solid rgba(240,235,225,0.08)",
           paddingBottom: "48px",
         }}
       >
         <div style={{
-          fontFamily: "DM Sans, sans-serif",
+          fontFamily: "Visuelt, 'DM Sans', sans-serif",
           fontSize: "10px",
           textTransform: "uppercase" as const,
           letterSpacing: "0.22em",
-          color: "rgba(241,240,204,0.3)",
+          color: "rgba(240,235,225,0.3)",
           marginBottom: "24px",
         }}>
           Sports Psychologist · Mumbai, India
         </div>
         <div style={{
-          fontFamily: "Cormorant Garamond, serif",
+          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
           fontSize: "clamp(52px, 9vw, 130px)",
           fontWeight: 300,
           lineHeight: 0.88,
-          color: "#F1F0CC",
+          color: "#F0EBE1",
           letterSpacing: "-0.03em",
         }}>
           Adishri<br />
@@ -190,25 +190,25 @@ export default function FooterSection() {
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
           gap: "0",
-          borderBottom: "1px solid rgba(241,240,204,0.08)",
+          borderBottom: "1px solid rgba(240,235,225,0.08)",
         }}
       >
         {/* Col 1 — tagline */}
         <div className="footer-reveal" style={{
           padding: "48px",
-          borderRight: "1px solid rgba(241,240,204,0.08)",
+          borderRight: "1px solid rgba(240,235,225,0.08)",
           display: "flex",
           flexDirection: "column" as const,
           justifyContent: "space-between",
           gap: "40px",
         }}>
           <p style={{
-            fontFamily: "Cormorant Garamond, serif",
+            fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
             fontSize: "clamp(20px, 2.5vw, 28px)",
             fontWeight: 300,
             fontStyle: "italic",
             lineHeight: 1.4,
-            color: "rgba(241,240,204,0.7)",
+            color: "rgba(240,235,225,0.7)",
           }}>
             "The mind is the athlete's most powerful muscle — and the most neglected."
           </p>
@@ -217,9 +217,9 @@ export default function FooterSection() {
               display: "inline-flex",
               alignItems: "center",
               gap: "12px",
-              backgroundColor: "#A71D31",
-              color: "#F1F0CC",
-              fontFamily: "DM Sans, sans-serif",
+              backgroundColor: "#F34103",
+              color: "#F0EBE1",
+              fontFamily: "Visuelt, 'DM Sans', sans-serif",
               fontSize: "11px",
               letterSpacing: "0.14em",
               textTransform: "uppercase" as const,
@@ -230,14 +230,14 @@ export default function FooterSection() {
             }}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLDivElement;
-              el.style.backgroundColor = "#F1F0CC";
-              el.style.color = "#3F0D12";
+              el.style.backgroundColor = "#F0EBE1";
+              el.style.color = "#1C1A17";
               el.style.gap = "20px";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLDivElement;
-              el.style.backgroundColor = "#A71D31";
-              el.style.color = "#F1F0CC";
+              el.style.backgroundColor = "#F34103";
+              el.style.color = "#F0EBE1";
               el.style.gap = "12px";
             }}
           >
@@ -248,14 +248,14 @@ export default function FooterSection() {
         {/* Col 2 — nav */}
         <div className="footer-reveal" style={{
           padding: "48px",
-          borderRight: "1px solid rgba(241,240,204,0.08)",
+          borderRight: "1px solid rgba(240,235,225,0.08)",
         }}>
           <div style={{
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "9px",
             textTransform: "uppercase" as const,
             letterSpacing: "0.22em",
-            color: "rgba(241,240,204,0.25)",
+            color: "rgba(240,235,225,0.25)",
             marginBottom: "24px",
           }}>
             Navigate
@@ -264,10 +264,10 @@ export default function FooterSection() {
             <div
               key={link}
               style={{
-                fontFamily: "Cormorant Garamond, serif",
+                fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
                 fontSize: "clamp(18px, 2vw, 24px)",
                 fontWeight: 300,
-                color: "rgba(241,240,204,0.55)",
+                color: "rgba(240,235,225,0.55)",
                 marginBottom: "10px",
                 cursor: "pointer",
                 transition: "color 0.3s, padding-left 0.3s",
@@ -280,7 +280,7 @@ export default function FooterSection() {
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLDivElement;
-                el.style.color = "rgba(241,240,204,0.55)";
+                el.style.color = "rgba(240,235,225,0.55)";
                 el.style.paddingLeft = "0";
               }}
             >
@@ -292,11 +292,11 @@ export default function FooterSection() {
         {/* Col 3 — connect */}
         <div className="footer-reveal" style={{ padding: "48px" }}>
           <div style={{
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "9px",
             textTransform: "uppercase" as const,
             letterSpacing: "0.22em",
-            color: "rgba(241,240,204,0.25)",
+            color: "rgba(240,235,225,0.25)",
             marginBottom: "24px",
           }}>
             Connect
@@ -305,10 +305,10 @@ export default function FooterSection() {
             <div
               key={link}
               style={{
-                fontFamily: "Cormorant Garamond, serif",
+                fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
                 fontSize: "clamp(18px, 2vw, 24px)",
                 fontWeight: 300,
-                color: "rgba(241,240,204,0.55)",
+                color: "rgba(240,235,225,0.55)",
                 marginBottom: "10px",
                 cursor: "pointer",
                 transition: "color 0.3s, padding-left 0.3s",
@@ -321,7 +321,7 @@ export default function FooterSection() {
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLDivElement;
-                el.style.color = "rgba(241,240,204,0.55)";
+                el.style.color = "rgba(240,235,225,0.55)";
                 el.style.paddingLeft = "0";
               }}
             >
@@ -339,9 +339,9 @@ export default function FooterSection() {
           }} />
 
           <div style={{
-            fontFamily: "DM Sans, sans-serif",
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "12px",
-            color: "rgba(241,240,204,0.35)",
+            color: "rgba(240,235,225,0.35)",
             lineHeight: 1.7,
           }}>
             adishri@mindatplay.in<br />
@@ -365,18 +365,18 @@ export default function FooterSection() {
         }}
       >
         <div style={{
-          fontFamily: "DM Sans, sans-serif",
+          fontFamily: "Visuelt, 'DM Sans', sans-serif",
           fontSize: "10px",
-          color: "rgba(241,240,204,0.2)",
+          color: "rgba(240,235,225,0.2)",
           letterSpacing: "0.08em",
         }}>
           © 2025 Adishri Dubey. All rights reserved.
         </div>
         <div style={{
-          fontFamily: "Cormorant Garamond, serif",
+          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
           fontSize: "11px",
           fontStyle: "italic",
-          color: "rgba(241,240,204,0.15)",
+          color: "rgba(240,235,225,0.15)",
         }}>
           Mind at Play — Built with intention.
         </div>

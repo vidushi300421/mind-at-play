@@ -43,7 +43,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   const handleMouseLeave = (index: number) => {
     const link = linksRef.current[index];
     if (!link) return;
-    gsap.to(link.querySelector(".link-text"), { color: "#F1F0CC", duration: 0.3 });
+    gsap.to(link.querySelector(".link-text"), { color: "#F0EBE1", duration: 0.3 });
     gsap.to(link.querySelector(".link-num"), { opacity: 0, x: -10, duration: 0.3 });
     gsap.to(link.querySelector(".link-line"), { scaleX: 0, duration: 0.3, ease: "power3.in" });
   };
@@ -51,7 +51,8 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   return (
     <div 
       ref={overlayRef}
-      className="fixed inset-0 z-[100] bg-[#3F0D12] translate-x-[-100%] flex"
+      className="fixed inset-0 z-[100] translate-x-[-100%] flex"
+      style={{ background: "#350D12" }}
     >
       <button 
         onClick={onClose}
@@ -80,7 +81,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
               <span className="link-num font-sans text-[#D5BF86] text-[14px] absolute -left-8 opacity-0 -translate-x-2">
                 {(i + 1).toString().padStart(2, '0')}
               </span>
-              <span className="link-text font-serif text-[clamp(40px,5vw,72px)] text-[#F1F0CC] leading-[1.1]">
+              <span className="link-text font-serif text-[clamp(40px,5vw,72px)] text-[#F0EBE1] leading-[1.1]">
                 {link}
               </span>
             </div>
@@ -91,12 +92,12 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
 
       {/* Right side decoration */}
       <div className="flex-1 relative flex flex-col justify-between items-end pr-12 pb-12 overflow-hidden pointer-events-none">
-        <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 rotate-90 origin-center font-serif text-[28vw] text-[#F1F0CC] opacity-[0.08] leading-none select-none">
+        <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 rotate-90 origin-center font-serif text-[28vw] text-[#F0EBE1] opacity-[0.08] leading-none select-none">
           ADISHRI
         </div>
         <div className="mt-auto flex flex-col items-end gap-1">
-          <div className="font-sans text-[13px] text-[#F1F0CC] opacity-60">hello@adishridubey.com</div>
-          <div className="font-sans text-[13px] text-[#F1F0CC] opacity-60">@adishridubey</div>
+          <div className="font-sans text-[13px] text-[#F0EBE1] opacity-60">hello@adishridubey.com</div>
+          <div className="font-sans text-[13px] text-[#F0EBE1] opacity-60">@adishridubey</div>
         </div>
       </div>
     </div>

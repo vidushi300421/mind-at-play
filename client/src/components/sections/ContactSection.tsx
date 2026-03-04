@@ -50,8 +50,18 @@ export default function ContactSection() {
     }
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!values.name || !values.email) return;
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) return;
+    } catch {
+      // fail silently — still show success to user
+    }
     gsap.to(formRef.current, {
       opacity: 0, y: -20, duration: 0.4, ease: "power2.in",
       onComplete: () => setSubmitted(true),

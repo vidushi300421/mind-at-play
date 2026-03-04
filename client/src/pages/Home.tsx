@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LoadingScreen from "@/components/LoadingScreen";
 import LeftPanel from "@/components/LeftPanel";
+import NavBar from "@/components/NavBar";
 import MenuOverlay from "@/components/MenuOverlay";
 import HeroSection from "@/components/sections/HeroSection";
 import InnerWorldSection from "@/components/sections/InnerWorldSection";
@@ -27,7 +28,7 @@ export default function Home() {
     const timeout = setTimeout(() => {
       ScrollTrigger.refresh();
 
-      // Hide panel for InnerWorld
+      // ── Hide panel for InnerWorld (full-width) ──
       const el = innerWorldRef.current;
       if (el) {
         ScrollTrigger.create({
@@ -41,7 +42,7 @@ export default function Home() {
         });
       }
 
-      // Hide panel for Footer
+      // ── Hide panel for Footer ──
       const ft = footerRef.current;
       if (ft) {
         ScrollTrigger.create({
@@ -55,16 +56,66 @@ export default function Home() {
         });
       }
 
-      const sections = gsap.utils.toArray(".section-panel") as HTMLElement[];
-      sections.forEach((section, index) => {
+      // ── Left panel text state per section ──
+      // State indices in LeftPanel:
+      // 0 → "THE MIND BEHIND THE ATHLETE"  (Hero intro)
+      // 1 → "BUILDING / MENTAL / ARMOUR"   (Services)
+      // 2 → "MIND / MEETS / SPORT"          (Blog)
+      // 3 → "WHAT / LIVES / INSIDE"         (unused / Inner world)
+      // 4 → "YOUR / NEXT / LEVEL"           (Pricing)
+      // 5 → "READY / TO / PERFORM?"         (Contact)
+
+      const heroIntro = document.getElementById("hero-intro");
+      if (heroIntro) {
         ScrollTrigger.create({
-          trigger: section,
-          start: "top 40%",
-          end: "bottom 40%",
-          onEnter: () => setActiveSection(index + 1),
-          onEnterBack: () => setActiveSection(index + 1),
+          trigger: heroIntro,
+          start: "top 60%",
+          onEnter: () => setActiveSection(1),
+          onEnterBack: () => setActiveSection(1),
         });
-      });
+      }
+
+      const heroServices = document.getElementById("hero-services");
+      if (heroServices) {
+        ScrollTrigger.create({
+          trigger: heroServices,
+          start: "top 60%",
+          end: "bottom 40%",
+          onEnter: () => setActiveSection(2),
+          onEnterBack: () => setActiveSection(2),
+          onLeaveBack: () => setActiveSection(1),
+        });
+      }
+
+      const pricing = document.getElementById("section-3");
+      if (pricing) {
+        ScrollTrigger.create({
+          trigger: pricing,
+          start: "top 40%",
+          onEnter: () => setActiveSection(5),
+          onEnterBack: () => setActiveSection(5),
+        });
+      }
+
+      const contact = document.getElementById("section-4");
+      if (contact) {
+        ScrollTrigger.create({
+          trigger: contact,
+          start: "top 40%",
+          onEnter: () => setActiveSection(6),
+          onEnterBack: () => setActiveSection(6),
+        });
+      }
+
+      const blog = document.getElementById("section-5");
+      if (blog) {
+        ScrollTrigger.create({
+          trigger: blog,
+          start: "top 40%",
+          onEnter: () => setActiveSection(3),
+          onEnterBack: () => setActiveSection(3),
+        });
+      }
     }, 100);
 
     return () => {
@@ -75,6 +126,9 @@ export default function Home() {
 
   return (
     <div className="w-full relative bg-background">
+      {/* NavBar — always on top */}
+      <NavBar />
+
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
       {!loading && (
@@ -97,25 +151,23 @@ export default function Home() {
 
           {/* Hero — right panel */}
           <div style={{ marginLeft: "45vw", width: "55vw" }}>
-            <div id="section-1">
-              <HeroSection />
-            </div>
+            <HeroSection />
           </div>
 
           {/* InnerWorld — full screen */}
-          <div ref={innerWorldRef} style={{ width: "100vw", marginLeft: 0 }}>
+          <div id="innerworld" ref={innerWorldRef} style={{ width: "100vw", marginLeft: 0 }}>
             <InnerWorldSection />
           </div>
 
           {/* Pricing + Contact + Blog — right panel */}
           <div style={{ marginLeft: "45vw", width: "55vw" }}>
-            <div className="section-panel" id="section-3">
+            <div id="section-3">
               <PricingSection />
             </div>
-            <div className="section-panel" id="section-4">
+            <div id="section-4">
               <ContactSection />
             </div>
-            <div className="section-panel" id="section-5">
+            <div id="section-5">
               <BlogSection />
             </div>
           </div>

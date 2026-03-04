@@ -19,7 +19,6 @@ const SERVICES = [
   { id: "s6", name: "Workshops",                sub: "For clubs & academies" },
 ];
 
-// Stack offsets — cards behind are offset and rotated
 const STACK_OFFSETS = [
   { x: 0,   y: 0,   rotate: 0  },
   { x: 10,  y: -12, rotate: 4  },
@@ -83,7 +82,6 @@ export default function HeroSection() {
   const phase2Ref = useRef<HTMLDivElement>(null);
   const prevVisible = useRef(1);
 
-  // Animate a card flying up
   const flyCardIn = (index: number) => {
     const el = cardRefs.current[index];
     if (!el) return;
@@ -93,20 +91,16 @@ export default function HeroSection() {
     );
   };
 
-  // Single scroll listener driving both phases
   useEffect(() => {
     const handleScroll = () => {
-      // ── Phase 1: card stacking ──
+      // Phase 1: card stacking
       const p1 = phase1Ref.current;
       if (p1) {
         const rect = p1.getBoundingClientRect();
         const scrolled = -rect.top;
         const total = rect.height - window.innerHeight;
         const progress = Math.max(0, Math.min(scrolled / total, 1));
-        const count = Math.min(
-          Math.floor(progress * CARDS.length) + 1,
-          CARDS.length
-        );
+        const count = Math.min(Math.floor(progress * CARDS.length) + 1, CARDS.length);
         if (count !== prevVisible.current) {
           prevVisible.current = count;
           setVisibleCards(count);
@@ -114,7 +108,7 @@ export default function HeroSection() {
         }
       }
 
-      // ── Phase 2: horizontal services ──
+      // Phase 2: horizontal services
       const p2 = phase2Ref.current;
       if (p2) {
         const rect = p2.getBoundingClientRect();
@@ -129,7 +123,6 @@ export default function HeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // How far the service strip shifts horizontally
   const CIRCLE_SIZE = 340;
   const CIRCLE_GAP = 48;
   const totalServicesWidth = SERVICES.length * (CIRCLE_SIZE + CIRCLE_GAP);
@@ -139,13 +132,14 @@ export default function HeroSection() {
   return (
     <>
       {/* ══════════════════════════════════════════
-          PHASE 1 — CARD STACKING
+          PHASE 1 — CARD STACKING  (#350D12 dark)
       ══════════════════════════════════════════ */}
       <div
+        id="hero-intro"
         ref={phase1Ref}
         style={{
           height: `${CARDS.length * 100}vh`,
-          background: "#F0EBE1",
+          background: "#350D12",
           position: "relative",
         }}
       >
@@ -156,27 +150,27 @@ export default function HeroSection() {
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          background: "#F0EBE1",
+          background: "#350D12",
         }}>
 
           {/* Intro label */}
           <div style={{
-            borderBottom: "1px solid rgba(46,52,38,0.15)",
+            borderBottom: "1px solid rgba(240,235,225,0.15)",
             padding: "14px 40px",
             fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "11px",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "rgba(46,52,38,0.55)",
+            color: "rgba(240,235,225,0.5)",
             flexShrink: 0,
           }}>
             Intro:
           </div>
 
-          {/* Tab labels — light up as cards stack */}
+          {/* Tab labels */}
           <div style={{
             display: "flex",
-            borderBottom: "1px solid rgba(46,52,38,0.12)",
+            borderBottom: "1px solid rgba(240,235,225,0.12)",
             padding: "0 40px",
             flexShrink: 0,
             position: "relative",
@@ -188,14 +182,14 @@ export default function HeroSection() {
                 textTransform: "uppercase",
                 letterSpacing: "0.14em",
                 padding: "16px 20px",
-                color: i < visibleCards ? "#F34103" : "#2E3426",
+                color: i < visibleCards ? "#F34103" : "#F0EBE1",
                 opacity: i < visibleCards ? 1 : 0.3,
                 transition: "color 0.4s, opacity 0.4s",
               }}>
                 {c.title}
               </div>
             ))}
-            {/* Sliding underline under active label */}
+            {/* Sliding underline */}
             <div style={{
               position: "absolute",
               bottom: "-1px",
@@ -218,19 +212,6 @@ export default function HeroSection() {
             position: "relative",
             overflow: "hidden",
           }}>
-
-            {/* Topo SVG */}
-            <svg style={{
-              position: "absolute", inset: 0,
-              width: "100%", height: "100%",
-              opacity: 0.06, pointerEvents: "none",
-            }} viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-              <path d="M400,300 C450,220 560,210 575,300 C590,390 510,440 400,425 C290,410 205,360 220,300 C235,240 350,230 400,300Z" fill="none" stroke="#2E3426" strokeWidth="1"/>
-              <path d="M400,300 C470,190 600,175 620,300 C640,425 545,485 400,465 C255,445 130,375 150,300 C170,225 330,185 400,300Z" fill="none" stroke="#2E3426" strokeWidth="0.9"/>
-              <path d="M400,300 C490,160 640,140 665,300 C690,460 580,530 400,505 C220,480 55,390 80,300 C105,210 310,140 400,300Z" fill="none" stroke="#2E3426" strokeWidth="0.8"/>
-              <path d="M400,300 C510,130 680,105 710,300 C740,495 615,575 400,545 C185,515 -20,405 10,300 C40,195 290,95 400,300Z" fill="none" stroke="#2E3426" strokeWidth="0.7"/>
-            </svg>
-
             {/* The stack */}
             <div style={{ position: "relative", width: "300px", height: "380px" }}>
               {Array.from({ length: visibleCards }).map((_, stackPos) => {
@@ -247,8 +228,8 @@ export default function HeroSection() {
                     style={{
                       position: "absolute",
                       inset: 0,
-                      background: card.dark ? "#350D12" : "#F0EBE1",
-                      border: `1.5px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.18)"}`,
+                      background: card.dark ? "#1A0508" : "#F0EBE1",
+                      border: `1.5px solid ${card.dark ? "#D5BF86" : "rgba(240,235,225,0.35)"}`,
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
@@ -257,16 +238,15 @@ export default function HeroSection() {
                       transform: `translate(${offset.x}px, ${offset.y}px) rotate(${offset.rotate}deg)`,
                       zIndex: CARDS.length - stackPos,
                       boxShadow: isTop
-                        ? "0 16px 48px rgba(46,52,38,0.13)"
-                        : "0 4px 16px rgba(46,52,38,0.06)",
+                        ? "0 20px 56px rgba(0,0,0,0.5)"
+                        : "0 6px 20px rgba(0,0,0,0.3)",
                     }}
                   >
-                    {/* Corner bracket */}
                     <div style={{
                       position: "absolute", top: 14, right: 14,
                       width: 16, height: 16,
-                      borderTop: `1px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.18)"}`,
-                      borderRight: `1px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.18)"}`,
+                      borderTop: `1px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.2)"}`,
+                      borderRight: `1px solid ${card.dark ? "#D5BF86" : "rgba(46,52,38,0.2)"}`,
                     }}/>
 
                     {isTop && (
@@ -289,7 +269,7 @@ export default function HeroSection() {
                         <p style={{
                           fontFamily: "Visuelt, 'DM Sans', sans-serif",
                           fontSize: "12px",
-                          opacity: 0.6,
+                          opacity: 0.65,
                           maxWidth: "195px",
                           lineHeight: 1.8,
                           textAlign: "center",
@@ -321,7 +301,7 @@ export default function HeroSection() {
               bottom: "36px", right: "36px",
               fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
               fontSize: "13px",
-              color: "rgba(46,52,38,0.35)",
+              color: "rgba(240,235,225,0.35)",
               letterSpacing: "0.1em",
             }}>
               {String(visibleCards).padStart(2, "0")} / {String(CARDS.length).padStart(2, "0")}
@@ -331,13 +311,14 @@ export default function HeroSection() {
       </div>
 
       {/* ══════════════════════════════════════════
-          PHASE 2 — SERVICES HORIZONTAL SCROLL
+          PHASE 2 — SERVICES HORIZONTAL SCROLL  (#1D2117 dark olive)
       ══════════════════════════════════════════ */}
       <div
+        id="hero-services"
         ref={phase2Ref}
         style={{
           height: `${SERVICES.length * 100}vh`,
-          background: "#F0EBE1",
+          background: "#1D2117",
           position: "relative",
         }}
       >
@@ -348,18 +329,18 @@ export default function HeroSection() {
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
-          background: "#F0EBE1",
+          background: "#1D2117",
         }}>
 
           {/* Section label */}
           <div style={{
-            borderBottom: "1px solid rgba(46,52,38,0.15)",
+            borderBottom: "1px solid rgba(240,235,225,0.12)",
             padding: "14px 40px",
             fontFamily: "Visuelt, 'DM Sans', sans-serif",
             fontSize: "11px",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "rgba(46,52,38,0.55)",
+            color: "rgba(240,235,225,0.5)",
             flexShrink: 0,
           }}>
             Services:
@@ -390,7 +371,7 @@ export default function HeroSection() {
                     width: `${CIRCLE_SIZE}px`,
                     height: `${CIRCLE_SIZE}px`,
                     borderRadius: "50%",
-                    border: "1.5px solid rgba(46,52,38,0.25)",
+                    border: "1.5px solid rgba(240,235,225,0.2)",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -402,10 +383,10 @@ export default function HeroSection() {
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLDivElement).style.borderColor = "#F34103";
-                    (e.currentTarget as HTMLDivElement).style.background = "rgba(243,65,3,0.04)";
+                    (e.currentTarget as HTMLDivElement).style.background = "rgba(243,65,3,0.08)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(46,52,38,0.25)";
+                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(240,235,225,0.2)";
                     (e.currentTarget as HTMLDivElement).style.background = "transparent";
                   }}
                 >
@@ -414,7 +395,7 @@ export default function HeroSection() {
                     fontSize: "11px",
                     textTransform: "uppercase",
                     letterSpacing: "0.16em",
-                    color: "#2E3426",
+                    color: "#F0EBE1",
                     textAlign: "center",
                     maxWidth: "180px",
                     lineHeight: 1.5,
@@ -426,7 +407,7 @@ export default function HeroSection() {
                     fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
                     fontSize: "14px",
                     fontStyle: "italic",
-                    color: "rgba(46,52,38,0.5)",
+                    color: "rgba(240,235,225,0.5)",
                     textAlign: "center",
                     maxWidth: "160px",
                   }}>
@@ -446,7 +427,7 @@ export default function HeroSection() {
             fontSize: "10px",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
-            color: "rgba(46,52,38,0.35)",
+            color: "rgba(240,235,225,0.35)",
           }}>
             Scroll to explore →
           </div>

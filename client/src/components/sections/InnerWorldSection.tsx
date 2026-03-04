@@ -84,7 +84,7 @@ export default function InnerWorldSection() {
       ref={outerRef}
       style={{
         height: `${PILLS.length * 100 + 100}vh`,
-        background: "#2E3426",
+        background: "#C03200",
         position: "relative",
       }}
     >

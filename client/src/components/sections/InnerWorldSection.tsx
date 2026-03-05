@@ -77,10 +77,10 @@ export default function InnerWorldSection() {
   const shift = textOffset * TEXT_TRAVEL;
 
   // Colors (section-scoped)
-  const BG = "#B83A16";              // deeper burnt orange
-  const INK = "#1C1F16";             // deep ink for pills text
+  const BG    = "#B83A16";    // deeper burnt orange
+  const INK   = "#1C1F16";    // deep ink for pills text
   const CREAM = "#F0EBE1";
-  const GOLD = "#D5BF86";
+  const SAGE  = "#6C8E7D";    // replaces former gold
 
   return (
     <div
@@ -104,7 +104,7 @@ export default function InnerWorldSection() {
         {/* Editorial Title Bar */}
         <div
           style={{
-            padding: "22px 48px",
+            padding: "22px var(--gutter)",
             borderBottom: "1px solid rgba(240,235,225,0.14)",
             display: "flex",
             alignItems: "baseline",
@@ -115,7 +115,7 @@ export default function InnerWorldSection() {
         >
           <div
             style={{
-              fontFamily: "Playfair Display, SangBleuKing, serif",
+              fontFamily: "var(--font-serif)",
               fontSize: "26px",
               fontWeight: 700,
               letterSpacing: "-0.02em",
@@ -128,7 +128,7 @@ export default function InnerWorldSection() {
 
           <div
             style={{
-              fontFamily: "Cabinet Grotesk, Visuelt, 'DM Sans', sans-serif",
+              fontFamily: "var(--font-sans)",
               fontSize: "13px",
               fontWeight: 600,
               letterSpacing: "0.12em",
@@ -156,7 +156,7 @@ export default function InnerWorldSection() {
               transform: `translateX(-${shift}vw)`,
               transition: "transform 0.08s linear",
               willChange: "transform",
-              paddingLeft: "48px",
+              paddingLeft: "var(--gutter)",
               whiteSpace: "nowrap",
             }}
           >
@@ -164,7 +164,7 @@ export default function InnerWorldSection() {
               <span
                 key={i}
                 style={{
-                  fontFamily: "Playfair Display, SangBleuKing, serif",
+                  fontFamily: "var(--font-serif)",
                   fontSize: "clamp(64px, 9vw, 132px)",
                   fontWeight: i % 2 === 0 ? 700 : 500,
                   fontStyle: i % 3 === 0 ? "italic" : "normal",
@@ -172,7 +172,7 @@ export default function InnerWorldSection() {
                     i % 3 === 0
                       ? CREAM
                       : i % 3 === 1
-                        ? GOLD
+                        ? SAGE
                         : "rgba(240,235,225,0.22)",
                   lineHeight: 0.95,
                   letterSpacing: "-0.03em",
@@ -216,17 +216,17 @@ export default function InnerWorldSection() {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            {/* dashed gold line on top */}
+            {/* dashed sage line on top */}
             <path
               d={`M ${CURVE_POINTS.map((p) => `${p.x},${p.y}`).join(" L ")}`}
               fill="none"
-              stroke={GOLD}
+              stroke={SAGE}
               strokeWidth="0.9"
               strokeDasharray="3 3"
               vectorEffect="non-scaling-stroke"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity={0.7}
+              opacity={0.65}
             />
           </svg>
 
@@ -235,11 +235,11 @@ export default function InnerWorldSection() {
             style={{
               position: "absolute",
               bottom: "22px",
-              left: "48px",
-              right: "48px",
+              left: "var(--gutter)",
+              right: "var(--gutter)",
               display: "flex",
               justifyContent: "space-between",
-              fontFamily: "Cabinet Grotesk, Visuelt, 'DM Sans', sans-serif",
+              fontFamily: "var(--font-sans)",
               fontSize: "12px",
               fontWeight: 600,
               letterSpacing: "0.12em",
@@ -258,7 +258,7 @@ export default function InnerWorldSection() {
               left: "18px",
               top: "50%",
               transform: "translateY(-50%) rotate(-90deg)",
-              fontFamily: "Cabinet Grotesk, Visuelt, 'DM Sans', sans-serif",
+              fontFamily: "var(--font-sans)",
               fontSize: "12px",
               fontWeight: 600,
               letterSpacing: "0.12em",
@@ -288,12 +288,12 @@ export default function InnerWorldSection() {
               >
                 <div
                   style={{
-                    fontFamily: "Cabinet Grotesk, Visuelt, 'DM Sans', sans-serif",
+                    fontFamily: "var(--font-sans)",
                     fontSize: "14px",
                     fontWeight: 700,
                     letterSpacing: "0.14em",
                     color: INK,
-                    background: isPeak ? GOLD : CREAM,
+                    background: isPeak ? SAGE : CREAM,
                     padding: "12px 22px",
                     borderRadius: "999px",
                     whiteSpace: "nowrap",
@@ -309,7 +309,7 @@ export default function InnerWorldSection() {
 
                 <div
                   style={{
-                    fontFamily: "Cabinet Grotesk, Visuelt, 'DM Sans', sans-serif",
+                    fontFamily: "var(--font-sans)",
                     fontSize: "11px",
                     fontWeight: 600,
                     letterSpacing: "0.12em",

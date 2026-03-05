@@ -94,7 +94,7 @@ export default function PricingSection() {
       ref={wrapRef}
       style={{
         background: BG,
-        padding: "84px 6vw 72px",
+        padding: "84px var(--gutter) 72px",
       }}
     >
       {/* Heading (editorial like your image, no split panels) */}
@@ -102,7 +102,7 @@ export default function PricingSection() {
         <h2
           style={{
             margin: 0,
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "var(--font-serif)",
             fontSize: "clamp(44px, 6.2vw, 92px)",
             lineHeight: 0.95,
             letterSpacing: "-0.02em",
@@ -117,7 +117,7 @@ export default function PricingSection() {
         <div
           style={{
             marginTop: "18px",
-            fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+            fontFamily: "var(--font-sans)",
             fontSize: "13px",
             lineHeight: 1.8,
             color: MUTED,
@@ -190,7 +190,7 @@ export default function PricingSection() {
                     background: "rgba(243,65,3,0.12)",
                     color: "rgba(243,65,3,0.98)",
                     fontFamily:
-                      "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+                      "var(--font-sans)",
                     fontSize: 11,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
@@ -205,7 +205,7 @@ export default function PricingSection() {
               <div
                 style={{
                   fontFamily:
-                    "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+                    "var(--font-sans)",
                   fontSize: 11,
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
@@ -219,7 +219,7 @@ export default function PricingSection() {
               {/* Plan name */}
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "var(--font-serif)",
                   fontSize: 22,
                   lineHeight: 1.15,
                   color: TEXT,
@@ -233,7 +233,7 @@ export default function PricingSection() {
               <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 10 }}>
                 <div
                   style={{
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "var(--font-serif)",
                     fontSize: 44,
                     fontWeight: 400,
                     color: TEXT,
@@ -246,7 +246,7 @@ export default function PricingSection() {
                 <div
                   style={{
                     fontFamily:
-                      "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+                      "var(--font-sans)",
                     fontSize: 12,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
@@ -261,7 +261,7 @@ export default function PricingSection() {
               <div
                 style={{
                   fontFamily:
-                    "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+                    "var(--font-sans)",
                   fontSize: 13,
                   lineHeight: 1.75,
                   color: MUTED,
@@ -303,7 +303,7 @@ export default function PricingSection() {
                     <div
                       style={{
                         fontFamily:
-                          "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+                          "var(--font-sans)",
                         fontSize: 13,
                         lineHeight: 1.55,
                         color: "rgba(240,235,225,0.78)",
@@ -328,7 +328,7 @@ export default function PricingSection() {
                   background: isFeatured ? "rgba(243,65,3,0.14)" : "rgba(255,255,255,0.06)",
                   color: TEXT,
                   fontFamily:
-                    "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+                    "var(--font-sans)",
                   fontSize: 12,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
@@ -362,7 +362,7 @@ export default function PricingSection() {
           marginTop: 22,
           paddingTop: 18,
           borderTop: `1px solid ${HAIRLINE}`,
-          fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+          fontFamily: "var(--font-sans)",
           fontSize: 12,
           color: "rgba(240,235,225,0.58)",
         }}

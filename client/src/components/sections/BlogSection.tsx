@@ -96,7 +96,7 @@ function BlogCard({ blog }: { blog: typeof BLOGS[number] }) {
         <div>
           <div
             style={{
-              fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+              fontFamily: "var(--font-sans)",
               fontSize: 10,
               letterSpacing: "0.16em",
               textTransform: "uppercase",
@@ -108,7 +108,7 @@ function BlogCard({ blog }: { blog: typeof BLOGS[number] }) {
           </div>
           <div
             style={{
-              fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+              fontFamily: "var(--font-sans)",
               fontSize: 10,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -142,7 +142,7 @@ function BlogCard({ blog }: { blog: typeof BLOGS[number] }) {
       {/* Title */}
       <div
         style={{
-          fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+          fontFamily: "var(--font-sans)",
           fontSize: "clamp(16px, 1.35vw, 20px)",
           lineHeight: 1.25,
           color: TEXT,
@@ -209,7 +209,7 @@ export default function BlogSection() {
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
-        padding: "72px 6vw 56px",
+        padding: "72px var(--gutter) 56px",
       }}
     >
       {/* Header (pricing-like editorial heading) */}
@@ -227,7 +227,7 @@ export default function BlogSection() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "var(--font-serif)",
               fontSize: "clamp(44px, 6.2vw, 92px)",
               lineHeight: 0.95,
               letterSpacing: "-0.02em",
@@ -242,7 +242,7 @@ export default function BlogSection() {
           <div
             style={{
               marginTop: 16,
-              fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+              fontFamily: "var(--font-sans)",
               fontSize: 13,
               lineHeight: 1.8,
               color: TEXT_SOFT,
@@ -268,7 +268,7 @@ export default function BlogSection() {
             justifyContent: "space-between",
             gap: 16,
             cursor: "pointer",
-            fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+            fontFamily: "var(--font-sans)",
             fontSize: 12,
             letterSpacing: "0.16em",
             textTransform: "uppercase",

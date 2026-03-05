@@ -9,7 +9,6 @@
   --color-panel-left: #FFFFFF;
   --color-panel-right: #F0EBE1;
 
-  --color-accent-gold: #D5BF86;
   --color-accent-red: #D63A00;
   --color-accent-wine: #350D12;
   --color-border: rgba(46, 52, 38, 0.1);
@@ -18,6 +17,16 @@
   --font-serif: "Playfair Display", serif;
   --font-sans: "Cabinet Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-editorial: "Playfair Display", serif;
+
+  /* Layout */
+  --gutter: clamp(24px, 4vw, 56px);
+
+  /* Accent & text tokens */
+  --accent: #6C8E7D;
+  --text-light: rgba(240, 235, 225, 0.92);
+  --text-dark: #1A1A18;
+  --border-light: rgba(255, 255, 255, 0.12);
+  --border-dark: rgba(46, 52, 38, 0.10);
 
   --text-xs:   11px;
   --text-sm:   13px;
@@ -117,7 +126,7 @@
   height: 100vh;
   background: #FFFFFF;
   z-index: 10;
-  padding: 48px 48px 40px 48px;
+  padding: 48px var(--gutter) 40px var(--gutter);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -249,7 +258,7 @@ body::after {
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #F0EBE1; }
-::-webkit-scrollbar-thumb { background: #D5BF86; border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
 /* ─── BUTTONS ─── */
 .btn-primary {
@@ -321,7 +330,7 @@ body::after {
 .card-dark {
   background: #350D12;
   color: #F0EBE1;
-  border: 1px solid rgba(213, 191, 134, 0.2);
+  border: 1px solid rgba(108, 142, 125, 0.20);
 }
 
 .card-top-line {
@@ -329,7 +338,7 @@ body::after {
   top: 0; left: 0;
   height: 3px;
   width: 100%;
-  background: #D5BF86;
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -347,7 +356,7 @@ body::after {
   color: #2E3426;
   opacity: 0.55;
   border-bottom: 1px solid rgba(46, 52, 38, 0.15);
-  padding: 14px 40px;
+  padding: 14px var(--gutter);
   text-transform: none; /* changed (no uppercase) */
 }
 
@@ -358,16 +367,16 @@ body::after {
   background: rgba(46, 52, 38, 0.12);
 }
 
-.divider-gold {
+.divider-accent {
   width: 100%;
   height: 1px;
-  background: #D5BF86;
+  background: var(--accent);
   opacity: 0.4;
 }
 
 /* dark section lines */
 .section-dark .divider,
-.section-dark .divider-gold,
+.section-dark .divider-accent,
 .section-dark .section-label {
   border-bottom-color: rgba(255, 255, 255, 0.28);
 }
@@ -376,7 +385,7 @@ body::after {
   background: rgba(255, 255, 255, 0.28);
 }
 
-.section-dark .divider-gold {
+.section-dark .divider-accent {
   background: rgba(255, 255, 255, 0.22);
   opacity: 1;
 }

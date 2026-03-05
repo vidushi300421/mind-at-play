@@ -5,13 +5,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /* SECTION COLORS — local only */
-const BG = "#350D12";
-const TEXT = "#F0EBE1";
-const GOLD = "#D5BF86";
+const BG     = "#350D12";
+const TEXT   = "#F0EBE1";
+const ACCENT = "#6C8E7D";   // sage — replaces former gold
 const BORDER = "rgba(240,235,225,0.12)";
 
 const HOVER_COLOR = "#6C8E7D";
-const HOVER_BG = "rgba(60, 140, 110, 0.10)"; // cooler green so it won't read orange on wine
+const HOVER_BG    = "rgba(60, 140, 110, 0.10)";
 
 const SERVICES = [
   "Performance Coaching",
@@ -105,13 +105,13 @@ export default function ServicesSection() {
     });
 
     gsap.to(row.querySelector(".svc-service-index"), {
-      color: GOLD,
+      color: ACCENT,
       duration: 0.25,
     });
 
     gsap.to(row.querySelector(".svc-arrow"), {
       x: 0,
-      color: GOLD,
+      color: ACCENT,
       duration: 0.25,
     });
 
@@ -125,15 +125,15 @@ export default function ServicesSection() {
   const isOdd = activeCircle % 2 !== 0;
 
   return (
-    <div style={{ background: BG }} className="w-full min-h-screen py-24 px-12 relative flex">
+    <div style={{ background: BG, padding: "clamp(64px,8vw,96px) var(--gutter)" }} className="w-full min-h-screen relative flex">
       {/* LEFT LIST */}
       <div className="w-[55%] pr-12">
         <div
           style={{
-            fontFamily: "Cabinet Grotesk, sans-serif",
+            fontFamily: "var(--font-sans)",
             fontSize: "11px",
             letterSpacing: "0.12em",
-            color: GOLD,
+            color: ACCENT,
             borderBottom: `1px solid ${BORDER}`,
             paddingBottom: "12px",
             marginBottom: "36px",
@@ -164,9 +164,9 @@ export default function ServicesSection() {
                 <span
                   className="svc-service-index"
                   style={{
-                    fontFamily: "Cabinet Grotesk, sans-serif",
+                    fontFamily: "var(--font-sans)",
                     fontSize: "12px",
-                    color: GOLD,
+                    color: ACCENT,
                   }}
                 >
                   {(i + 1).toString().padStart(2, "0")}
@@ -175,7 +175,7 @@ export default function ServicesSection() {
                 <span
                   className="svc-service-name"
                   style={{
-                    fontFamily: "Playfair Display, serif",
+                    fontFamily: "var(--font-serif)",
                     fontSize: "clamp(24px,3vw,36px)",
                     color: TEXT,
                   }}
@@ -187,9 +187,9 @@ export default function ServicesSection() {
               <div
                 className="svc-arrow relative z-10"
                 style={{
-                  fontFamily: "Cabinet Grotesk, sans-serif",
+                  fontFamily: "var(--font-sans)",
                   fontSize: "16px",
-                  color: GOLD,
+                  color: ACCENT,
                 }}
               >
                 →
@@ -215,13 +215,13 @@ export default function ServicesSection() {
         >
           <div
             className="absolute inset-0 w-full h-full rounded-full border border-dashed opacity-50 animate-slowspin"
-            style={{ borderColor: GOLD, transform: "scale(1.08)" }}
+            style={{ borderColor: ACCENT, transform: "scale(1.08)" }}
           />
           <span
             style={{
-              fontFamily: "Playfair Display, serif",
+              fontFamily: "var(--font-serif)",
               fontSize: "80px",
-              color: isOdd ? TEXT : GOLD,
+              color: isOdd ? TEXT : ACCENT,
             }}
           >
             {activeCircle.toString().padStart(2, "0")}

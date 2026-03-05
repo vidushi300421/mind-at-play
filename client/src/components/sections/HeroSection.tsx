@@ -48,9 +48,8 @@ function getScrollProgress(section: HTMLDivElement | null) {
 }
 
 /* ───────────────── Styles (local) ───────────────── */
-const FONT_SANS =
-  "Cabinet Grotesk, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif";
-const FONT_SERIF = "Playfair Display, serif";
+const FONT_SANS  = "var(--font-sans)";
+const FONT_SERIF = "var(--font-serif)";
 
 const HERO_BG = "#350D12";
 const SERVICES_BG = "#1D2117";
@@ -139,7 +138,7 @@ const LEFT_PAD = 80;
           <div
             style={{
               borderBottom: `1px solid ${BORDER}`,
-              padding: "14px 40px",
+              padding: "14px var(--gutter)",
               fontFamily: FONT_SANS,
               fontSize: "12px",
               letterSpacing: "0.18em",
@@ -228,7 +227,7 @@ const LEFT_PAD = 80;
               style={{
                 position: "absolute",
                 bottom: "36px",
-                left: "40px",
+                left: "var(--gutter)",
                 fontFamily: FONT_SANS,
                 fontSize: "11px",
                 letterSpacing: "0.18em",
@@ -267,7 +266,7 @@ const LEFT_PAD = 80;
           <div
             style={{
               borderBottom: `1px solid ${BORDER}`,
-              padding: "14px 40px",
+              padding: "14px var(--gutter)",
               fontFamily: FONT_SANS,
               fontSize: "12px",
               letterSpacing: "0.18em",
@@ -354,7 +353,7 @@ const LEFT_PAD = 80;
               style={{
                 position: "absolute",
                 bottom: "36px",
-                left: "40px",
+                left: "var(--gutter)",
                 fontFamily: FONT_SANS,
                 fontSize: "11px",
                 letterSpacing: "0.18em",

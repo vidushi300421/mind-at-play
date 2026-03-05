@@ -5,11 +5,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const CONTACT_BG = "#0F172A";
-const TEXT = "rgba(255,255,255,0.92)";
-const TEXT_SOFT = "rgba(255,255,255,0.55)";
-const BORDER = "rgba(255,255,255,0.14)";
-const ACCENT = "#F34103";
-const GOLD = "#D5BF86";
+const TEXT       = "rgba(255,255,255,0.92)";
+const TEXT_SOFT  = "rgba(255,255,255,0.55)";
+const BORDER     = "rgba(255,255,255,0.14)";
+const ACCENT     = "#F34103";
+const SAGE       = "#6C8E7D";
 
 /* Replace with your Google Calendar booking page */
 const BOOKING_LINK = "https://calendar.google.com/calendar/appointments/schedules/YOUR_LINK_HERE";
@@ -97,7 +97,7 @@ export default function ContactSection() {
       focused === field ? ACCENT : "rgba(255,255,255,0.22)"
     }`,
     padding: "12px 0",
-    fontFamily: "Visuelt, 'DM Sans', sans-serif",
+    fontFamily: "var(--font-sans)",
     fontSize: "14px",
     color: TEXT,
     outline: "none",
@@ -117,8 +117,8 @@ export default function ContactSection() {
       <div
         style={{
           borderBottom: `1px solid ${BORDER}`,
-          padding: "14px 6vw",
-          fontFamily: "Visuelt, 'DM Sans', sans-serif",
+          padding: "14px var(--gutter)",
+          fontFamily: "var(--font-sans)",
           fontSize: "11px",
           letterSpacing: "0.18em",
           textTransform: "uppercase",
@@ -129,10 +129,10 @@ export default function ContactSection() {
       </div>
 
       {/* Heading */}
-      <div ref={headingRef} style={{ padding: "48px 6vw 0" }}>
+      <div ref={headingRef} style={{ padding: "48px var(--gutter) 0" }}>
         <div
           style={{
-            fontFamily: "Visuelt, 'DM Sans', sans-serif",
+            fontFamily: "var(--font-sans)",
             fontSize: "11px",
             textTransform: "uppercase",
             letterSpacing: "0.18em",
@@ -176,14 +176,14 @@ export default function ContactSection() {
           ref={lineRef}
           style={{
             height: "1px",
-            background: GOLD,
+            background: SAGE,
             marginBottom: "40px",
           }}
         />
       </div>
 
       {/* Form */}
-      <div style={{ flex: 1, padding: "0 6vw 60px" }}>
+      <div style={{ flex: 1, padding: "0 var(--gutter) 60px" }}>
         {submitted ? (
           <div
             style={{
@@ -207,7 +207,7 @@ export default function ContactSection() {
 
             <div
               style={{
-                fontFamily: "Visuelt, 'DM Sans', sans-serif",
+                fontFamily: "var(--font-sans)",
                 fontSize: "14px",
                 color: TEXT_SOFT,
                 lineHeight: 1.8,
@@ -221,7 +221,7 @@ export default function ContactSection() {
               style={{
                 width: "40px",
                 height: "1px",
-                background: GOLD,
+                background: SAGE,
                 marginTop: "8px",
               }}
             />
@@ -345,7 +345,7 @@ export default function ContactSection() {
                   gap: "12px",
                   background: ACCENT,
                   color: "#fff",
-                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
+                  fontFamily: "var(--font-sans)",
                   fontSize: "11px",
                   textTransform: "uppercase",
                   letterSpacing: "0.16em",
@@ -360,7 +360,7 @@ export default function ContactSection() {
                 onClick={handleSubmit}
                 style={{
                   cursor: "pointer",
-                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
+                  fontFamily: "var(--font-sans)",
                   fontSize: "11px",
                   letterSpacing: "0.16em",
                   textTransform: "uppercase",

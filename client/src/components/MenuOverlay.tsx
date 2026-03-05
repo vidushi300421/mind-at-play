@@ -52,8 +52,8 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       <button
         onClick={onClose}
         style={{
-          position: "absolute", top: "clamp(24px,3vw,40px)", right: "clamp(24px,4vw,56px)",
-          fontFamily: "'Cabinet Grotesk', 'DM Sans', sans-serif",
+          position: "absolute", top: "clamp(24px,3vw,40px)", right: "var(--gutter)",
+          fontFamily: "var(--font-sans)",
           fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase",
           color: "rgba(240,235,225,0.5)",
           background: "none", border: "none", cursor: "pointer",
@@ -65,7 +65,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       {/* Links */}
       <div style={{
         flex: 1, height: "100%",
-        paddingLeft: "clamp(40px, 8vw, 96px)",
+        paddingLeft: "max(var(--gutter), 10vw)",
         paddingTop: "10vh",
         display: "flex", flexDirection: "column", justifyContent: "center",
         gap: "4px",
@@ -89,7 +89,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
               <span
                 className="lk-num"
                 style={{
-                  fontFamily: "'Cabinet Grotesk', sans-serif",
+                  fontFamily: "var(--font-sans)",
                   fontSize: "11px", color: "#6C8E7D",
                   position: "absolute", left: "-32px",
                   opacity: 0, transform: "translateX(-10px)",
@@ -100,7 +100,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
               <span
                 className="lk-text"
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "var(--font-serif)",
                   fontSize: "clamp(36px, 5vw, 68px)",
                   fontWeight: 400,
                   color: "#F0EBE1",
@@ -128,20 +128,20 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       <div style={{
         flexShrink: 0, width: "30%", display: "flex",
         flexDirection: "column", justifyContent: "flex-end",
-        paddingBottom: "clamp(24px,4vw,56px)",
-        paddingRight: "clamp(24px,4vw,56px)",
+        paddingBottom: "var(--gutter)",
+        paddingRight: "var(--gutter)",
         alignItems: "flex-end",
         gap: "4px",
       }}>
         <div style={{
-          fontFamily: "'Cabinet Grotesk', sans-serif",
+          fontFamily: "var(--font-sans)",
           fontSize: "11px", color: "rgba(240,235,225,0.35)",
           letterSpacing: "0.1em",
         }}>
           hello@adishridubey.com
         </div>
         <div style={{
-          fontFamily: "'Cabinet Grotesk', sans-serif",
+          fontFamily: "var(--font-sans)",
           fontSize: "11px", color: "rgba(240,235,225,0.35)",
           letterSpacing: "0.1em",
         }}>

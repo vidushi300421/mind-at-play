@@ -8,8 +8,8 @@ export default function NavBar({ onMenuClick }: NavBarProps) {
       onClick={onMenuClick}
       style={{
         position: "fixed",
-        top: "28px",
-        left: "36px", // moved to left
+        top: "var(--gutter)",
+        left: "var(--gutter)",
         zIndex: 45,
         background: "none",
         border: "none",

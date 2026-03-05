@@ -1,62 +1,23 @@
 @import "tailwindcss";
 
-/* ─── CUSTOM FONTS ─── */
-@font-face {
-  font-family: "SangBleuKing";
-  src: url("/fonts/SangBleuKing-Regular.woff2") format("woff2"),
-       url("/fonts/SangBleuKing-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "SangBleuKing";
-  src: url("/fonts/SangBleuKing-Light.woff2") format("woff2"),
-       url("/fonts/SangBleuKing-Light.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "SangBleuKing";
-  src: url("/fonts/SangBleuKing-Italic.woff2") format("woff2"),
-       url("/fonts/SangBleuKing-Italic.woff") format("woff");
-  font-weight: 300 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "SangBleuKing";
-  src: url("/fonts/SangBleuKing-Bold.woff2") format("woff2"),
-       url("/fonts/SangBleuKing-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Visuelt";
-  src: url("/fonts/Visuelt-Light-Web.woff2") format("woff2"),
-       url("/fonts/Visuelt-Light-Web.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Fallback fonts for when custom files aren't yet loaded */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+/* Google Fonts (Playfair Display + Cabinet Grotesk) */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Cabinet+Grotesk:wght@300;400;500;600;700&display=swap");
 
 @theme inline {
   --color-background: #F0EBE1;
   --color-foreground: #2E3426;
-  --color-panel-left: #F0EBE1;
+  --color-panel-left: #FFFFFF;
   --color-panel-right: #F0EBE1;
+
   --color-accent-gold: #D5BF86;
-  --color-accent-red: #F34103;
+  --color-accent-red: #D63A00;
   --color-accent-wine: #350D12;
   --color-border: rgba(46, 52, 38, 0.1);
 
-  --font-serif: "SangBleuKing", "Cormorant Garamond", serif;
-  --font-sans: "Visuelt", "DM Sans", sans-serif;
+  /* Fonts */
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Cabinet Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-editorial: "Playfair Display", serif;
 
   --text-xs:   11px;
   --text-sm:   13px;
@@ -86,45 +47,51 @@
   body {
     background: #F0EBE1;
     color: #2E3426;
-    font-family: "Visuelt", "DM Sans", sans-serif;
+    font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-transform: none; /* ensure default normal case */
   }
 
   h1 {
-    font-family: "SangBleuKing", "Cormorant Garamond", serif;
+    font-family: var(--font-serif);
     font-size: clamp(64px, 9vw, 120px);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 0.92;
     letter-spacing: -0.02em;
+    text-transform: none;
   }
   h2 {
-    font-family: "SangBleuKing", "Cormorant Garamond", serif;
+    font-family: var(--font-serif);
     font-size: clamp(44px, 6vw, 80px);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 0.95;
     letter-spacing: -0.015em;
+    text-transform: none;
   }
   h3 {
-    font-family: "SangBleuKing", "Cormorant Garamond", serif;
+    font-family: var(--font-serif);
     font-size: clamp(32px, 4vw, 52px);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.01em;
+    text-transform: none;
   }
   h4 {
-    font-family: "SangBleuKing", "Cormorant Garamond", serif;
+    font-family: var(--font-serif);
     font-size: clamp(22px, 2.5vw, 34px);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.2;
+    text-transform: none;
   }
   p {
-    font-family: "Visuelt", "DM Sans", sans-serif;
+    font-family: var(--font-sans);
     font-size: 14px;
     line-height: 1.75;
     color: rgba(46, 52, 38, 0.75);
+    text-transform: none;
   }
 
   a {
@@ -133,10 +100,11 @@
   }
 
   button {
-    font-family: "Visuelt", "DM Sans", sans-serif;
+    font-family: var(--font-sans);
     cursor: pointer;
     border: none;
     background: none;
+    text-transform: none;
   }
 }
 
@@ -154,6 +122,7 @@
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
+  color: #111111;
 }
 
 .right-panel {
@@ -162,38 +131,39 @@
   min-height: 100vh;
 }
 
+/* divider between panels */
 .split-divider {
   position: fixed;
   left: 45vw;
   top: 0;
   width: 1px;
   height: 100vh;
-  background: #D5BF86;
-  opacity: 0.4;
+  background: rgba(17, 17, 17, 0.18);
+  opacity: 1;
   z-index: 20;
   pointer-events: none;
 }
 
 /* ─── TYPOGRAPHY UTILITIES ─── */
 .label {
-  font-family: "Visuelt", "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
-  text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #F34103;
+  color: var(--color-accent-red);
   opacity: 0.85;
+  text-transform: none; /* changed (no uppercase) */
 }
 
 .serif-display {
-  font-family: "SangBleuKing", "Cormorant Garamond", serif;
-  font-weight: 300;
+  font-family: var(--font-serif);
+  font-weight: 400;
   font-style: italic;
   line-height: 0.95;
   letter-spacing: -0.02em;
 }
 
 .serif-bold {
-  font-family: "SangBleuKing", "Cormorant Garamond", serif;
+  font-family: var(--font-serif);
   font-weight: 700;
   line-height: 0.92;
   letter-spacing: -0.025em;
@@ -204,8 +174,30 @@
   font-style: normal;
 }
 .headline-mix span:nth-child(even) {
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
+}
+
+/* editorial title helper */
+.editorial-title {
+  font-family: var(--font-editorial);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  text-transform: none;
+}
+
+/* chunkier pills */
+.pill {
+  border-width: 2px !important;
+  padding: 10px 16px !important;
+  font-size: 16px !important;
+}
+
+/* thicker curve lines */
+.curve-line path {
+  stroke-width: 3.5;
+  opacity: 0.95;
 }
 
 /* ─── GRAIN TEXTURE OVERLAY ─── */
@@ -264,9 +256,9 @@ body::after {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #F34103;
+  background: var(--color-accent-red);
   color: #F0EBE1;
-  font-family: "Visuelt", "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   letter-spacing: 0.06em;
   padding: 14px 32px;
@@ -302,7 +294,7 @@ body::after {
   gap: 8px;
   background: transparent;
   color: #2E3426;
-  font-family: "Visuelt", "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   letter-spacing: 0.06em;
   padding: 13px 31px;
@@ -312,8 +304,8 @@ body::after {
 }
 
 .btn-outline:hover {
-  border-color: #F34103;
-  color: #F34103;
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
 }
 
 /* ─── CARDS ─── */
@@ -335,7 +327,7 @@ body::after {
 .card-top-line {
   position: absolute;
   top: 0; left: 0;
-  height: 2px;
+  height: 3px;
   width: 100%;
   background: #D5BF86;
   transform: scaleX(0);
@@ -349,14 +341,14 @@ body::after {
 
 /* ─── SECTION LABELS ─── */
 .section-label {
-  font-family: "Visuelt", "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
-  text-transform: uppercase;
   letter-spacing: 0.18em;
   color: #2E3426;
   opacity: 0.55;
   border-bottom: 1px solid rgba(46, 52, 38, 0.15);
   padding: 14px 40px;
+  text-transform: none; /* changed (no uppercase) */
 }
 
 /* ─── DIVIDERS ─── */
@@ -373,6 +365,22 @@ body::after {
   opacity: 0.4;
 }
 
+/* dark section lines */
+.section-dark .divider,
+.section-dark .divider-gold,
+.section-dark .section-label {
+  border-bottom-color: rgba(255, 255, 255, 0.28);
+}
+
+.section-dark .divider {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.section-dark .divider-gold {
+  background: rgba(255, 255, 255, 0.22);
+  opacity: 1;
+}
+
 /* ─── FORM FIELDS ─── */
 .field-wrap {
   position: relative;
@@ -384,11 +392,12 @@ body::after {
   position: absolute;
   top: 20px;
   left: 0;
-  font-family: "Visuelt", "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: rgba(46, 52, 38, 0.45);
   transition: top 0.25s ease, font-size 0.25s ease, color 0.25s ease;
   pointer-events: none;
+  text-transform: none;
 }
 
 .field-input {
@@ -397,24 +406,25 @@ body::after {
   border: none;
   border-bottom: 1px solid rgba(46, 52, 38, 0.25);
   padding: 10px 0;
-  font-family: "Visuelt", "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   color: #2E3426;
   outline: none;
   transition: border-color 0.3s ease;
+  text-transform: none;
 }
 
 .field-input:focus {
-  border-bottom-color: #F34103;
+  border-bottom-color: var(--color-accent-red);
 }
 
 .field-input:focus + .field-label,
 .field-input:not(:placeholder-shown) + .field-label {
   top: 0;
   font-size: 11px;
-  color: #F34103;
+  color: var(--color-accent-red);
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none; /* changed */
 }
 
 /* ─── RESPONSIVE ─── */

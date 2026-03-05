@@ -4,47 +4,66 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const CONTACT_BG = "#0F172A";
+const TEXT = "rgba(255,255,255,0.92)";
+const TEXT_SOFT = "rgba(255,255,255,0.55)";
+const BORDER = "rgba(255,255,255,0.14)";
+const ACCENT = "#F34103";
+const GOLD = "#D5BF86";
+
+/* Replace with your Google Calendar booking page */
+const BOOKING_LINK = "https://calendar.google.com/calendar/appointments/schedules/YOUR_LINK_HERE";
+
 export default function ContactSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
+
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState<string | null>(null);
   const [values, setValues] = useState({ name: "", email: "", sport: "", message: "" });
 
   useEffect(() => {
     if (headingRef.current) {
-      gsap.fromTo(headingRef.current,
+      gsap.fromTo(
+        headingRef.current,
         { opacity: 0, y: 50 },
         {
-          opacity: 1, y: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: headingRef.current, start: "top 80%" }
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: headingRef.current, start: "top 80%" },
         }
       );
     }
 
     if (lineRef.current) {
-      gsap.fromTo(lineRef.current,
+      gsap.fromTo(
+        lineRef.current,
         { scaleX: 0 },
         {
-          scaleX: 1, duration: 1.2, ease: "power3.out",
+          scaleX: 1,
+          duration: 1.2,
+          ease: "power3.out",
           transformOrigin: "left center",
-          scrollTrigger: { trigger: lineRef.current, start: "top 85%" }
+          scrollTrigger: { trigger: lineRef.current, start: "top 85%" },
         }
       );
     }
 
     if (formRef.current) {
       const fields = formRef.current.querySelectorAll(".contact-field");
-      gsap.fromTo(fields,
+      gsap.fromTo(
+        fields,
         { opacity: 0, y: 30 },
         {
-          opacity: 1, y: 0,
+          opacity: 1,
+          y: 0,
           duration: 0.6,
           stagger: 0.12,
           ease: "power3.out",
-          scrollTrigger: { trigger: formRef.current, start: "top 75%" }
+          scrollTrigger: { trigger: formRef.current, start: "top 75%" },
         }
       );
     }
@@ -52,18 +71,20 @@ export default function ContactSection() {
 
   const handleSubmit = async () => {
     if (!values.name || !values.email) return;
+
     try {
-      const res = await fetch("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
-      if (!res.ok) return;
-    } catch {
-      // fail silently — still show success to user
-    }
+    } catch {}
+
     gsap.to(formRef.current, {
-      opacity: 0, y: -20, duration: 0.4, ease: "power2.in",
+      opacity: 0,
+      y: -20,
+      duration: 0.4,
+      ease: "power2.in",
       onComplete: () => setSubmitted(true),
     });
   };
@@ -72,141 +93,156 @@ export default function ContactSection() {
     width: "100%",
     background: "transparent",
     border: "none",
-    borderBottom: `1px solid ${focused === field ? "#F34103" : "rgba(46,52,38,0.2)"}`,
+    borderBottom: `1px solid ${
+      focused === field ? ACCENT : "rgba(255,255,255,0.22)"
+    }`,
     padding: "12px 0",
     fontFamily: "Visuelt, 'DM Sans', sans-serif",
     fontSize: "14px",
-    color: "#2E3426",
+    color: TEXT,
     outline: "none",
     transition: "border-color 0.3s",
   });
 
   return (
-    <div
-      ref={sectionRef}
+    <section
       style={{
-        background: "#F0EBE1",
+        background: CONTACT_BG,
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
       }}
     >
       {/* Label */}
-      <div style={{
-        borderBottom: "1px solid rgba(46,52,38,0.15)",
-        padding: "14px 40px",
-        fontFamily: "Visuelt, 'DM Sans', sans-serif",
-        fontSize: "11px",
-        letterSpacing: "0.18em",
-        textTransform: "uppercase" as const,
-        color: "rgba(46,52,38,0.55)",
-      }}>
-        Contact:
+      <div
+        style={{
+          borderBottom: `1px solid ${BORDER}`,
+          padding: "14px 6vw",
+          fontFamily: "Visuelt, 'DM Sans', sans-serif",
+          fontSize: "11px",
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: TEXT_SOFT,
+        }}
+      >
+        Contact
       </div>
 
       {/* Heading */}
-      <div ref={headingRef} style={{ padding: "48px 40px 0" }}>
-        <div style={{
-          fontFamily: "Visuelt, 'DM Sans', sans-serif",
-          fontSize: "11px",
-          textTransform: "uppercase" as const,
-          letterSpacing: "0.18em",
-          color: "#F34103",
-          marginBottom: "20px",
-          opacity: 0.85,
-        }}>
+      <div ref={headingRef} style={{ padding: "48px 6vw 0" }}>
+        <div
+          style={{
+            fontFamily: "Visuelt, 'DM Sans', sans-serif",
+            fontSize: "11px",
+            textTransform: "uppercase",
+            letterSpacing: "0.18em",
+            color: ACCENT,
+            marginBottom: "20px",
+            opacity: 0.85,
+          }}
+        >
           Let's talk
         </div>
-        <h2 style={{
-          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-          fontSize: "clamp(40px, 6vw, 72px)",
-          fontWeight: 300,
-          lineHeight: 0.92,
-          color: "#2E3426",
-          letterSpacing: "-0.02em",
-          marginBottom: "8px",
-        }}>
+
+        <h2
+          style={{
+            fontFamily: "Playfair Display, serif",
+            fontSize: "clamp(44px,6vw,72px)",
+            fontWeight: 400,
+            lineHeight: 0.95,
+            color: TEXT,
+            letterSpacing: "-0.02em",
+          }}
+        >
           Ready to train
         </h2>
-        <h2 style={{
-          fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-          fontSize: "clamp(40px, 6vw, 72px)",
-          fontWeight: 300,
-          fontStyle: "italic",
-          lineHeight: 0.92,
-          color: "#2E3426",
-          letterSpacing: "-0.02em",
-          marginBottom: "32px",
-        }}>
+
+        <h2
+          style={{
+            fontFamily: "Playfair Display, serif",
+            fontSize: "clamp(44px,6vw,72px)",
+            fontStyle: "italic",
+            fontWeight: 400,
+            lineHeight: 0.95,
+            color: TEXT,
+            letterSpacing: "-0.02em",
+            marginBottom: "32px",
+          }}
+        >
           your mind?
         </h2>
 
-        {/* Animated line */}
         <div
           ref={lineRef}
           style={{
             height: "1px",
-            background: "#D5BF86",
+            background: GOLD,
             marginBottom: "40px",
-            transformOrigin: "left center",
           }}
         />
       </div>
 
-      {/* Form or success */}
-      <div style={{ flex: 1, padding: "0 40px 48px" }}>
+      {/* Form */}
+      <div style={{ flex: 1, padding: "0 6vw 60px" }}>
         {submitted ? (
-          <div style={{
-            display: "flex",
-            flexDirection: "column" as const,
-            alignItems: "flex-start",
-            justifyContent: "center",
-            height: "100%",
-            gap: "16px",
-          }}>
-            <div style={{
-              fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-              fontSize: "clamp(28px, 4vw, 48px)",
-              fontWeight: 300,
-              fontStyle: "italic",
-              color: "#2E3426",
-              lineHeight: 1.1,
-            }}>
-              Thank you,<br />{values.name.split(" ")[0]}.
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              height: "100%",
+              gap: "16px",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "Playfair Display, serif",
+                fontSize: "clamp(32px,4vw,48px)",
+                fontStyle: "italic",
+                color: TEXT,
+              }}
+            >
+              Thank you, {values.name.split(" ")[0]}.
             </div>
-            <div style={{
-              fontFamily: "Visuelt, 'DM Sans', sans-serif",
-              fontSize: "13px",
-              color: "rgba(46,52,38,0.55)",
-              lineHeight: 1.8,
-              maxWidth: "280px",
-            }}>
+
+            <div
+              style={{
+                fontFamily: "Visuelt, 'DM Sans', sans-serif",
+                fontSize: "14px",
+                color: TEXT_SOFT,
+                lineHeight: 1.8,
+                maxWidth: 320,
+              }}
+            >
               I'll be in touch within 48 hours to schedule your first session.
             </div>
-            <div style={{
-              width: "40px",
-              height: "1px",
-              background: "#D5BF86",
-              marginTop: "8px",
-            }} />
+
+            <div
+              style={{
+                width: "40px",
+                height: "1px",
+                background: GOLD,
+                marginTop: "8px",
+              }}
+            />
           </div>
         ) : (
-          <div ref={formRef} style={{ display: "flex", flexDirection: "column" as const, gap: "32px" }}>
-
-            {/* Name + Email row */}
+          <div ref={formRef} style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+            {/* Name + Email */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
               <div className="contact-field">
-                <div style={{
-                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
-                  fontSize: "9px",
-                  textTransform: "uppercase" as const,
-                  letterSpacing: "0.2em",
-                  color: focused === "name" ? "#F34103" : "rgba(46,52,38,0.4)",
-                  marginBottom: "8px",
-                  transition: "color 0.3s",
-                }}>
+                <div
+                  style={{
+                    fontSize: "9px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.2em",
+                    color: focused === "name" ? ACCENT : TEXT_SOFT,
+                    marginBottom: "8px",
+                  }}
+                >
                   Your Name
                 </div>
+
                 <input
                   type="text"
                   placeholder="e.g. Priya Sharma"
@@ -214,22 +250,23 @@ export default function ContactSection() {
                   onChange={(e) => setValues({ ...values, name: e.target.value })}
                   onFocus={() => setFocused("name")}
                   onBlur={() => setFocused(null)}
-                  style={inputStyle("name") as React.CSSProperties}
+                  style={inputStyle("name")}
                 />
               </div>
 
               <div className="contact-field">
-                <div style={{
-                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
-                  fontSize: "9px",
-                  textTransform: "uppercase" as const,
-                  letterSpacing: "0.2em",
-                  color: focused === "email" ? "#F34103" : "rgba(46,52,38,0.4)",
-                  marginBottom: "8px",
-                  transition: "color 0.3s",
-                }}>
+                <div
+                  style={{
+                    fontSize: "9px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.2em",
+                    color: focused === "email" ? ACCENT : TEXT_SOFT,
+                    marginBottom: "8px",
+                  }}
+                >
                   Email Address
                 </div>
+
                 <input
                   type="email"
                   placeholder="you@email.com"
@@ -237,107 +274,115 @@ export default function ContactSection() {
                   onChange={(e) => setValues({ ...values, email: e.target.value })}
                   onFocus={() => setFocused("email")}
                   onBlur={() => setFocused(null)}
-                  style={inputStyle("email") as React.CSSProperties}
+                  style={inputStyle("email")}
                 />
               </div>
             </div>
 
             {/* Sport */}
             <div className="contact-field">
-              <div style={{
-                fontFamily: "Visuelt, 'DM Sans', sans-serif",
-                fontSize: "9px",
-                textTransform: "uppercase" as const,
-                letterSpacing: "0.2em",
-                color: focused === "sport" ? "#F34103" : "rgba(46,52,38,0.4)",
-                marginBottom: "8px",
-                transition: "color 0.3s",
-              }}>
-                Your Sport / Discipline
+              <div
+                style={{
+                  fontSize: "9px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.2em",
+                  color: focused === "sport" ? ACCENT : TEXT_SOFT,
+                  marginBottom: "8px",
+                }}
+              >
+                Your Sport
               </div>
+
               <input
                 type="text"
-                placeholder="e.g. Cricket, Swimming, Tennis..."
+                placeholder="Cricket, Tennis, Swimming..."
                 value={values.sport}
                 onChange={(e) => setValues({ ...values, sport: e.target.value })}
                 onFocus={() => setFocused("sport")}
                 onBlur={() => setFocused(null)}
-                style={inputStyle("sport") as React.CSSProperties}
+                style={inputStyle("sport")}
               />
             </div>
 
             {/* Message */}
             <div className="contact-field">
-              <div style={{
-                fontFamily: "Visuelt, 'DM Sans', sans-serif",
-                fontSize: "9px",
-                textTransform: "uppercase" as const,
-                letterSpacing: "0.2em",
-                color: focused === "message" ? "#F34103" : "rgba(46,52,38,0.4)",
-                marginBottom: "8px",
-                transition: "color 0.3s",
-              }}>
+              <div
+                style={{
+                  fontSize: "9px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.2em",
+                  color: focused === "message" ? ACCENT : TEXT_SOFT,
+                  marginBottom: "8px",
+                }}
+              >
                 What brings you here?
               </div>
+
               <textarea
-                placeholder="Tell me a little about where you are and what you're looking for..."
+                rows={4}
+                placeholder="Tell me a little about your situation..."
                 value={values.message}
                 onChange={(e) => setValues({ ...values, message: e.target.value })}
                 onFocus={() => setFocused("message")}
                 onBlur={() => setFocused(null)}
-                rows={4}
                 style={{
                   ...inputStyle("message"),
                   resize: "none",
                   lineHeight: 1.8,
-                } as React.CSSProperties}
+                }}
               />
             </div>
 
-            {/* Submit */}
-            <div className="contact-field" style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-              <div
-                onClick={handleSubmit}
+            {/* Buttons */}
+            <div style={{ display: "flex", gap: "20px", alignItems: "center", flexWrap: "wrap" }}>
+              <a
+                href={BOOKING_LINK}
+                target="_blank"
+                rel="noreferrer"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "12px",
-                  background: "#F34103",
-                  color: "#F0EBE1",
+                  background: ACCENT,
+                  color: "#fff",
                   fontFamily: "Visuelt, 'DM Sans', sans-serif",
                   fontSize: "11px",
-                  textTransform: "uppercase" as const,
+                  textTransform: "uppercase",
                   letterSpacing: "0.16em",
                   padding: "16px 32px",
-                  cursor: "pointer",
-                  transition: "background 0.3s, gap 0.3s",
-                  position: "relative" as const,
-                  overflow: "hidden",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background = "#2E3426";
-                  (e.currentTarget as HTMLDivElement).style.gap = "20px";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background = "#F34103";
-                  (e.currentTarget as HTMLDivElement).style.gap = "12px";
+                  textDecoration: "none",
                 }}
               >
-                Send message →
-              </div>
+                Book a session →
+              </a>
 
-              <div style={{
-                fontFamily: "Visuelt, 'DM Sans', sans-serif",
-                fontSize: "11px",
-                color: "rgba(46,52,38,0.35)",
-                fontStyle: "italic",
-              }}>
-                I respond within 48 hours
+              <div
+                onClick={handleSubmit}
+                style={{
+                  cursor: "pointer",
+                  fontFamily: "Visuelt, 'DM Sans', sans-serif",
+                  fontSize: "11px",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: TEXT_SOFT,
+                }}
+              >
+                Send message
               </div>
+            </div>
+
+            <div
+              style={{
+                fontSize: "11px",
+                color: TEXT_SOFT,
+                fontStyle: "italic",
+              }}
+            >
+              I respond within 48 hours
             </div>
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }

@@ -9,23 +9,25 @@ export default function NavBar({ onMenuClick }: NavBarProps) {
       style={{
         position: "fixed",
         top: "28px",
-        right: "36px",
+        left: "36px", // moved to left
         zIndex: 45,
         background: "none",
         border: "none",
         cursor: "pointer",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-end",
-        gap: "5px",
-        padding: "8px",
+        padding: "10px 12px",
         mixBlendMode: "normal",
+
+        // “prominent” editorial text styling
+        fontFamily: `"Playfair Display", "Cormorant Garamond", serif`,
+        fontSize: "18px",
+        fontWeight: 600,
+        letterSpacing: "0.12em",
+        textTransform: "uppercase",
+        color: "#111111", // black text (works with your planned white left panel)
       }}
       aria-label="Open menu"
     >
-      <span style={{ display: "block", width: "28px", height: "1.5px", background: "#F0EBE1", transition: "width 0.3s" }} />
-      <span style={{ display: "block", width: "20px", height: "1.5px", background: "#F0EBE1", transition: "width 0.3s" }} />
-      <span style={{ display: "block", width: "24px", height: "1.5px", background: "#F0EBE1", transition: "width 0.3s" }} />
+      MENU
     </button>
   );
 }

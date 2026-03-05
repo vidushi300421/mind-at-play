@@ -4,278 +4,380 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SECTION_BG = "#F2F6FA";   // very light blue-grey
-const CARD_BG    = "#C8DAF0";   // unified soft blue fill
-const TEXT_DARK  = "#1A2B3C";
-const TEXT_MID   = "rgba(26,43,60,0.55)";
-const BORDER     = "rgba(26,43,60,0.08)";
-const ACCENT     = "#2E5FA3";   // deeper blue for accents
+const SECTION_BG = "#20231A";
+const TEXT = "rgba(255,255,255,0.92)";
+const TEXT_SOFT = "rgba(255,255,255,0.60)";
+const HAIRLINE = "rgba(255,255,255,0.14)";
+const CARD_BG = "rgba(255,255,255,0.06)";
+const CARD_BG_HOVER = "rgba(255,255,255,0.09)";
+const CARD_BD = "rgba(255,255,255,0.14)";
+const ACCENT = "#F34103";
 
 const BLOGS = [
   { id: 1, category: "Mental Conditioning", date: "Jan 2025", title: "Why the Best Athletes Lose on Purpose" },
-  { id: 2, category: "Pre-Competition",      date: "Dec 2024", title: "The 20-Minute Ritual That Changes Everything" },
-  { id: 3, category: "Recovery",             date: "Nov 2024", title: "Burnout Isn't Tiredness. Here's the Difference." },
-  { id: 4, category: "Flow States",          date: "Oct 2024", title: "Getting Out of Your Own Way" },
+  { id: 2, category: "Pre-Competition", date: "Dec 2024", title: "The 20-Minute Ritual That Changes Everything" },
+  { id: 3, category: "Recovery", date: "Nov 2024", title: "Burnout Isn’t Tiredness. Here’s the Difference." },
+  { id: 4, category: "Flow States", date: "Oct 2024", title: "Getting Out of Your Own Way" },
 ];
 
-function BlogCard({ blog }: { blog: typeof BLOGS[0] }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleEnter = () => {
-    const el = cardRef.current;
-    if (!el) return;
-    gsap.to(el, {
-      y: -14,
-      rotateX: -4,
-      rotateZ: -0.5,
-      boxShadow: "0 40px 80px rgba(26,43,60,0.22), 0 12px 24px rgba(26,43,60,0.12)",
-      duration: 0.45,
-      ease: "power3.out",
-    });
+function CornerPluses() {
+  // little "+" marks at the 4 corners of a card like the reference
+  const plusStyle: React.CSSProperties = {
+    position: "absolute",
+    width: 10,
+    height: 10,
+    color: "rgba(255,255,255,0.65)",
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace",
+    fontSize: 12,
+    lineHeight: "10px",
+    display: "grid",
+    placeItems: "center",
+    pointerEvents: "none",
   };
 
-  const handleLeave = () => {
+  return (
+    <>
+      <span style={{ ...plusStyle, top: -6, left: -6 }}>+</span>
+      <span style={{ ...plusStyle, top: -6, right: -6 }}>+</span>
+      <span style={{ ...plusStyle, bottom: -6, left: -6 }}>+</span>
+      <span style={{ ...plusStyle, bottom: -6, right: -6 }}>+</span>
+    </>
+  );
+}
+
+function BlogCard({ blog }: { blog: typeof BLOGS[number] }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const enter = () => {
     const el = cardRef.current;
     if (!el) return;
-    gsap.to(el, {
-      y: 0,
-      rotateX: 0,
-      rotateZ: 0,
-      boxShadow: "0 2px 8px rgba(26,43,60,0.06)",
-      duration: 0.5,
-      ease: "power3.inOut",
-    });
+    gsap.to(el, { y: -10, duration: 0.35, ease: "power3.out" });
+    el.style.background = CARD_BG_HOVER;
+    el.style.borderColor = "rgba(255,255,255,0.22)";
+    el.style.boxShadow = "0 26px 60px rgba(0,0,0,0.38)";
+  };
+
+  const leave = () => {
+    const el = cardRef.current;
+    if (!el) return;
+    gsap.to(el, { y: 0, duration: 0.4, ease: "power3.inOut" });
+    el.style.background = CARD_BG;
+    el.style.borderColor = CARD_BD;
+    el.style.boxShadow = "0 14px 40px rgba(0,0,0,0.26)";
   };
 
   return (
     <div
       ref={cardRef}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+      onMouseEnter={enter}
+      onMouseLeave={leave}
       style={{
+        position: "relative",
         background: CARD_BG,
-        padding: "40px 36px",
-        minHeight: "280px",
+        border: `1px solid ${CARD_BD}`,
+        borderRadius: 18,
+        padding: "22px 22px",
+        height: "100%",
+        minHeight: 190,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        boxShadow: "0 14px 40px rgba(0,0,0,0.26)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        transition: "background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease",
         cursor: "pointer",
-        boxShadow: "0 2px 8px rgba(26,43,60,0.06)",
-        transformStyle: "preserve-3d",
-        transformOrigin: "bottom center",
-        willChange: "transform",
       }}
     >
-      {/* Top meta + arrow */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+      <CornerPluses />
+
+      {/* Meta */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 14 }}>
         <div>
-          <div style={{
-            fontFamily: "Visuelt, 'DM Sans', sans-serif",
-            fontSize: "9px",
-            textTransform: "uppercase" as const,
-            letterSpacing: "0.2em",
-            color: ACCENT,
-            marginBottom: "4px",
-          }}>
+          <div
+            style={{
+              fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+              fontSize: 10,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.78)",
+              marginBottom: 6,
+            }}
+          >
             {blog.category}
           </div>
-          <div style={{
-            fontFamily: "Visuelt, 'DM Sans', sans-serif",
-            fontSize: "9px",
-            letterSpacing: "0.08em",
-            color: TEXT_MID,
-          }}>
+          <div
+            style={{
+              fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+              fontSize: 10,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: TEXT_SOFT,
+            }}
+          >
             {blog.date}
           </div>
         </div>
 
-        {/* Arrow circle */}
-        <div style={{
-          width: "36px", height: "36px",
-          borderRadius: "50%",
-          border: `1.5px solid ${ACCENT}`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "13px",
-          color: ACCENT,
-          flexShrink: 0,
-          transition: "background 0.25s, color 0.25s",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLDivElement).style.background = ACCENT;
-          (e.currentTarget as HTMLDivElement).style.color = "#FFFFFF";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.background = "transparent";
-          (e.currentTarget as HTMLDivElement).style.color = ACCENT;
-        }}
+        {/* Orange arrow circle like the reference */}
+        <div
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: 999,
+            background: ACCENT,
+            display: "grid",
+            placeItems: "center",
+            color: "#fff",
+            fontSize: 14,
+            flexShrink: 0,
+            boxShadow: "0 18px 40px rgba(243,65,3,0.26)",
+          }}
+          aria-hidden
         >
           ↗
         </div>
       </div>
 
       {/* Title */}
-      <h3 style={{
-        fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-        fontSize: "clamp(20px, 1.8vw, 28px)",
-        fontWeight: 300,
-        lineHeight: 1.25,
-        color: TEXT_DARK,
-        letterSpacing: "-0.01em",
-      }}>
+      <div
+        style={{
+          fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+          fontSize: "clamp(16px, 1.35vw, 20px)",
+          lineHeight: 1.25,
+          color: TEXT,
+          letterSpacing: "-0.01em",
+          maxWidth: "22ch",
+        }}
+      >
         {blog.title}
-      </h3>
+      </div>
     </div>
   );
 }
 
 export default function BlogSection() {
-  const headingRef = useRef<HTMLDivElement>(null);
-  const leftColRef = useRef<HTMLDivElement>(null);
-  const rightColRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const placedRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (headingRef.current) {
-      gsap.fromTo(headingRef.current,
-        { opacity: 0, y: 32 },
-        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
-          scrollTrigger: { trigger: headingRef.current, start: "top 80%" } }
-      );
-    }
-    if (leftColRef.current) {
-      gsap.fromTo(leftColRef.current,
-        { opacity: 0, y: 48 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.1,
-          scrollTrigger: { trigger: leftColRef.current, start: "top 85%" } }
-      );
-    }
-    if (rightColRef.current) {
-      gsap.fromTo(rightColRef.current,
-        { opacity: 0, y: 72 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.22,
-          scrollTrigger: { trigger: rightColRef.current, start: "top 85%" } }
-      );
-    }
+    if (!wrapRef.current) return;
+
+    const ctx = gsap.context(() => {
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.85,
+            ease: "power3.out",
+            scrollTrigger: { trigger: headerRef.current, start: "top 80%" },
+          }
+        );
+      }
+
+      placedRefs.current.forEach((el, i) => {
+        if (!el) return;
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 26 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            delay: i * 0.08,
+            ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 85%" },
+          }
+        );
+      });
+    }, wrapRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div style={{
-      background: SECTION_BG,
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-    }}>
-
-      {/* Top label */}
-      <div style={{
-        padding: "14px 6vw",
-        borderBottom: `1px solid ${BORDER}`,
-        fontFamily: "Visuelt, 'DM Sans', sans-serif",
-        fontSize: "11px",
-        letterSpacing: "0.18em",
-        textTransform: "uppercase" as const,
-        color: TEXT_MID,
-      }}>
-        Field Notes:
-      </div>
-
-      {/* Heading + CTA */}
-      <div ref={headingRef} style={{
-        padding: "48px 6vw 40px",
+    <section
+      ref={wrapRef}
+      style={{
+        background: SECTION_BG,
+        height: "100vh",
+        width: "100%",
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-end",
-        borderBottom: `1px solid ${BORDER}`,
-        flexWrap: "wrap" as const,
-        gap: "24px",
-      }}>
-        <div>
-          <div style={{
-            fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-            fontSize: "clamp(44px, 5.5vw, 80px)",
-            fontWeight: 700,
-            lineHeight: 0.88,
-            color: TEXT_DARK,
-            letterSpacing: "-0.03em",
-            textTransform: "uppercase" as const,
-          }}>
-            Stories
-          </div>
-          <div style={{
-            fontFamily: "SangBleuKing, 'Cormorant Garamond', serif",
-            fontSize: "clamp(44px, 5.5vw, 80px)",
-            fontWeight: 300,
-            lineHeight: 0.88,
-            color: TEXT_DARK,
-            letterSpacing: "-0.03em",
-          }}>
-            behind the work
+        flexDirection: "column",
+        overflow: "hidden",
+        padding: "72px 6vw 56px",
+      }}
+    >
+      {/* Header (pricing-like editorial heading) */}
+      <div
+        ref={headerRef}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          gap: 18,
+          marginBottom: 28,
+        }}
+      >
+        <div style={{ maxWidth: 980 }}>
+          <h2
+            style={{
+              margin: 0,
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(44px, 6.2vw, 92px)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.02em",
+              color: TEXT,
+            }}
+          >
+            Field <span style={{ fontStyle: "italic", fontWeight: 400 }}>notes</span>
+            <br />
+            for the <span style={{ fontStyle: "italic", fontWeight: 400 }}>athlete</span>.
+          </h2>
+
+          <div
+            style={{
+              marginTop: 16,
+              fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+              fontSize: 13,
+              lineHeight: 1.8,
+              color: TEXT_SOFT,
+              maxWidth: 560,
+            }}
+          >
+            Short reads on pressure, confidence, recovery, and performance routines.
           </div>
         </div>
 
-        {/* CTA */}
-        <div
+        {/* CTA (optional, like screenshot button) */}
+        <button
+          type="button"
           style={{
+            marginTop: 10,
+            background: ACCENT,
+            border: "none",
+            color: "#fff",
+            padding: "16px 22px",
+            minWidth: 220,
             display: "inline-flex",
             alignItems: "center",
-            gap: "14px",
-            fontFamily: "Visuelt, 'DM Sans', sans-serif",
-            fontSize: "11px",
-            textTransform: "uppercase" as const,
-            letterSpacing: "0.16em",
-            color: ACCENT,
-            border: `1px solid ${ACCENT}`,
-            padding: "14px 24px",
+            justifyContent: "space-between",
+            gap: 16,
             cursor: "pointer",
-            transition: "gap 0.3s, background 0.3s, color 0.3s",
+            fontFamily: "'Cabinet Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+            fontSize: 12,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            boxShadow: "0 22px 60px rgba(243,65,3,0.28)",
             flexShrink: 0,
-          }}
-          onMouseEnter={(e) => {
-            const el = e.currentTarget as HTMLDivElement;
-            el.style.background = ACCENT;
-            el.style.color = "#FFFFFF";
-            el.style.gap = "20px";
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget as HTMLDivElement;
-            el.style.background = "transparent";
-            el.style.color = ACCENT;
-            el.style.gap = "14px";
+            height: 52,
           }}
         >
-          Read all →
+          <span>Read more</span>
+          <span style={{ fontSize: 16 }}>→</span>
+        </button>
+      </div>
+
+      {/* Divider */}
+      <div style={{ height: 1, background: HAIRLINE, marginBottom: 26, flexShrink: 0 }} />
+
+      {/* Placed layout area (matches the screenshot’s “floating” composition) */}
+      <div
+        style={{
+          position: "relative",
+          flex: 1,
+          display: "grid",
+          gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
+          gridTemplateRows: "repeat(6, minmax(0, 1fr))",
+          gap: 26, // ✅ breathing space between cards
+          alignItems: "stretch",
+        }}
+      >
+        {/* Card 1 (upper-left) */}
+        <div
+          ref={(el) => {
+            placedRefs.current[0] = el;
+          }}
+          style={{
+            gridColumn: "1 / span 4",
+            gridRow: "1 / span 3",
+            alignSelf: "end",
+          }}
+        >
+          <BlogCard blog={BLOGS[0]} />
+        </div>
+
+        {/* Card 2 (upper-mid/right) */}
+        <div
+          ref={(el) => {
+            placedRefs.current[1] = el;
+          }}
+          style={{
+            gridColumn: "7 / span 4",
+            gridRow: "1 / span 3",
+            alignSelf: "end",
+          }}
+        >
+          <BlogCard blog={BLOGS[1]} />
+        </div>
+
+        {/* Card 3 (lower-middle, slightly left like screenshot) */}
+        <div
+          ref={(el) => {
+            placedRefs.current[2] = el;
+          }}
+          style={{
+            gridColumn: "4 / span 4",
+            gridRow: "4 / span 3",
+            alignSelf: "start",
+          }}
+        >
+          <BlogCard blog={BLOGS[2]} />
+        </div>
+
+        {/* Card 4 (lower-right) */}
+        <div
+          ref={(el) => {
+            placedRefs.current[3] = el;
+          }}
+          style={{
+            gridColumn: "10 / span 3",
+            gridRow: "4 / span 3",
+            alignSelf: "start",
+          }}
+        >
+          <BlogCard blog={BLOGS[3]} />
         </div>
       </div>
 
-      {/* Staggered 2-column card grid */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "0",
-        flex: 1,
-        perspective: "1200px",
-      }}>
-        {/* Left column */}
-        <div ref={leftColRef} style={{ borderRight: `1px solid ${BORDER}`, display: "flex", flexDirection: "column", gap: 0 }}>
-          <div style={{ flex: 1, padding: "32px 6vw 32px 6vw" }}>
-            <BlogCard blog={BLOGS[0]} />
-          </div>
-          <div style={{ height: "1px", background: BORDER }} />
-          <div style={{ flex: 1, padding: "32px 6vw 32px 6vw" }}>
-            <BlogCard blog={BLOGS[2]} />
-          </div>
-        </div>
-
-        {/* Right column — staggered down */}
-        <div ref={rightColRef} style={{ paddingTop: "100px", display: "flex", flexDirection: "column", gap: 0 }}>
-          <div style={{ flex: 1, padding: "32px 6vw 32px 6vw" }}>
-            <BlogCard blog={BLOGS[1]} />
-          </div>
-          <div style={{ height: "1px", background: BORDER }} />
-          <div style={{ flex: 1, padding: "32px 6vw 32px 6vw" }}>
-            <BlogCard blog={BLOGS[3]} />
-          </div>
-        </div>
-      </div>
-    </div>
+      {/* Responsive */}
+      <style>{`
+        @media (max-width: 1100px) {
+          section {
+            height: auto !important;
+            overflow: visible !important;
+          }
+          section > div[style*="grid-template-columns: repeat(12"]{
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            grid-template-rows: auto !important;
+          }
+          /* reset placements */
+          section > div[style*="grid-template-columns: repeat(2"] > div {
+            grid-column: auto !important;
+            grid-row: auto !important;
+            align-self: stretch !important;
+          }
+        }
+        @media (max-width: 640px) {
+          section > div[style*="grid-template-columns: repeat(2"]{
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </section>
   );
 }

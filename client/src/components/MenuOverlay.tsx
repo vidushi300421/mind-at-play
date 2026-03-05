@@ -7,97 +7,145 @@ interface MenuOverlayProps {
 }
 
 const LINKS = [
-  "Hero", "Services", "Writing", "The Inner World", "Pricing", "Book a Call"
+  { label: "Introduction", id: "hero-intro"    },
+  { label: "Services",     id: "hero-services" },
+  { label: "Inner World",  id: "innerworld"    },
+  { label: "Pricing",      id: "section-3"     },
+  { label: "Contact",      id: "section-4"     },
+  { label: "Writing",      id: "section-5"     },
 ];
 
 export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
+  const linksRef  = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     if (!overlayRef.current) return;
-    
-    if (isOpen) {
-      gsap.to(overlayRef.current, {
-        x: "0%",
-        duration: 0.6,
-        ease: "power4.out"
-      });
-    } else {
-      gsap.to(overlayRef.current, {
-        x: "-100%",
-        duration: 0.6,
-        ease: "power4.inOut"
-      });
-    }
+    gsap.to(overlayRef.current, {
+      x: isOpen ? "0%" : "-100%",
+      duration: 0.6,
+      ease: isOpen ? "power4.out" : "power4.inOut",
+    });
   }, [isOpen]);
 
-  const handleMouseEnter = (index: number) => {
-    const link = linksRef.current[index];
-    if (!link) return;
-    gsap.to(link.querySelector(".link-text"), { color: "#D5BF86", duration: 0.3 });
-    gsap.to(link.querySelector(".link-num"), { opacity: 1, x: 0, duration: 0.3 });
-    gsap.to(link.querySelector(".link-line"), { scaleX: 1, duration: 0.4, ease: "power3.out" });
+  const onEnter = (i: number) => {
+    const el = linksRef.current[i];
+    if (!el) return;
+    gsap.to(el.querySelector(".lk-text"), { color: "#6C8E7D", duration: 0.25 });
+    gsap.to(el.querySelector(".lk-line"), { scaleX: 1, duration: 0.35, ease: "power3.out" });
+    gsap.to(el.querySelector(".lk-num"),  { opacity: 1, x: 0, duration: 0.25 });
   };
-
-  const handleMouseLeave = (index: number) => {
-    const link = linksRef.current[index];
-    if (!link) return;
-    gsap.to(link.querySelector(".link-text"), { color: "#F0EBE1", duration: 0.3 });
-    gsap.to(link.querySelector(".link-num"), { opacity: 0, x: -10, duration: 0.3 });
-    gsap.to(link.querySelector(".link-line"), { scaleX: 0, duration: 0.3, ease: "power3.in" });
+  const onLeave = (i: number) => {
+    const el = linksRef.current[i];
+    if (!el) return;
+    gsap.to(el.querySelector(".lk-text"), { color: "#F0EBE1", duration: 0.25 });
+    gsap.to(el.querySelector(".lk-line"), { scaleX: 0, duration: 0.25, ease: "power3.in" });
+    gsap.to(el.querySelector(".lk-num"),  { opacity: 0, x: -10, duration: 0.25 });
   };
 
   return (
-    <div 
+    <div
       ref={overlayRef}
       className="fixed inset-0 z-[100] translate-x-[-100%] flex"
       style={{ background: "#350D12" }}
     >
-      <button 
+      <button
         onClick={onClose}
-        className="absolute top-12 right-12 text-white font-sans text-[18px] cursor-pointer"
+        style={{
+          position: "absolute", top: "clamp(24px,3vw,40px)", right: "clamp(24px,4vw,56px)",
+          fontFamily: "'Cabinet Grotesk', 'DM Sans', sans-serif",
+          fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase",
+          color: "rgba(240,235,225,0.5)",
+          background: "none", border: "none", cursor: "pointer",
+        }}
       >
-        ✕
+        Close ✕
       </button>
 
-      {/* Left side links */}
-      <div className="flex-1 h-full pl-[8vw] py-[10vh] flex flex-col justify-center">
+      {/* Links */}
+      <div style={{
+        flex: 1, height: "100%",
+        paddingLeft: "clamp(40px, 8vw, 96px)",
+        paddingTop: "10vh",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        gap: "4px",
+      }}>
         {LINKS.map((link, i) => (
           <a
             key={i}
             ref={el => { linksRef.current[i] = el; }}
-            href={`#section-${i+1}`}
+            href={`#${link.id}`}
             onClick={(e) => {
               e.preventDefault();
               onClose();
-              document.getElementById(`section-${i+1}`)?.scrollIntoView({ behavior: 'smooth' });
+              setTimeout(() => document.getElementById(link.id)?.scrollIntoView({ behavior: "smooth" }), 300);
             }}
             className="group relative block w-fit"
-            onMouseEnter={() => handleMouseEnter(i)}
-            onMouseLeave={() => handleMouseLeave(i)}
+            style={{ textDecoration: "none" }}
+            onMouseEnter={() => onEnter(i)}
+            onMouseLeave={() => onLeave(i)}
           >
-            <div className="flex items-center">
-              <span className="link-num font-sans text-[#D5BF86] text-[14px] absolute -left-8 opacity-0 -translate-x-2">
-                {(i + 1).toString().padStart(2, '0')}
+            <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
+              <span
+                className="lk-num"
+                style={{
+                  fontFamily: "'Cabinet Grotesk', sans-serif",
+                  fontSize: "11px", color: "#6C8E7D",
+                  position: "absolute", left: "-32px",
+                  opacity: 0, transform: "translateX(-10px)",
+                }}
+              >
+                {String(i + 1).padStart(2, "0")}
               </span>
-              <span className="link-text font-serif text-[clamp(40px,5vw,72px)] text-[#F0EBE1] leading-[1.1]">
-                {link}
+              <span
+                className="lk-text"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "clamp(36px, 5vw, 68px)",
+                  fontWeight: 400,
+                  color: "#F0EBE1",
+                  lineHeight: 1.15,
+                }}
+              >
+                {link.label}
               </span>
             </div>
-            <div className="link-line h-[1px] bg-[#D5BF86] w-full absolute bottom-0 left-0 origin-left scale-x-0" />
+            <div
+              className="lk-line"
+              style={{
+                height: "1px", background: "#6C8E7D",
+                width: "100%", position: "absolute",
+                bottom: 0, left: 0,
+                transformOrigin: "left",
+                transform: "scaleX(0)",
+              }}
+            />
           </a>
         ))}
       </div>
 
-      {/* Right side decoration */}
-      <div className="flex-1 relative flex flex-col justify-between items-end pr-12 pb-12 overflow-hidden pointer-events-none">
-        <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 rotate-90 origin-center font-serif text-[28vw] text-[#F0EBE1] opacity-[0.08] leading-none select-none">
-          ADISHRI
+      {/* Right decoration */}
+      <div style={{
+        flexShrink: 0, width: "30%", display: "flex",
+        flexDirection: "column", justifyContent: "flex-end",
+        paddingBottom: "clamp(24px,4vw,56px)",
+        paddingRight: "clamp(24px,4vw,56px)",
+        alignItems: "flex-end",
+        gap: "4px",
+      }}>
+        <div style={{
+          fontFamily: "'Cabinet Grotesk', sans-serif",
+          fontSize: "11px", color: "rgba(240,235,225,0.35)",
+          letterSpacing: "0.1em",
+        }}>
+          hello@adishridubey.com
         </div>
-        <div className="mt-auto flex flex-col items-end gap-1">
-          <div className="font-sans text-[13px] text-[#F0EBE1] opacity-60">hello@adishridubey.com</div>
-          <div className="font-sans text-[13px] text-[#F0EBE1] opacity-60">@adishridubey</div>
+        <div style={{
+          fontFamily: "'Cabinet Grotesk', sans-serif",
+          fontSize: "11px", color: "rgba(240,235,225,0.35)",
+          letterSpacing: "0.1em",
+        }}>
+          @mindatplay
         </div>
       </div>
     </div>
